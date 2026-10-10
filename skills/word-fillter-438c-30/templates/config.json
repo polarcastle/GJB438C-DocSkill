@@ -1,0 +1,76 @@
+{
+  "project": {
+    "name": {
+      "type": "original_text",
+      "replacement_pattern": "外部型号+产品名称（示例：示例系统）",
+      "content": "示例系统"
+    },
+    "short_name": {
+      "type": "original_text",
+      "replacement_pattern": "项目简称（示例：XT）",
+      "content": "XT"
+    },
+    "version": {
+      "type": "original_text",
+      "replacement_pattern": "版本号（示例：V1.0）",
+      "content": "V1.0"
+    },
+    "company": {
+      "type": "original_text",
+      "replacement_pattern": "开发单位名称（示例：XXXXXXXX公司）",
+      "content": ""
+    },
+    "department": {
+      "type": "original_text",
+      "replacement_pattern": "部门名称（示例：软件研发部）",
+      "content": ""
+    }
+  },
+  "document": {
+    "id": {
+      "type": "original_text",
+      "replacement_pattern": "文档编号（示例：XT-SSD-V1.0）",
+      "content": "XT-SSD-V1.0"
+    },
+    "title": {
+      "type": "original_text",
+      "replacement_pattern": "文档标题（示例：软件安全性设计）",
+      "content": "软件安全性设计"
+    },
+    "classification": {
+      "type": "original_text",
+      "replacement_pattern": "密级（示例：内部）",
+      "content": "内部"
+    },
+    "phase": {
+      "type": "original_text",
+      "replacement_pattern": "阶段（示例：设计阶段）",
+      "content": "设计阶段"
+    },
+    "date": {
+      "type": "original_text",
+      "replacement_pattern": "日期（示例：YYYY-MM-DD）",
+      "content": "2026-01-01"
+    }
+  },
+  "content": {
+    "overview": {
+      "type": "background_information",
+      "replacement_pattern": "项目概述（示例：本项目用于……）",
+      "generation_prompt": "你是一名军用软件安全性设计文档编写专家。写作前阅读 references/writing-guide.md 的「第 1 章 范围」和 references/style-rules.md。要点：用 1～2 句话概述软件的用途、类型和安全关键属性，说明其运行于何种系统、承担何种安全相关职责，只写事实，不罗列设计准则清单；表述必须与封面 project.name、project.version 保持一致。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。句式：「本项目是……的……软件」。篇幅：50～100 字。",
+      "content": "本项目是示例系统的任务调度软件，负责任务调度、安全监控与故障记录，属于安全关键软件"
+    },
+    "scope": {
+      "type": "background_information",
+      "replacement_pattern": "项目范围（示例：包含A/B/C模块）",
+      "generation_prompt": "你是一名军用软件安全性设计文档编写专家。写作前阅读 references/writing-guide.md 第 1 章。要点：用顿号分隔列举本文档覆盖的软件安全性设计范围（如软件系统设计、冗余设计、接口设计、健壮性设计等），只写范围、不写细节，不得包含具体设计措施；与 project.json 第 3 章的节划分呼应。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "软件系统设计、硬件设计配合要求、软件需求分析、软件危险分析、安全关键功能设计、冗余设计、接口设计、软件健壮性设计、简化设计、余量设计、数据要求、防错程序设计、编程要求、多余物处理、软件更改要求"
+    },
+    "features": {
+      "type": "background_information",
+      "replacement_pattern": "功能特性（示例：功能特性1、功能特性2、功能特性3）",
+      "generation_prompt": "你是一名军用软件安全性设计文档编写专家。写作前阅读 references/writing-guide.md 的「第 3 章 软件安全性设计」。要点：列举 3～8 项软件安全相关功能特性，用名词性短语、顿号分隔，与第 3 章各节呼应但不重复其细节，如安全监控、故障记录、看门狗管理、报警处理等。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "任务调度、安全监控、故障自动记录、看门狗管理、报警处理、安全状态转换、参数校验、数据合理性检查"
+    }
+  }
+}

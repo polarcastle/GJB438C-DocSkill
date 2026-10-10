@@ -1,0 +1,76 @@
+{
+  "project": {
+    "name": {
+      "type": "original_text",
+      "replacement_pattern": "外部型号+产品名称（示例：SAMPLE-智能终端）",
+      "content": "示例系统任务调度软件"
+    },
+    "short_name": {
+      "type": "original_text",
+      "replacement_pattern": "项目简称（示例：SAMPLE）",
+      "content": "RWDD"
+    },
+    "version": {
+      "type": "original_text",
+      "replacement_pattern": "版本号（示例：V1.0）",
+      "content": "V1.0"
+    },
+    "company": {
+      "type": "original_text",
+      "replacement_pattern": "开发单位名称（示例：XXXXXXXX公司）",
+      "content": ""
+    },
+    "department": {
+      "type": "original_text",
+      "replacement_pattern": "部门名称（示例：软件研发部）",
+      "content": ""
+    }
+  },
+  "document": {
+    "id": {
+      "type": "original_text",
+      "replacement_pattern": "文档编号（示例：XT-XXX-V1.0）",
+      "content": "XT-TPR-V1.0"
+    },
+    "title": {
+      "type": "original_text",
+      "replacement_pattern": "文档标题（示例：测试问题报告）",
+      "content": "Test Problem Report"
+    },
+    "classification": {
+      "type": "original_text",
+      "replacement_pattern": "密级（示例：内部）",
+      "content": "内部"
+    },
+    "phase": {
+      "type": "original_text",
+      "replacement_pattern": "阶段（示例：测试阶段）",
+      "content": "测试阶段"
+    },
+    "date": {
+      "type": "original_text",
+      "replacement_pattern": "日期（示例：YYYY-MM-DD）",
+      "content": "2026-01-01"
+    }
+  },
+  "content": {
+    "overview": {
+      "type": "background_information",
+      "replacement_pattern": "项目概述（示例：本项目用于……）",
+      "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「第 1 章 范围」和 references/style-rules.md。要点：用 1～2 句话概述被测软件的用途、类型和测试活动背景，只写事实，不罗列功能清单；表述必须与封面 project.name、project.version 保持一致。内容必须基于素材收集阶段得到的项目画像（源码事实）与实际测试记录，与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。句式：「本项目是……的……软件」。篇幅：50～100 字。",
+      "content": "示例系统任务调度软件是示例系统的任务调度与管理软件，本次测试问题报告记录其测试阶段发现的问题"
+    },
+    "scope": {
+      "type": "background_information",
+      "replacement_pattern": "项目范围（示例：包含A/B/C模块）",
+      "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 第 1 章。要点：用顿号分隔列举本报告覆盖的被测软件模块或测试范围边界，只写范围、不写细节，不得包含具体功能描述；与 project.json 第 5 章统计口径呼应。内容必须基于素材收集阶段得到的项目画像（源码事实）与实际测试记录，与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "任务接收模块、任务调度模块、任务执行模块、状态监控模块、日志管理模块"
+    },
+    "features": {
+      "type": "background_information",
+      "replacement_pattern": "功能特性（示例：功能特性1、功能特性2、功能特性3）",
+      "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「第 3 章」与「第 5 章」。要点：列举 3～8 项本次测试覆盖的功能特性，用名词性短语、顿号分隔，与第 5 章问题统计的类别口径呼应但不重复其细节。内容必须基于素材收集阶段得到的项目画像（源码事实）与实际测试记录，与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "任务提交、任务排队、优先级调度、任务执行、执行状态监控、调度日志记录"
+    }
+  }
+}

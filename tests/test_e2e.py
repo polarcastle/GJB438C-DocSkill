@@ -23,10 +23,23 @@ def _doc_all_text(doc) -> str:
     return "\n".join(texts)
 
 
+FORBIDDEN_ANCHORS = {
+    "08": ("外部型号+产品名称", "XXXX年XX月XX日", "产品型号-XXXX"),
+    "10": ("外部型号+产品名称", "XXXX年XX月XX日", "产品型号-XXXX"),
+}
+
+
+def _with_test_company(config: dict) -> dict:
+    # shipped config.json 不再携带默认单位名称，测试时注入测试值
+    if not config["project"]["company"]["content"].strip():
+        config["project"]["company"]["content"] = "测试单位"
+    return config
+
+
 @pytest.mark.parametrize("skill_id", SKILL_IDS)
 def test_end_to_end_fill(skill_id, tmp_path):
     eng = load_engine(skill_id)
-    config = config_data(skill_id)
+    config = _with_test_company(config_data(skill_id))
     project = project_data(skill_id)
     plan = eng.loader.build_plan(config, project)
 
@@ -39,9 +52,8 @@ def test_end_to_end_fill(skill_id, tmp_path):
     text = _doc_all_text(result)
     assert config["project"]["name"]["content"] in text
     assert config["document"]["id"]["content"] in text
-    assert "外部型号+产品名称" not in text
-    assert "XXXX年XX月XX日" not in text
-    assert "产品型号-XXXX" not in text
+    for anchor in FORBIDDEN_ANCHORS.get(skill_id, ()):
+        assert anchor not in text
 
     update_fields = result.settings.element.find(qn("w:updateFields"))
     assert update_fields is not None
@@ -71,9 +83,12 @@ def _run_cli(skill_id, config_path, project_path, output_path) -> subprocess.Com
 @pytest.mark.parametrize("skill_id", SKILL_IDS)
 def test_cli_success(skill_id, tmp_path):
     output = tmp_path / f"cli-{skill_id}.docx"
+    config = _with_test_company(config_data(skill_id))
+    config_path = tmp_path / f"config-{skill_id}.json"
+    config_path.write_text(json.dumps(config, ensure_ascii=False), encoding="utf-8")
     proc = _run_cli(
         skill_id,
-        SKILL_DIRS[skill_id] / "templates" / "config.json",
+        config_path,
         SKILL_DIRS[skill_id] / "templates" / "project.json",
         output,
     )

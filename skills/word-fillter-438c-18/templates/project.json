@@ -1,0 +1,350 @@
+{
+  "template_info": {
+    "name": "GJB 438C 软件测评大纲",
+    "file": "[18]软件测评大纲-438C.doc",
+    "encoding": "gbk",
+    "sections": []
+  },
+  "structure": {
+    "1": {
+      "title": "范围",
+      "description": "1.1 标识的五条标识行由 config.json 驱动（引擎精确规则自动填写）；1.2 被测软件概述在模板中没有可锚定的占位文字，生成后需在 Word 中手工编写被测软件用途、组成和文档清单。",
+      "placeholders": []
+    },
+    "2": {
+      "title": "测评环境",
+      "description": "2.1 软硬件环境通过表格填写（软件环境、硬件环境、环境差异分析三张表），并填充软件环境表的表题；2.2 测评场地、2.3 测试数据在模板中没有占位文字，需生成后在 Word 中手工编写。",
+      "placeholders": [
+        {
+          "id": "2.1",
+          "name": "软件环境表表题",
+          "type": "text_generation",
+          "description": "填充 2.1 节软件环境表的表题（模板中为「表-X」占位，引擎自动重编号为表2-1）",
+          "replacement_pattern": "表-X",
+          "content": "表X-X 测评软件环境组成表"
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "software_environment",
+          "locator_rows": [
+            ["序号", "软件名称", "版本号", "用途", "来源", "密级"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["number", "name", "version", "purpose", "source", "classification"],
+          "rows": [
+            {
+              "number": "1",
+              "name": "任务调度系统",
+              "version": "V1.0",
+              "purpose": "被测软件",
+              "source": "研制方提供",
+              "classification": "内部"
+            },
+            {
+              "number": "2",
+              "name": "嵌入式实时操作系统",
+              "version": "V3.2",
+              "purpose": "被测软件运行支撑平台",
+              "source": "研制方提供",
+              "classification": "内部"
+            }
+          ]
+        },
+        {
+          "table_id": "hardware_environment",
+          "locator_rows": [
+            ["序号", "硬件名称", "型  号", "配  置", "用途", "来源", "密级"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["number", "name", "model", "configuration", "purpose", "source", "classification"],
+          "rows": [
+            {
+              "number": "1",
+              "name": "测评服务器",
+              "model": "XT-Server-2000",
+              "configuration": "8核CPU/32GB内存/1TB固态硬盘",
+              "purpose": "测评主控与数据分析",
+              "source": "测评机构自备",
+              "classification": "内部"
+            },
+            {
+              "number": "2",
+              "name": "目标机",
+              "model": "XT-Target-100",
+              "configuration": "四核处理器/2GB内存",
+              "purpose": "被测软件运行目标环境",
+              "source": "研制方提供",
+              "classification": "内部"
+            }
+          ]
+        },
+        {
+          "table_id": "environment_difference",
+          "locator_rows": [
+            ["测试环境", "软件使用环境", "差异影响"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["test_environment", "software_use_environment", "difference_impact"],
+          "rows": [
+            {
+              "test_environment": "测评服务器加目标机构成的测评环境",
+              "software_use_environment": "任务调度系统的实际使用环境为车载嵌入式计算机",
+              "difference_impact": "测评环境与使用环境在处理器主频和内存容量上存在差异，已通过负载折算和边界条件测试降低差异影响"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "title": "安全与保密",
+      "description": "模板该章无占位文字，生成后需在 Word 中手工编写测评活动涉及的安全保密措施、数据与文档的保密管理要求。"
+    },
+    "4": {
+      "title": "测试内容与方法",
+      "description": "4.3 测试定义的小节标题（测试类别/标识）与测试项说明由引擎填写；三张测试项定义表（文档审查、功能测试、性能测试）表头结构完全相同，引擎无法区分定位，需生成后在 Word 中参照 4.3.1 手工填写。4.1 总体测试要求、4.2 测试策略及技术方法模板无占位文字，需手工编写。",
+      "placeholders": [
+        {
+          "id": "4.3",
+          "name": "测试定义",
+          "type": "content_generation",
+          "description": "本节按文档审查、功能测试、性能测试和接口测试四类测试定义测试项",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件测评工程师，负责撰写测评大纲的测试定义小节。写作前必须先阅读 references/writing-guide.md 的「4.3 测试定义」小节、references/terminology.md 和 references/style-rules.md。要点：1. 明确测试类别划分及各类别的测试项标识前缀（如 XT_DOI、XT_FUT、XT_PET、XT_IOT），前缀须与 project.short_name 一致；2. 每类测试的「测试项说明」必写测试范围、测试项清单（按 a）b）c）分级编号）、每项的测试方法与通过准则；3. 测试项应覆盖需求规格说明全部功能与性能条目，无内容的类别不得编造。句式：测试项用「验证……」「检查……」动宾结构，量化指标写成「数值＋单位」。内容必须基于素材收集阶段得到的项目画像（源码事实），模块名、接口名、函数命名与代码保持一致，禁止编造源码中不存在的内容。篇幅：每个测试项说明 150～300 字。排版机制：content 中的换行符将生成独立段落，条内列举按 a）b）c）分段书写。",
+          "content": "本节按文档审查、功能测试、性能测试和接口测试四类测试定义测试项。每类测试的测试项定义表在生成后于 Word 中按模板手工填写，填写时每个测试项应给出唯一标识、测试内容、测试充分性要求、测试终止要求，并标注与软件研制总要求和软件需求规格说明的章节对应关系。",
+          "subsections": {
+            "4.3.1": {
+              "name": "文档审查",
+              "replacement_pattern": "文档审查/XX_DOI",
+              "content": "文档审查/XT_DOI"
+            },
+            "4.3.1.1": {
+              "name": "文档审查测试项说明",
+              "replacement_pattern": "文档审查测试项说明",
+              "content": "文档审查的对象包括软件研制总要求、软件需求规格说明、软件概要设计说明、接口需求规格说明等研制文档。\n审查内容：a）文档的齐套性，各阶段文档是否齐全；b）文档之间的一致性，需求、设计、接口描述是否相互矛盾；c）文档的可测试性，需求描述是否明确、可验证。\n审查方法：采用静态审查方式，由测评人员依据 GJB 438C 及项目文档编制规范逐条审查，填写文档审查问题记录，并汇总形成文档审查报告。"
+            },
+            "4.3.2": {
+              "name": "功能测试",
+              "replacement_pattern": "功能测试/XXX_FUT",
+              "content": "功能测试/XT_FUT"
+            },
+            "4.3.2.1": {
+              "name": "功能测试项说明",
+              "replacement_pattern": "功能测试项说明",
+              "content": "功能测试项覆盖任务调度系统的全部功能，包括：a）任务管理：任务的创建、删除、挂起、恢复与优先级设置；b）调度管理：优先级抢占调度、时间片轮转调度、就绪队列管理；c）任务间通信：信号量、互斥锁、消息队列、事件标志的操作；d）时钟与定时：系统时钟、任务延时、定时器管理；e）中断管理：中断注册、使能与禁止、中断与任务的同步。\n测试方法：基于需求规格说明逐条设计测试用例，采用等价类划分和边界值分析方法，在目标机环境下执行并记录测试结果。"
+            },
+            "4.3.3": {
+              "name": "性能测试",
+              "replacement_pattern": "性能测试/XXX_PET",
+              "content": "性能测试/XT_PET"
+            },
+            "4.3.3.1": {
+              "name": "性能测试项说明",
+              "replacement_pattern": "性能测试项说明",
+              "content": "性能测试项包括：a）任务切换时间：高优先级任务抢占切换时间不大于50μs；b）中断响应时间：外部中断到中断服务程序开始执行的时间不大于20μs；c）队列操作耗时：消息队列发送与接收操作平均耗时不大于10μs；d）调度吞吐：每秒调度次数不低于10000次；e）资源占用：连续运行72小时内存无泄漏，CPU占用率不超过70%。\n测试方法：采用硬件计时与软件打点相结合的方式，在目标机典型负载与满负载两种工况下分别测量，每项指标测量不少于10次并取平均值。"
+            },
+            "4.3.4": {
+              "name": "接口测试",
+              "replacement_pattern": "XXXX/",
+              "content": "接口测试/XT_IOT"
+            }
+          }
+        },
+        {
+          "id": "4.4",
+          "name": "测试内容充分性及测试方法适合性分析",
+          "type": "content_generation",
+          "description": "论证测试内容覆盖全部需求、测试方法与测试内容匹配",
+          "replacement_pattern": "测试内容充分性分析",
+          "content": "测试内容充分性分析：经分析，本章定义的测试项已覆盖软件研制总要求和软件需求规格说明的全部功能与性能指标，无遗漏项。每一项战技指标和功能需求均能找到对应的测试项，具体对应关系见本章战技指标与测试项追踪表。对无法在测评环境中直接测试的项，已通过等效测试方法或分析验证方式予以覆盖。\n测试方法适合性分析：文档审查采用静态审查方法，适合文档类工作产品的评价；功能测试采用黑盒测试方法，适合验证软件功能与需求的一致性；性能测试采用测试工具测量与统计分析相结合的方法，适合量化指标的测量；接口测试采用边界测试与异常注入方法，适合接口正确性与容错能力的验证。所选测试方法与测试内容匹配，能够满足测评充分性要求。"
+        },
+        {
+          "id": "4.5",
+          "name": "软件问题类型及严重性等级（问题类型）",
+          "type": "content_generation",
+          "description": "填写软件问题类型分类",
+          "replacement_pattern": "软件问题类型主要包括XX类，具体说明；",
+          "content": "软件问题类型主要包括5类，具体为：a）功能类：软件功能与需求不符、功能缺失或功能异常；b）性能类：性能指标不满足研制总要求；c）接口类：接口协议、数据格式或时序错误；d）安全性类：存在安全隐患的错误操作或异常行为；e）文档类：文档内容与实际软件不一致、文档缺失或描述错误；"
+        },
+        {
+          "id": "4.5.1",
+          "name": "软件问题类型及严重性等级（严重性等级）",
+          "type": "content_generation",
+          "description": "填写软件问题严重性等级划分",
+          "replacement_pattern": "软件问题划分为XX 个等级，具体说明。",
+          "content": "软件问题划分为4个等级，具体为：a）一级（灾难）：导致系统失效、任务失败或危及安全的问题；b）二级（严重）：导致主要功能丧失或性能严重下降的问题；c）三级（一般）：导致次要功能异常但不影响任务完成的问题；d）四级（轻微）：界面、提示等不影响功能实现的问题。"
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "indicator_traceability",
+          "locator_rows": [
+            ["序号", "战技指标", "引用\n文件", "章节号", "对应测试项定义/标识"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["number", "indicator", "reference_document", "chapter_number", "test_item_id"],
+          "rows": [
+            {
+              "number": "1",
+              "indicator": "任务切换时间不大于50μs",
+              "reference_document": "软件研制总要求",
+              "chapter_number": "3.2.1",
+              "test_item_id": "功能测试/XT_FUT、性能测试/XT_PET"
+            },
+            {
+              "number": "2",
+              "indicator": "支持不少于64个任务的并发调度",
+              "reference_document": "软件研制总要求",
+              "chapter_number": "3.2.2",
+              "test_item_id": "功能测试/XT_FUT"
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "title": "测评风险分析",
+      "description": "模板该章无占位文字，生成后需在 Word 中手工编写测评活动的主要风险（进度、环境、人员、被测软件质量等）及应对措施。"
+    },
+    "6": {
+      "title": "测评工作安排",
+      "description": "6.1 测评项目组及成员资质、6.2 测评进度通过表格填写；两张表的表题（表6-X）由引擎自动重编号。",
+      "tables": [
+        {
+          "table_id": "test_team_members",
+          "locator_rows": [
+            ["姓名", "专业技术职称", "学位与专业", "工作经历", "分工"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["name", "title", "degree_and_major", "work_experience", "division"],
+          "rows": [
+            {
+              "name": "张三",
+              "title": "高级工程师",
+              "degree_and_major": "硕士/计算机科学与技术",
+              "work_experience": "从事软件测评工作8年",
+              "division": "项目负责人兼测试组长"
+            },
+            {
+              "name": "李四",
+              "title": "工程师",
+              "degree_and_major": "本科/软件工程",
+              "work_experience": "从事嵌入式软件测试5年",
+              "division": "测试执行与记录分析"
+            }
+          ]
+        },
+        {
+          "table_id": "test_schedule",
+          "locator_rows": [
+            ["测试活动", "起止时间", "内    容", "工作产品", "人数", "工作量\n（人日）"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["activity", "duration", "content", "work_product", "headcount", "workload_person_days"],
+          "rows": [
+            {
+              "activity": "文档审查",
+              "duration": "2026-02-01至2026-02-10",
+              "content": "审查研制文档的齐套性、一致性和可测试性",
+              "work_product": "文档审查问题记录",
+              "headcount": "2",
+              "workload_person_days": "10"
+            },
+            {
+              "activity": "功能测试",
+              "duration": "2026-02-11至2026-03-05",
+              "content": "按测试项定义执行功能测试并记录结果",
+              "work_product": "功能测试用例与测试记录",
+              "headcount": "3",
+              "workload_person_days": "30"
+            },
+            {
+              "activity": "性能测试",
+              "duration": "2026-03-06至2026-03-20",
+              "content": "测试任务切换时间、中断响应时间等性能指标",
+              "work_product": "性能测试报告",
+              "headcount": "2",
+              "workload_person_days": "15"
+            }
+          ]
+        }
+      ]
+    },
+    "7": {
+      "title": "配置管理",
+      "description": "7.1 人员与职责通过表格填写；7.2 任务、7.3.2 配置管理工作的检查为模板自带正文，引擎不改写；7.3.1 配置基线计划表模板已预填全部基线内容，引擎不改写，需在 Word 中核对修订。表7-X 表题由引擎自动重编号。",
+      "tables": [
+        {
+          "table_id": "cm_roles",
+          "locator_rows": [
+            ["角色", "人员", "职责描述"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["role", "personnel", "duty"],
+          "rows": [
+            {
+              "role": "配置管理员",
+              "personnel": "王五",
+              "duty": "负责配置库的建立、权限分配与日常维护"
+            },
+            {
+              "role": "测评组长",
+              "personnel": "张三",
+              "duty": "负责配置项变更审批与基线发布的组织"
+            },
+            {
+              "role": "测评人员",
+              "personnel": "李四",
+              "duty": "负责按权限存取配置项并提交变更申请"
+            }
+          ]
+        }
+      ]
+    },
+    "8": {
+      "title": "质量保证",
+      "description": "8.1.1 组织的正文为模板自带内容，引擎不改写；8.1.1 质量保证小组组成通过表格填写；8.1.2 质量活动进度安排表模板已预填活动名称（第一列），引擎不改写，需在 Word 中补充内容与时间安排；8.2 软件测评质量保证记录模板无占位文字，需手工编写。表8-X 表题由引擎自动重编号。",
+      "tables": [
+        {
+          "table_id": "qa_team_members",
+          "locator_rows": [
+            ["姓名", "角色", "职责"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["name", "role", "duty"],
+          "rows": [
+            {
+              "name": "赵六",
+              "role": "质量保证人员",
+              "duty": "负责测评过程质量监督、评审组织与质量记录审核"
+            },
+            {
+              "name": "张三",
+              "role": "项目负责人",
+              "duty": "负责质量保证计划的审批与资源保障"
+            }
+          ]
+        }
+      ]
+    },
+    "9": {
+      "title": "测评通过标准",
+      "description": "模板该章无占位文字，生成后需在 Word 中手工编写测评通过的各项判据（测试项通过率、问题归零要求、文档齐套要求等）。"
+    },
+    "10": {
+      "title": "测评终止条件",
+      "description": "模板该章无占位文字，生成后需在 Word 中手工编写测评终止的条件（被测软件无法运行、重大质量问题、进度不可抗力等）。"
+    },
+    "11": {
+      "title": "其他",
+      "description": "模板该章无占位文字，生成后按需手工编写未尽事项（如测评大纲的维护、解释权、参考文献等）。"
+    }
+  }
+}

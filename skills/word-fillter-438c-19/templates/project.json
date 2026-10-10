@@ -1,0 +1,528 @@
+{
+  "template_info": {
+    "name": "GJB 438C 软件测试报告",
+    "file": "[19]软件测试报告-438C.docx",
+    "encoding": "utf-8",
+    "sections": []
+  },
+  "structure": {
+    "1": {
+      "title": "范围",
+      "placeholders": [
+        {
+          "id": "1.1",
+          "name": "标识",
+          "type": "content_generation",
+          "description": "描述本文档所适用系统和软件的完整标识",
+          "replacement_pattern": "本条应描述本文档所适用的系统和软件的完整标识，适用时，包括其标识号、名称、缩略名、版本号和发布号。",
+          "content": "本文档适用于示例系统及其任务调度软件。系统标识：示例系统；软件标识号：RWDD-STR-V1.0；软件名称：任务调度软件；软件缩略名：RWDD；软件版本号：V1.0；发布号：Release 1。"
+        },
+        {
+          "id": "1.2",
+          "name": "系统概述",
+          "type": "content_generation",
+          "description": "概述本文档所适用系统加软件的用途",
+          "replacement_pattern": "本条应概述本文档所适用系统加软件的用途。它还应描述系统与软件的一般特性;概述系统开发、运行和维护的历史:标识项目的需方、用户、开发方和保障机构等:标识当前和计划的运行现场:列出其他有关文档。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件测试文档编写专家，负责撰写系统概述。写作前必须先阅读 references/writing-guide.md 的「1.2 系统概述」小节、references/terminology.md 和 references/style-rules.md。要点：分 2～3 段概述：①软件用途与一般特性（做什么、运行在何种环境）；②系统与软件的开发、运行和维护历史（阶段划分如实陈述）；③需方、用户、开发方和保障机构的标识（无明确信息时如实写「按项目合同执行，本文档不列出具体名称」，不得编造单位名）；④当前和计划的运行现场；⑤其他有关文档（列出文档名与编号）。句式：「本软件用于……」「系统于……开始开发，目前已完成……」。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：200～400 字。排版机制：content 中的换行符将生成独立段落，建议按上述要点分段书写。",
+          "content": "示例系统任务调度软件用于接收用户提交的任务，按照任务优先级和资源占用情况进行调度，并对任务执行过程进行监控和日志记录。软件采用客户端/服务器结构，提供任务提交、优先级调度、资源分配、任务监控和日志记录等功能，运行于通用服务器平台。\n\n系统与软件的开发历史如下：任务调度软件于2025年3月开始开发，2025年9月完成软件需求评审，2025年12月完成概要设计与详细设计，2026年1月完成编码及单元测试，2026年1月至2月开展系统测试，目前已完成全部计划的测试工作。需方、用户、开发方和保障机构的标识按项目合同执行，本文档不列出具体名称。\n\n软件当前运行现场为软件开发现场，计划运行现场为示例系统部署现场。其他有关文档包括：《任务调度软件软件需求规格说明》（RWDD-SRS-V1.0）、《任务调度软件软件测试计划》（RWDD-STP-V1.0）和《任务调度软件软件测试规程》（RWDD-STD-V1.0）。"
+        },
+        {
+          "id": "1.3",
+          "name": "文档概述",
+          "type": "content_generation",
+          "description": "本文档的用途和内容",
+          "replacement_pattern": "本条应概述本文档的用途和内容，并描述与它的使用有关的保密性方面的要求。",
+          "content": "本文档是任务调度软件的软件测试报告，记录系统测试的测试环境、测试执行情况与详细测试结果，给出对被测软件的总体评估、遗留缺陷处理建议和改进建议，作为软件验收与交付的依据。\n\n本文档为内部文档，仅限项目内部使用，不得对外传播。"
+        }
+      ]
+    },
+    "2": {
+      "title": "引用文档",
+      "type": "content_generation",
+      "description": "列出引用的标准和规范",
+      "replacement_pattern": "本章应列出引用文档的编号、标题、编写单位、修订版及日期，还应标识不能通过正常采购活动得到的文档的来源。",
+      "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件文档编写专家，负责撰写引用文档。写作前必须先阅读 references/writing-guide.md 的「第 2 章 引用文档」和 references/style-rules.md。要点：逐项列出引用文档的编号、标题、编写单位（无单位信息时写发布机构）、修订版及日期；必须包含 GJB 438C 标准本身、对应 SRS、测试计划和测试规程；末句说明来源可获得性（正常采购/配置管理渠道），不能通过正常采购活动得到的文档应标识其来源。句式：「a) 《标题》（编号），编写单位，版本，发布日期」。内容必须基于素材收集阶段得到的项目画像，禁止编造源码中不存在的内容。篇幅：4～8 项。排版机制：content 中的换行符将生成独立段落，每项文档单独一段，按 a) b) c) 分级编号。",
+      "content": "本文档引用的文档如下：\na) 《GJB 438C-2021 军用软件开发文档通用要求》，中央军委装备发展部，2021年发布；\nb) 《任务调度软件软件需求规格说明》（RWDD-SRS-V1.0），V1.0版，2025年12月发布；\nc) 《任务调度软件软件测试计划》（RWDD-STP-V1.0），V1.0版，2026年1月发布；\nd) 《任务调度软件软件测试规程》（RWDD-STD-V1.0），V1.0版，2026年1月发布。\n上述文档均可通过正常采购活动或项目配置管理渠道获得。"
+    },
+    "3": {
+      "title": "测试结果概述",
+      "placeholders": [
+        {
+          "id": "3.1.intro",
+          "name": "总体评估引言",
+          "type": "content_generation",
+          "description": "总体评估条引言",
+          "replacement_pattern": "本条应:",
+          "content": "本条根据本报告中的测试结果，对任务调度软件V1.0给出总体评估，并描述测试中发现的所有遗留的缺陷、限制或约束："
+        },
+        {
+          "id": "3.1.a",
+          "name": "总体评估",
+          "type": "content_generation",
+          "description": "根据测试结果给出软件的总体评估",
+          "replacement_pattern": "a)根据本报告中的测试结果，给出该软件的总体评估。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件测试专家，负责撰写测试总体评估。写作前必须先阅读 references/writing-guide.md 的「3.1 对被测试软件的总体评估」和 references/style-rules.md。要点：基于实际测试数据给出总体评估——执行的测试用例数、通过数、通过率、覆盖的测试项；对照需求规格说明给出满足性结论；测试结论只能是「通过/不通过」级别的明确判断，并给出依据。所有数字必须与 project.json 第 3 章统计表和第 4 章详细测试结果一致，禁止编造与统计表矛盾的数字。句式：「本次测试共执行测试用例……个，通过……个，通过率……%。测试结果表明：……」篇幅：80～150 字。",
+          "content": "a) 本次测试共执行测试用例30个，通过29个，通过率96.7%，覆盖功能测试、性能测试、接口测试和回归测试全部测试项。测试结果表明：任务调度软件的功能和性能符合《任务调度软件软件需求规格说明》（RWDD-SRS-V1.0）的要求，发现的15个问题中14个已纠正，软件通过系统测试，总体评估为合格。"
+        },
+        {
+          "id": "3.1.b",
+          "name": "遗留缺陷",
+          "type": "content_generation",
+          "description": "描述所有遗留的缺陷、限制或约束",
+          "replacement_pattern": "b)描述测试中发现的所有遗留的缺陷、限制或约束。可用问题/更改报告形式，给出缺陷信息。",
+          "content": "b) 测试中发现的15个问题已纠正14个，遗留缺陷1项：测试用例TC-FUN-003执行时发现，系统负载超过80%时高优先级任务偶发未被及时调度（问题/更改报告编号：PRWDD-003，详见4.1.2.1）。除此之外无其他遗留的限制或约束。"
+        },
+        {
+          "id": "3.1.c",
+          "name": "遗留缺陷描述引言",
+          "type": "content_generation",
+          "description": "对每个遗留缺陷应描述的内容引言",
+          "replacement_pattern": "c)对每个遗留的缺陷、限制或约束，应描述:",
+          "content": "c) 对上述遗留缺陷，描述如下："
+        },
+        {
+          "id": "3.1.c1",
+          "name": "对性能的影响",
+          "type": "content_generation",
+          "description": "遗留缺陷对软件和系统性能的影响",
+          "replacement_pattern": "1）对软件和系统性能的影响，包括对未得到满足的需求的标识:",
+          "content": "1）对软件和系统性能的影响：该缺陷影响任务调度的实时性，在系统负载超过80%的场景下高优先级任务响应延迟可能超过需求规定的2秒指标，不影响其他功能和系统其他部分；未得到满足的需求为《任务调度软件软件需求规格说明》（RWDD-SRS-V1.0）3.2.1条实时调度需求。"
+        },
+        {
+          "id": "3.1.c2",
+          "name": "纠正对设计的影响",
+          "type": "content_generation",
+          "description": "纠正缺陷对软件和系统设计的影响",
+          "replacement_pattern": "2)　对其进行纠正时，软件和系统设计受到的影响;",
+          "content": "2)　对其进行纠正时，软件和系统设计受到的影响：纠正措施涉及调度队列的优先级抢占机制，需修改调度器模块内部实现，影响范围限于该模块内部，不涉及系统体系结构变更，也不影响其他软件配置项的接口。"
+        },
+        {
+          "id": "3.1.c3",
+          "name": "推荐的纠正方案",
+          "type": "content_generation",
+          "description": "推荐的纠正方案/方法",
+          "replacement_pattern": "3)　推荐的纠正方案/方法。",
+          "content": "3)　推荐的纠正方案/方法：建议在调度器中引入基于时间片的优先级抢占策略，并增加负载阈值检测功能；修改完成后回归执行全部与调度相关的测试用例。计划在V1.1版本中完成纠正。"
+        },
+        {
+          "id": "3.1.d",
+          "name": "数据统计说明",
+          "type": "content_generation",
+          "description": "以表格形式给出各轮次问题统计",
+          "replacement_pattern": "ｄ)以表格的形式给出测试各轮次按问题类型和问题等级的数据统计情况。如：",
+          "content": "ｄ) 测试各轮次按问题类型和问题等级的数据统计情况如表3-1和表3-2所示。"
+        },
+        {
+          "id": "3.1.cap1",
+          "name": "表3-1标题",
+          "type": "original_text",
+          "description": "按问题类型统计表标题",
+          "replacement_pattern": "表-X按问题类型统计",
+          "content": "表3-1 按问题类型统计"
+        },
+        {
+          "id": "3.1.cap2",
+          "name": "表3-2标题",
+          "type": "original_text",
+          "description": "按问题等级统计表标题",
+          "replacement_pattern": "表-X按问题等级统计",
+          "content": "表3-2 按问题等级统计"
+        },
+        {
+          "id": "3.2",
+          "name": "测试环境的影响",
+          "type": "content_generation",
+          "description": "测试环境与操作环境差异及其影响评估",
+          "replacement_pattern": "本条应给出测试环境与操作环境的差异及这种差异对测试结果的影响进行的评估。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件测试专家，负责撰写测试环境的影响评估。写作前必须先阅读 references/writing-guide.md 的「3.2 测试环境的影响」和 references/style-rules.md。要点：逐项对比测试环境与操作环境的差异（硬件配置、软件版本、数据、人员、网络等），每项差异必须给出其对测试结果影响的评估结论（无影响/影响可忽略/影响某指标的说明）；差异项基于实测事实，不得编造；最后给出综合评估结论。句式：「a) 硬件差异：……，对测试结果的影响为……」「综合评估：上述差异对测试结果……」。篇幅：100～250 字。排版机制：content 中的换行符将生成独立段落，按 a) b) c) 分段书写。",
+          "content": "本条给出测试环境与操作环境的差异及这种差异对测试结果影响的评估：\na) 硬件差异：测试用服务器处理器主频为2.5GHz，高于操作环境规定的2.0GHz最低配置。经对比测试验证，该差异使实测性能略优于操作环境，不影响功能测试结论的有效性。\nb) 软件差异：测试环境操作系统补丁版本高于操作环境基线版本，未对任何测试用例的执行结果产生影响。\nc) 数据差异：性能测试采用仿真任务负载数据，数据规模与操作环境实际日均任务量（10万条）一致，测试数据经评审确认，测试结果可信。\n综合评估：上述差异对测试结果无实质性影响，本报告测试结论适用于操作环境。"
+        },
+        {
+          "id": "3.3",
+          "name": "改进建议",
+          "type": "content_generation",
+          "description": "对被测试软件的设计、操作或测试的改进建议",
+          "replacement_pattern": "本条应对被测试软件的设计、操作或测试提供改进建议，并描述每个建议及其对软件的影响。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件测试专家，负责撰写改进建议。写作前必须先阅读 references/writing-guide.md 的「3.3 改进建议」和 references/style-rules.md。要点：针对被测试软件的设计、操作或测试提出改进建议，每条建议包含「建议内容＋对软件的影响」两部分；建议应来自测试中的实际发现（缺陷暴露的设计弱点、测试规程的不足），与第 4 章遇到的问题或不一致呼应；无建议时如实陈述「本次测试未提出改进建议」。句式：「a) 建议……，该建议对软件的影响为……」。篇幅：2～4 条。排版机制：content 中的换行符将生成独立段落，每条建议单独一段，按 a) b) c) 分段书写。",
+          "content": "a) 建议在调度器模块增加负载自适应阈值的可配置功能，便于在不同部署现场调整调度灵敏度。该建议为增强性改进，不影响已确认的软件功能和接口。\nb) 建议完善测试规程中关于高负载场景的测试用例设计，补充系统负载超过80%的边界用例。该建议仅影响测试文档，不影响被测软件。\nc) 建议优化软件日志模块的记录级别控制，减少调试信息对性能测试的干扰。该建议涉及日志模块配置项调整，不影响软件对外接口。"
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "problem_type_statistics",
+          "locator_rows": [
+            [
+              "测试轮次",
+              "测试轮次",
+              "问题总计",
+              "问题类型",
+              "问题类型",
+              "问题类型",
+              "问题类型"
+            ],
+            [
+              "测试轮次",
+              "测试轮次",
+              "问题总计",
+              "功能缺失",
+              "功能错误",
+              "界面问题",
+              "其它"
+            ]
+          ],
+          "data_start_row": 2,
+          "preserve_tail_rows": 0,
+          "columns": [
+            "round",
+            "disposition",
+            "total",
+            "missing",
+            "error",
+            "ui",
+            "other"
+          ],
+          "rows": [
+            {
+              "round": "合计",
+              "disposition": "合计",
+              "total": "15",
+              "missing": "2",
+              "error": "8",
+              "ui": "4",
+              "other": "1"
+            },
+            {
+              "round": "首轮测试",
+              "disposition": "首轮测试",
+              "total": "12",
+              "missing": "1",
+              "error": "5",
+              "ui": "3",
+              "other": "3"
+            },
+            {
+              "round": "第一轮回归测试",
+              "disposition": "已纠正",
+              "total": "10",
+              "missing": "1",
+              "error": "4",
+              "ui": "3",
+              "other": "2"
+            },
+            {
+              "round": "第一轮回归测试",
+              "disposition": "新引入",
+              "total": "2",
+              "missing": "0",
+              "error": "1",
+              "ui": "1",
+              "other": "0"
+            },
+            {
+              "round": "第一轮回归测试",
+              "disposition": "未纠正",
+              "total": "2",
+              "missing": "0",
+              "error": "1",
+              "ui": "0",
+              "other": "1"
+            },
+            {
+              "round": "第二轮回归测试",
+              "disposition": "已纠正",
+              "total": "3",
+              "missing": "0",
+              "error": "1",
+              "ui": "0",
+              "other": "2"
+            },
+            {
+              "round": "第二轮回归测试",
+              "disposition": "新引入",
+              "total": "1",
+              "missing": "0",
+              "error": "1",
+              "ui": "0",
+              "other": "0"
+            },
+            {
+              "round": "第二轮回归测试",
+              "disposition": "未纠正",
+              "total": "1",
+              "missing": "0",
+              "error": "1",
+              "ui": "0",
+              "other": "0"
+            }
+          ]
+        },
+        {
+          "table_id": "problem_level_statistics",
+          "locator_rows": [
+            [
+              "测试轮次",
+              "测试轮次",
+              "问题总计",
+              "问题等级",
+              "问题等级",
+              "问题等级",
+              "问题等级"
+            ],
+            [
+              "测试轮次",
+              "测试轮次",
+              "问题总计",
+              "致命问题",
+              "严重问题",
+              "一般问题",
+              "建议改进"
+            ]
+          ],
+          "data_start_row": 2,
+          "preserve_tail_rows": 0,
+          "columns": [
+            "round",
+            "disposition",
+            "total",
+            "fatal",
+            "severe",
+            "general",
+            "suggestion"
+          ],
+          "rows": [
+            {
+              "round": "合计",
+              "disposition": "合计",
+              "total": "15",
+              "fatal": "0",
+              "severe": "5",
+              "general": "9",
+              "suggestion": "1"
+            },
+            {
+              "round": "首轮测试",
+              "disposition": "首轮测试",
+              "total": "12",
+              "fatal": "0",
+              "severe": "3",
+              "general": "6",
+              "suggestion": "3"
+            },
+            {
+              "round": "第一轮回归测试",
+              "disposition": "已纠正",
+              "total": "10",
+              "fatal": "0",
+              "severe": "2",
+              "general": "5",
+              "suggestion": "3"
+            },
+            {
+              "round": "第一轮回归测试",
+              "disposition": "新引入",
+              "total": "2",
+              "fatal": "0",
+              "severe": "0",
+              "general": "2",
+              "suggestion": "0"
+            },
+            {
+              "round": "第一轮回归测试",
+              "disposition": "未纠正",
+              "total": "2",
+              "fatal": "0",
+              "severe": "1",
+              "general": "1",
+              "suggestion": "0"
+            },
+            {
+              "round": "第二轮回归测试",
+              "disposition": "已纠正",
+              "total": "3",
+              "fatal": "0",
+              "severe": "1",
+              "general": "2",
+              "suggestion": "0"
+            },
+            {
+              "round": "第二轮回归测试",
+              "disposition": "新引入",
+              "total": "1",
+              "fatal": "0",
+              "severe": "1",
+              "general": "0",
+              "suggestion": "0"
+            },
+            {
+              "round": "第二轮回归测试",
+              "disposition": "未纠正",
+              "total": "1",
+              "fatal": "0",
+              "severe": "1",
+              "general": "0",
+              "suggestion": "0"
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "title": "详细测试结果",
+      "placeholders": [
+        {
+          "id": "4.intro",
+          "name": "章引言",
+          "type": "content_generation",
+          "description": "本章注释与引言",
+          "replacement_pattern": "注:\"测试\"一词是指一组相关测试用例的集合。",
+          "content": "注:\"测试\"一词是指一组相关测试用例的集合。本章按测试项给出详细测试结果，每个测试项对应一组相关测试用例。"
+        },
+        {
+          "id": "4.X",
+          "name": "测试项标识",
+          "type": "content_generation",
+          "description": "4.X原型条标题，替换为测试项名称",
+          "replacement_pattern": "4.X(测试的项目唯一的标识符)",
+          "content": "功能测试"
+        },
+        {
+          "id": "4.X.1",
+          "name": "测试结果总结条标题",
+          "type": "original_text",
+          "description": "4.X.1原型子条标题",
+          "replacement_pattern": "4.X.1测试结果总结",
+          "content": "测试结果总结"
+        },
+        {
+          "id": "4.X.1.body",
+          "name": "测试结果总结",
+          "type": "content_generation",
+          "description": "描述测试结果总结及每个测试用例的完成状态",
+          "replacement_pattern": "本条应描述对测试结果进行的总结，并应描述与该测试相关联的每个测试用例的完成状态(例如，\"所有结果都如预期的那样\"，\"遇到的问题\"，\"与要求有偏差\"等)，可用表格的形式给出。当完成状态不是\"所预期的\"时，本条应引用4.X.2或4.X.3提供详细信息。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件测试专家，负责撰写测试结果总结。写作前必须先阅读 references/writing-guide.md 的「4.X.1 测试结果总结」和 references/style-rules.md。要点：给出本测试项的测试项标识与测试用例总量；按完成状态分组描述测试用例——「所有结果都如预期的那样」「遇到的问题」「与要求有偏差」三类，每类列出用例标识范围；完成状态非「所预期的」用例必须引用 4.X.2 或 4.X.3 的对应子条（条号按自动编号结果写，如 4.1.2.1）。用例数、问题数必须与第 3 章统计表一致。句式：「本测试项（测试项标识：……）共执行测试用例……个，……」。篇幅：100～250 字。",
+          "content": "本条对功能测试（测试项标识：ST-FUN-001）的测试结果进行总结。本测试项共执行测试用例30个（TC-FUN-001～TC-FUN-030），覆盖任务提交、优先级调度、资源分配、任务监控和日志记录全部功能。完成状态：28个测试用例（TC-FUN-001～TC-FUN-002、TC-FUN-004～TC-FUN-006、TC-FUN-008～TC-FUN-030）所有结果都如预期的那样；1个测试用例（TC-FUN-003）遇到问题，详见4.1.2.1；1个测试用例（TC-FUN-007）与要求有偏差，详见4.1.3.1。"
+        },
+        {
+          "id": "4.X.2",
+          "name": "遇到的问题条标题",
+          "type": "original_text",
+          "description": "4.X.2原型子条标题",
+          "replacement_pattern": "4.X.2遇到的问题",
+          "content": "遇到的问题"
+        },
+        {
+          "id": "4.X.2.Y",
+          "name": "遇到问题用例子条标题",
+          "type": "content_generation",
+          "description": "4.X.2.Y原型子条标题，替换为遇到问题的测试用例标识",
+          "replacement_pattern": "4.X.2.Y(测试用例的项目唯一的标识符)",
+          "content": "测试用例TC-FUN-003"
+        },
+        {
+          "id": "4.X.2.Y.body",
+          "name": "遇到问题用例引言",
+          "type": "content_generation",
+          "description": "标识遇到问题的测试用例并提供内容引言",
+          "replacement_pattern": "本条应用项目唯一的标识符标识遇到问题的测试用例，并提供以下内容:",
+          "content": "本条用项目唯一的标识符标识遇到问题的测试用例TC-FUN-003，并提供以下内容："
+        },
+        {
+          "id": "4.X.2.Y.a",
+          "name": "问题简述",
+          "type": "content_generation",
+          "description": "简述所遇到的问题",
+          "replacement_pattern": "a)简述所遇到的问题:",
+          "content": "a) 简述所遇到的问题：在系统负载超过80%的并发任务场景下，高优先级任务偶发未被及时调度，任务响应延迟超过需求规定的2秒指标。该问题属功能错误、严重问题级，尚未关闭，为遗留缺陷。"
+        },
+        {
+          "id": "4.X.2.Y.b",
+          "name": "问题规程步骤",
+          "type": "content_generation",
+          "description": "标识所遇到问题的测试规程步骤",
+          "replacement_pattern": "b)标识所遇到问题的测试规程步骤:",
+          "content": "b) 标识所遇到问题的测试规程步骤：《任务调度软件软件测试规程》（RWDD-STD-V1.0）中测试规程XTRWDD-FUN-003第5.2步（高并发负载调度验证）。"
+        },
+        {
+          "id": "4.X.2.Y.c",
+          "name": "问题引用",
+          "type": "content_generation",
+          "description": "对相关问题/更改报告和各份数据的引用",
+          "replacement_pattern": "c)(若适用)对相关问题/更改报告和各份数据的引用:",
+          "content": "c) 对相关问题/更改报告和各份数据的引用：问题/更改报告编号PRWDD-003；测试执行数据记录见测试数据包D-RWDD-FUN-003。"
+        },
+        {
+          "id": "4.X.2.Y.d",
+          "name": "改正重复情况",
+          "type": "content_generation",
+          "description": "改正问题所重复的规程或步骤的次数及结果",
+          "replacement_pattern": "d)改正这些问题所重复的规程或步骤的次数及每次得到的结果:",
+          "content": "d) 改正这些问题所重复的规程或步骤的次数及每次得到的结果：重复执行问题规程步骤共3次，第1次复现问题，第2次复现问题，第3次未复现；因未定位根本原因，该问题未关闭。"
+        },
+        {
+          "id": "4.X.2.Y.e",
+          "name": "再测试恢复点",
+          "type": "content_generation",
+          "description": "再测试时从哪些回退点或测试步骤恢复",
+          "replacement_pattern": "e)再测试时，是从哪些因退点或测试步骤恢复测试的。",
+          "content": "e) 再测试时，从测试规程XTRWDD-FUN-003第5.1步（测试环境初始化）恢复测试。"
+        },
+        {
+          "id": "4.X.3",
+          "name": "不一致条标题",
+          "type": "original_text",
+          "description": "4.X.3原型子条标题",
+          "replacement_pattern": "4.X.3与测试用例/规程的不一致",
+          "content": "与测试用例/规程的不一致"
+        },
+        {
+          "id": "4.X.3.Y",
+          "name": "偏差用例子条标题",
+          "type": "content_generation",
+          "description": "4.X.3.Y原型子条标题，替换为出现偏差的测试用例标识",
+          "replacement_pattern": "4.X.3.Y(测试用例的项目唯一的标识符)",
+          "content": "测试用例TC-FUN-007"
+        },
+        {
+          "id": "4.X.3.Y.body",
+          "name": "偏差用例引言",
+          "type": "content_generation",
+          "description": "标识出现偏差的测试用例并提供内容引言",
+          "replacement_pattern": "本条应用项目唯一的标识符标识出现一个或多个偏差的测试用例，并提供:",
+          "content": "本条用项目唯一的标识符标识出现偏差的测试用例TC-FUN-007，并提供："
+        },
+        {
+          "id": "4.X.3.Y.a",
+          "name": "偏差说明",
+          "type": "content_generation",
+          "description": "偏差说明",
+          "replacement_pattern": "a)偏差说明(例如，出现偏差的测试用例的运行情况和偏差性质，如替换了所要求的设备、未能遵循规定的步骤等)。",
+          "content": "a) 偏差说明：执行TC-FUN-007时，因测试现场缺少需求规定的SCH-200型任务仿真器，使用等效的SCH-200A型替代，测试用例按替代设备的操作步骤执行，属替换所要求的设备类偏差。"
+        },
+        {
+          "id": "4.X.3.Y.b",
+          "name": "偏差理由",
+          "type": "content_generation",
+          "description": "偏差理由",
+          "replacement_pattern": "b)偏差理由。",
+          "content": "b) 偏差理由：SCH-200型任务仿真器因采购周期原因未能按期到货；经接口兼容性验证，SCH-200A型的接口特性与SCH-200型完全一致，满足本测试用例的输入要求。"
+        },
+        {
+          "id": "4.X.3.Y.c",
+          "name": "偏差影响评估",
+          "type": "content_generation",
+          "description": "偏差对测试用例有效性影响的评估",
+          "replacement_pattern": "c)偏差对测试用例有效性影响的评估。",
+          "content": "c) 偏差对测试用例有效性影响的评估：经评估，该偏差不影响测试用例的有效性，TC-FUN-007的测试结果有效，可正常用于测试结论判定。"
+        }
+      ]
+    },
+    "5": {
+      "title": "注释",
+      "type": "content_generation",
+      "description": "术语和缩略语",
+      "replacement_pattern": "本章应包括有助于了解文档的所有信息(例如:背景、术语、缩略语或公式)。",
+      "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件文档编写专家，负责撰写文档注释（术语和缩略语）。写作前必须先阅读 references/terminology.md 和 references/style-rules.md。要点：1. 只收录正文实际出现的术语和缩略语，不得照搬通用词表；2. 术语格式为「中文术语（英文缩写）：中文定义」；3. 缩略语按英文字母排序列出「缩写 - 英文全称（中文全称）」；4. 必要时补充背景说明。内容必须基于素材收集阶段得到的项目画像（源码事实），测试用例、测试项等标识与第 3、4 章一致，禁止编造源码中不存在的内容。篇幅：术语 5～10 条、缩略语 3～8 条为宜。排版机制：content 中的换行符将生成独立段落；术语表每条一行，写为「中文术语（英文缩写）：中文定义」，缩略语表每条一行，写为「缩写 - 英文全称（中文全称）」，两表之间空行分隔。",
+      "content": "术语定义：\n\n测试项（Test）：一组相关测试用例的集合，本文档第 4 章按测试项组织详细测试结果。\n测试用例（Test Case）：为特定测试目标而设计的一组输入、执行条件和预期结果，用项目唯一的标识符标识（如TC-FUN-003）。\n测试规程（Test Procedure）：规定测试用例执行步骤、顺序和操作的文档。\n回归测试（Regression Test）：软件更改后，为确认更改未引入新问题而重新执行的测试。\n问题/更改报告（Problem/Change Report）：记录测试中发现的问题及更改活动的报告。\n测试环境（Test Environment）：执行软件测试所使用的硬件、软件、数据及人员的组合。\n操作环境（Operational Environment）：软件实际部署运行的环境。\n\n缩略语：\n\nRWDD - 任务调度软件（RenWu DiaoDu）\nSTR - Software Test Report（软件测试报告）\nSRS - Software Requirements Specification（软件需求规格说明）\nSTP - Software Test Plan（软件测试计划）\nSTD - Software Test Description（软件测试规程）\nTC - Test Case（测试用例）"
+    }
+  }
+}

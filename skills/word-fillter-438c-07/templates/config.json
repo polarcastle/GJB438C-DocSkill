@@ -1,0 +1,76 @@
+{
+  "project": {
+    "name": {
+      "type": "original_text",
+      "replacement_pattern": "外部型号+产品名称（示例：SAMPLE-智能终端）",
+      "content": "任务调度软件"
+    },
+    "short_name": {
+      "type": "original_text",
+      "replacement_pattern": "项目简称（示例：SAMPLE）",
+      "content": "RWDD"
+    },
+    "version": {
+      "type": "original_text",
+      "replacement_pattern": "版本号（示例：V1.0）",
+      "content": "V1.0"
+    },
+    "company": {
+      "type": "original_text",
+      "replacement_pattern": "开发单位名称（示例：XXXXXXXXXX）",
+      "content": ""
+    },
+    "department": {
+      "type": "original_text",
+      "replacement_pattern": "部门名称（示例：软件研发部）",
+      "content": ""
+    }
+  },
+  "document": {
+    "id": {
+      "type": "original_text",
+      "replacement_pattern": "文档编号（示例：TN/SAMPLE-DO-DS-V1.0）",
+      "content": "RWDD-SSP-V1.0"
+    },
+    "title": {
+      "type": "original_text",
+      "replacement_pattern": "文档标题（示例：软件安全性大纲）",
+      "content": "软件安全性大纲"
+    },
+    "classification": {
+      "type": "original_text",
+      "replacement_pattern": "密级（示例：内部）",
+      "content": "内部"
+    },
+    "phase": {
+      "type": "original_text",
+      "replacement_pattern": "阶段（示例：研制阶段）",
+      "content": "研制阶段"
+    },
+    "date": {
+      "type": "original_text",
+      "replacement_pattern": "日期（示例：YYYY-MM-DD）",
+      "content": "2026-01-01"
+    }
+  },
+  "content": {
+    "overview": {
+      "type": "background_information",
+      "replacement_pattern": "项目概述（示例：本项目用于……）",
+      "generation_prompt": "你是一名军用软件安全性工作文档编写专家。写作前阅读 references/writing-guide.md 的「第 1 章 范围」和 references/style-rules.md。要点：用 1～2 句话概述软件用途、类型和任务场景，说明编制安全性大纲的目的，只写事实，不罗列活动清单；表述必须与封面 project.name、project.version 保持一致。句式：「本项目是……的……软件，本大纲规定……」。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：50～100 字。",
+      "content": "本项目为任务调度软件的研制项目，该软件用于对周期性任务进行统一调度与管理。本大纲规定软件生存周期各阶段的安全性工作要求与安全性大纲要素。"
+    },
+    "scope": {
+      "type": "background_information",
+      "replacement_pattern": "项目范围（示例：包含A/B/C模块）",
+      "generation_prompt": "你是一名军用软件安全性工作文档编写专家。写作前阅读 references/writing-guide.md 第 1 章。要点：用顿号分隔列举本软件包含的功能模块或能力边界，只写范围、不写细节，不得包含具体功能描述；与 project.json 第 3、4 章的安全性活动安排呼应。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "任务接收模块、调度决策模块、任务执行模块、状态监控模块、日志记录模块"
+    },
+    "features": {
+      "type": "background_information",
+      "replacement_pattern": "功能特性（示例：功能特性1、功能特性2、功能特性3）",
+      "generation_prompt": "你是一名军用软件安全性工作文档编写专家。写作前阅读 references/writing-guide.md 的「第 4 章 软件安全性大纲要求」。要点：列举 3～8 项与安全性相关的功能特性，用名词性短语、顿号分隔，与第 3、4 章的安全性活动呼应但不重复其细节。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "任务优先级调度、调度策略配置、执行状态监控、异常任务处理、调度日志记录、安全关键操作审计"
+    }
+  }
+}

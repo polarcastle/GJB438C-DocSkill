@@ -1,0 +1,987 @@
+{
+  "template_info": {
+    "name": "GJB 438C 软件标准化大纲",
+    "file": "[05]软件标准化大纲-438C.doc",
+    "encoding": "gbk",
+    "sections": []
+  },
+  "structure": {
+    "1": {
+      "title": "范围",
+      "description": "1.1 标识由 config.json 封面信息自动精确替换；1.2 系统概述、1.3 文档概述在模板中没有占位段落（标题下无正文），生成后需在 Word 中手工编写，见 SKILL.md「已知限制」。"
+    },
+    "2": {
+      "title": "引用文档",
+      "description": "模板中本章无指导文字段落，仅一张引用文件表（及其题注占位），由 placeholders 与 tables 配置填充。",
+      "placeholders": [
+        {
+          "id": "2.caption",
+          "name": "引用文件表题注",
+          "type": "text_generation",
+          "description": "引用文件表的题注占位段（模板写作「表-X引用文件」，与本模板 7.7 条的编号规则「表＋连续阿拉伯数字」对应）",
+          "replacement_pattern": "表-X引用文件",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「第 2 章 引用文档」。要点：题注按本模板 7.7 条规定编号——「表」加从 1 开始的阿拉伯数字、连续编号至附录前、编号与名称间空 2 格；本章表为正文第一张表，编号为「表1」。句式：「表1  引用文件」。",
+          "content": "表1  引用文件"
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "reference_documents",
+          "locator_rows": [
+            [
+              "序号",
+              "名称",
+              "版本",
+              "发布日期",
+              "来源"
+            ]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": [
+            "number",
+            "name",
+            "version",
+            "release_date",
+            "source"
+          ],
+          "rows": [
+            {
+              "number": "1",
+              "name": "《GJB 438C-2021 军用软件开发文档通用要求》",
+              "version": "2021",
+              "release_date": "2021-XX-XX",
+              "source": "军用标准化主管部门"
+            },
+            {
+              "number": "2",
+              "name": "《GJB 5000A-2008 军用软件研制能力成熟度模型》",
+              "version": "2008",
+              "release_date": "2008-XX-XX",
+              "source": "军用标准化主管部门"
+            },
+            {
+              "number": "3",
+              "name": "《GB/T 8566-2007 信息技术 软件生存周期过程》",
+              "version": "2007",
+              "release_date": "2007-XX-XX",
+              "source": "国家标准化管理委员会"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "title": "标准化目标",
+      "placeholders": [
+        {
+          "id": "3.1",
+          "name": "基本要求",
+          "type": "content_generation",
+          "description": "说明编制本大纲时如何确定标准化目标及依据",
+          "replacement_pattern": "    在编制产品标准化大纲时，应首先分析和确定标准化目标，并以此为依据确定标准化相关要求。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师，负责撰写标准化目标的基本要求。写作前必须先阅读 references/writing-guide.md 的「3.1 基本要求」小节和 references/style-rules.md。要点：1. 说明本大纲针对哪个软件编制；2. 说明标准化目标先行、要求随之确定的编制原则；3. 概述目标覆盖的方面（水平、效果、任务）。句式：陈述句，「本大纲针对……编制」「编制时首先……并以此为依据……」。内容必须基于素材收集阶段得到的项目画像（源码事实），与 project.name、project.short_name 一致，禁止编造源码中不存在的内容。篇幅：50～120 字。",
+          "content": "    本大纲针对示例系统任务调度软件（XT）编制。编制时首先分析软件研制全过程的标准化需求，确定标准化目标，并以此为依据确定设计、编码、测试、文档等方面的标准化相关要求，确保软件研制过程标准统一、协调配套。"
+        },
+        {
+          "id": "3.2.intro",
+          "name": "内容-总起",
+          "type": "content_generation",
+          "description": "标准化目标包括的内容总起句",
+          "replacement_pattern": "    标准化目标一般包括下列内容:",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「3.2 内容」。要点：总起句引出下列 a）b）c）三项，与后续列项呼应；只写一句总起，不展开。句式：「本软件标准化目标包括下列内容：」。篇幅：一句话。",
+          "content": "    本软件标准化目标包括下列内容:"
+        },
+        {
+          "id": "3.2.a",
+          "name": "内容-水平目标",
+          "type": "content_generation",
+          "description": "产品标准化期望达到的水平",
+          "replacement_pattern": "    a)水平目标。指产品标准化期望达到的水平。如:标准实施的水平，产品标准化系数；通用化、系列化、组合化程度等；",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「3.2 内容」和 references/style-rules.md 的量化要求。要点：写清水平目标的三类量化指标——标准实施覆盖范围、软件标准化系数（百分比）、通用化/系列化/组合化或可复用部件比例（百分比）；数值无依据时标注「待与用户确认」，禁止编造。句式：「a）水平目标。指本软件标准化期望达到的水平：……；」保持列项编号与分号结尾。篇幅：50～120 字。",
+          "content": "    a)水平目标。指本软件标准化期望达到的水平：标准实施覆盖软件研制全过程，软件标准化系数不低于80%；任务调度算法、接口协议和公共部件实现通用化、系列化、组合化，可复用软件部件比例不低于75%；"
+        },
+        {
+          "id": "3.2.b",
+          "name": "内容-效果目标",
+          "type": "content_generation",
+          "description": "预期的军事、技术、经济效果",
+          "replacement_pattern": "    b)效果目标。指预期的军事、技术、经济效果。如:对提高装备效能的作用，预计节约的研制经费、缩短的研制周期等；",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「3.2 内容」。要点：写预期效果——提高软件质量属性（可靠性、可维护性、互操作性等）、节约经费和缩短周期的预计幅度（百分比）；无依据时标注「待与用户确认」。句式：「b）效果目标。指预期的军事、技术、经济效果：……；」篇幅：50～120 字。",
+          "content": "    b)效果目标。指预期的军事、技术、经济效果：通过贯彻实施军用软件工程标准，提高任务调度软件的可靠性、可维护性和互操作性，预计节约研制和维护经费约10%，缩短研制周期约10%；"
+        },
+        {
+          "id": "3.2.c",
+          "name": "内容-任务目标",
+          "type": "content_generation",
+          "description": "计划制定的标准化文件及贯彻标准的数量",
+          "replacement_pattern": "    c)任务目标。指计划制定的标准化文件及贯彻实施标准的数量等工作任务。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「3.2 内容」。要点：写两项量化任务——计划制定的标准化文件数量（列举文件名）和贯彻实施标准的数量；无依据时标注「待与用户确认」。句式：「c）任务目标。指计划制定的标准化文件及贯彻实施标准的数量等工作任务：……。」篇幅：50～100 字。",
+          "content": "    c)任务目标。指计划制定的标准化文件及贯彻实施标准的数量等工作任务：制定软件标准化大纲、软件文档编制规范等标准化文件6项，贯彻实施GJB 438C、GJB 5000A等军用标准10项以上。"
+        },
+        {
+          "id": "3.3.intro",
+          "name": "目标分析的依据-总起",
+          "type": "content_generation",
+          "description": "目标分析依据总起句",
+          "replacement_pattern": "    标准化目标分析的依据是:",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。要点：总起一句，引出 a）～d）各项依据；与后续列项呼应。句式：「本软件标准化目标分析的依据是：」。篇幅：一句话。",
+          "content": "    本软件标准化目标分析的依据是:"
+        },
+        {
+          "id": "3.3.a",
+          "name": "目标分析的依据-需求方要求",
+          "type": "content_generation",
+          "description": "需求方提出的性能与标准化要求",
+          "replacement_pattern": "    a)需求方提出的主要作战使用性能、标准化要求或上层次产品标准化大纲；",
+          "content": "    a)需求方提出的主要作战使用性能、标准化要求及上层次产品标准化大纲；"
+        },
+        {
+          "id": "3.3.b",
+          "name": "目标分析的依据-研制要求",
+          "type": "content_generation",
+          "description": "产品研制要求",
+          "replacement_pattern": "    b)产品研制要求；",
+          "content": "    b)示例系统研制总要求和软件研制任务书；"
+        },
+        {
+          "id": "3.3.c",
+          "name": "目标分析的依据-现役产品问题",
+          "type": "content_generation",
+          "description": "现役类似产品存在的问题",
+          "replacement_pattern": "    c)现役类似产品存在的问题；",
+          "content": "    c)现役类似调度软件存在的接口不统一、文档格式不规范等标准化方面存在的问题；"
+        },
+        {
+          "id": "3.3.d",
+          "name": "目标分析的依据-资源条件",
+          "type": "content_generation",
+          "description": "现有或可实现的资源条件",
+          "replacement_pattern": "    d)现有或可实现的资源条件。",
+          "content": "    d)现有或可实现的资源条件，包括开发环境、测试工具、标准库和研制队伍等。"
+        },
+        {
+          "id": "3.4.intro",
+          "name": "目标分析的步骤-总起",
+          "type": "content_generation",
+          "description": "目标分析步骤总起句",
+          "replacement_pattern": "    标准化目标分析的基本步骤如下:",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。要点：总起一句引出 a）～g）步骤。句式：「本软件标准化目标分析的基本步骤如下：」。篇幅：一句话。",
+          "content": "    本软件标准化目标分析的基本步骤如下:"
+        },
+        {
+          "id": "3.4.a",
+          "name": "目标分析的步骤-a",
+          "type": "content_generation",
+          "description": "分析战术技术指标与标准化要求",
+          "replacement_pattern": "    a)分析产品战术技术指标、研制方案及订购方提出的标准化要求；",
+          "content": "    a)分析任务调度软件的战术技术指标、研制方案及订购方提出的标准化要求；"
+        },
+        {
+          "id": "3.4.b",
+          "name": "目标分析的步骤-b",
+          "type": "text_generation",
+          "description": "分析同类产品问题及原因",
+          "replacement_pattern": "    b)分析同类产品存在的问题和不足及其原因；",
+          "content": "    b)分析同类产品存在的问题和不足及其原因；"
+        },
+        {
+          "id": "3.4.c",
+          "name": "目标分析的步骤-c",
+          "type": "content_generation",
+          "description": "分析国内外技术状况和标准化水平",
+          "replacement_pattern": "    C)分析国内外同类产品的技术状况和标准化水平；",
+          "content": "    C)分析国内外同类调度软件的技术状况和标准化水平；"
+        },
+        {
+          "id": "3.4.d",
+          "name": "目标分析的步骤-d",
+          "type": "text_generation",
+          "description": "提出初步目标",
+          "replacement_pattern": "    d)提出初步的标准化目标或要求；",
+          "content": "    d)提出初步的标准化目标或要求；"
+        },
+        {
+          "id": "3.4.e",
+          "name": "目标分析的步骤-e",
+          "type": "text_generation",
+          "description": "可行性分析",
+          "replacement_pattern": "    e)进行可行性分析，包括实现目标或要求的主要途径和措施；",
+          "content": "    e)进行可行性分析，包括实现目标或要求的主要途径和措施；"
+        },
+        {
+          "id": "3.4.f",
+          "name": "目标分析的步骤-f",
+          "type": "text_generation",
+          "description": "分析目标与研制要求的协调性",
+          "replacement_pattern": "    f)分析标准化目标与产品研制要求的协调性；",
+          "content": "    f)分析标准化目标与软件研制要求的协调性；"
+        },
+        {
+          "id": "3.4.g",
+          "name": "目标分析的步骤-g",
+          "type": "text_generation",
+          "description": "修改确定目标",
+          "replacement_pattern": "    g)修改、确定产品标准化目标或要求。",
+          "content": "    g)修改、确定本软件标准化目标或要求。"
+        },
+        {
+          "id": "3.5.intro",
+          "name": "表述形式-总起",
+          "type": "content_generation",
+          "description": "目标表述形式总起句",
+          "replacement_pattern": "    根据需要和可能，标准化目标可以选择下列适当形式进行表述:",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「3.5 表述形式」。要点：总起句引出 a）～d）四种表述形式（定量/定性 × 直接/间接）。句式：「根据需要和可能，本软件标准化目标选择下列形式进行表述：」。篇幅：一句话。",
+          "content": "    根据需要和可能，本软件标准化目标选择下列形式进行表述:"
+        },
+        {
+          "id": "3.5.a",
+          "name": "表述形式-定量直接目标",
+          "type": "content_generation",
+          "description": "定量的直接目标",
+          "replacement_pattern": "    a)定量的直接目标；",
+          "content": "    a)定量的直接目标：软件标准化系数不低于80%，可复用软件部件比例不低于75%；"
+        },
+        {
+          "id": "3.5.b",
+          "name": "表述形式-定量间接目标",
+          "type": "content_generation",
+          "description": "定量的间接目标",
+          "replacement_pattern": "b)定量的间接目标；",
+          "content": "b)定量的间接目标：标准实施检查一次通过率不低于90%；"
+        },
+        {
+          "id": "3.5.c",
+          "name": "表述形式-定性直接目标",
+          "type": "content_generation",
+          "description": "定性的直接目标",
+          "replacement_pattern": "c)定性的直接目标；",
+          "content": "    c)定性的直接目标：软件研制各阶段文档符合GJB 438C规定的格式和内容要求；"
+        },
+        {
+          "id": "3.5.d",
+          "name": "表述形式-定性间接目标",
+          "type": "content_generation",
+          "description": "定性的间接目标",
+          "replacement_pattern": "d)定性的间接目标。",
+          "content": "    d)定性的间接目标：提高任务调度软件的通用化、系列化、组合化程度。"
+        }
+      ]
+    },
+    "4": {
+      "title": "标准实施要求",
+      "placeholders": [
+        {
+          "id": "4.1.intro",
+          "name": "内容-总起",
+          "type": "content_generation",
+          "description": "标准实施要求内容总起句",
+          "replacement_pattern": "    标准实施要求一般包括下列内容:",
+          "content": "    本软件标准实施要求一般包括下列内容:"
+        },
+        {
+          "id": "4.1.a",
+          "name": "内容-一般要求",
+          "type": "text_generation",
+          "description": "一般要求条目",
+          "replacement_pattern": "    a)一般要求；",
+          "content": "    a)一般要求；"
+        },
+        {
+          "id": "4.1.b",
+          "name": "内容-重大标准实施要求",
+          "type": "text_generation",
+          "description": "重大标准实施要求条目",
+          "replacement_pattern": "    b)重大标准实施要求；",
+          "content": "    b)重大标准实施要求；"
+        },
+        {
+          "id": "4.1.c",
+          "name": "内容-标准选用范围",
+          "type": "text_generation",
+          "description": "标准选用范围条目",
+          "replacement_pattern": "    C)标准选用范围；",
+          "content": "    C)标准选用范围；"
+        },
+        {
+          "id": "4.1.d",
+          "name": "内容-元器件原材料选用范围",
+          "type": "text_generation",
+          "description": "标准件、元器件、原材料选用范围条目",
+          "replacement_pattern": "    d)标准件、元器件、原材料选用范围。",
+          "content": "    d)标准件、元器件、原材料选用范围。"
+        },
+        {
+          "id": "4.2.intro",
+          "name": "一般要求-总起",
+          "type": "content_generation",
+          "description": "实施标准一般要求总起句",
+          "replacement_pattern": "    产品标准化大纲应规定产品研制时实施标准的一般要求，主要包括下列内容:",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「4.2 一般要求」。要点：总起一句引出 a）～e）各项要求；本节为规定性内容，表述沿用模板句式。句式：「本大纲规定……研制时实施标准的一般要求，主要包括下列内容：」。篇幅：一句话。",
+          "content": "    本大纲规定任务调度软件研制时实施标准的一般要求，主要包括下列内容:"
+        },
+        {
+          "id": "4.2.a",
+          "name": "一般要求-贯彻原则",
+          "type": "content_generation",
+          "description": "贯彻实施标准的原则",
+          "replacement_pattern": "    a)贯彻实施标准的原则，包括GJB/z69规定的标准选用和剪裁的有关要求；",
+          "content": "    a)贯彻实施标准的原则，包括GJB/z69规定的标准选用和剪裁的有关要求；"
+        },
+        {
+          "id": "4.2.b",
+          "name": "一般要求-程序审批会签更改",
+          "type": "text_generation",
+          "description": "实施标准的程序、审批、会签和更改要求",
+          "replacement_pattern": "    b)实施标准的程序、审批、会签和更改等要求；",
+          "content": "    b)实施标准的程序、审批、会签和更改等要求；"
+        },
+        {
+          "id": "4.2.c",
+          "name": "一般要求-时效性",
+          "type": "text_generation",
+          "description": "实施标准的时效性要求",
+          "replacement_pattern": "    c)实施标准的时效性要求，例如实施标准的年限、版本界定、新旧版标准代替的规定和要求；",
+          "content": "    c)实施标准的时效性要求，例如实施标准的年限、版本界定、新旧版标准代替的规定和要求；"
+        },
+        {
+          "id": "4.2.d",
+          "name": "一般要求-监督",
+          "type": "text_generation",
+          "description": "对实施标准进行监督的要求",
+          "replacement_pattern": "    d)对实施标准进行监督的要求；",
+          "content": "    d)对实施标准进行监督的要求；"
+        },
+        {
+          "id": "4.2.e",
+          "name": "一般要求-问题处理",
+          "type": "text_generation",
+          "description": "处理实施中各类问题的原则或程序",
+          "replacement_pattern": "    e)处理实施中各类问题的原则或程序等。",
+          "content": "    e)处理实施中各类问题的原则或程序等。"
+        },
+        {
+          "id": "4.3.intro",
+          "name": "重大标准实施要求-总述",
+          "type": "content_generation",
+          "description": "重大标准综合分析与实施方案",
+          "replacement_pattern": "应根据战术技术指标要求和贯彻实施标准一般要求，对产品研制有关的重大标准进行全面的综合分析，提出“重大标准贯彻实施方案”。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「4.3 重大标准实施要求」。要点：1. 说明对哪些重大标准进行综合分析（结合本项目实际选用的军用软件标准列举）；2. 说明提出“重大标准贯彻实施方案”；本节为规定性内容，沿用模板句式。内容必须基于素材收集阶段得到的项目画像，禁止编造本项目未采用的标准。篇幅：80～150 字。",
+          "content": "应根据任务调度软件的战术技术指标要求和贯彻实施标准的一般要求，对软件研制有关的重大标准进行全面的综合分析，提出“重大标准贯彻实施方案”。本软件确定的重大标准包括GJB 438C《军用软件开发文档通用要求》等。"
+        },
+        {
+          "id": "4.3.major.a",
+          "name": "重大标准界定-a",
+          "type": "text_generation",
+          "description": "重大标准界定条目a",
+          "replacement_pattern": "a)贯彻实施涉及面宽、难度大的标准；",
+          "content": "a)贯彻实施涉及面宽、难度大的标准；"
+        },
+        {
+          "id": "4.3.major.b",
+          "name": "重大标准界定-b",
+          "type": "text_generation",
+          "description": "重大标准界定条目b",
+          "replacement_pattern": "b)贯彻实施经费投资大的标准；",
+          "content": "b)贯彻实施经费投资大的标准；"
+        },
+        {
+          "id": "4.3.major.c",
+          "name": "重大标准界定-c",
+          "type": "text_generation",
+          "description": "重大标准界定条目c",
+          "replacement_pattern": "c)贯彻实施组织和协调复杂的标准；",
+          "content": "c)贯彻实施组织和协调复杂的标准；"
+        },
+        {
+          "id": "4.3.major.d",
+          "name": "重大标准界定-d",
+          "type": "text_generation",
+          "description": "重大标准界定条目d",
+          "replacement_pattern": "d)影响战术技术指标实现的标准；",
+          "content": "d)影响战术技术指标实现的标准；"
+        },
+        {
+          "id": "4.3.major.e",
+          "name": "重大标准界定-e",
+          "type": "text_generation",
+          "description": "重大标准界定条目e",
+          "replacement_pattern": "e)与安全关系密切的标准；",
+          "content": "e)与安全关系密切的标准；"
+        },
+        {
+          "id": "4.3.major.f",
+          "name": "重大标准界定-f",
+          "type": "text_generation",
+          "description": "重大标准界定条目f",
+          "replacement_pattern": "f)对提高产品通用化、系列化、组合化程度及节约费用等有重大影响的标准。",
+          "content": "f)对提高产品通用化、系列化、组合化程度及节约费用等有重大影响的标准。"
+        },
+        {
+          "id": "4.3.plan.a",
+          "name": "实施方案内容-a",
+          "type": "text_generation",
+          "description": "实施方案内容条目a",
+          "replacement_pattern": "a)贯彻实施涉及的范围及效果分析；",
+          "content": "a)贯彻实施的范围及效果分析；"
+        },
+        {
+          "id": "4.3.plan.b",
+          "name": "实施方案内容-b",
+          "type": "text_generation",
+          "description": "实施方案内容条目b",
+          "replacement_pattern": "b)贯彻实施的重点内容及剪裁意见；",
+          "content": "b)贯彻实施的重点内容及剪裁意见；"
+        },
+        {
+          "id": "4.3.plan.c",
+          "name": "实施方案内容-c",
+          "type": "text_generation",
+          "description": "实施方案内容条目c",
+          "replacement_pattern": "c)贯彻实施的主要工作程序和内容；",
+          "content": "c)贯彻实施的主要工作程序和内容；"
+        },
+        {
+          "id": "4.3.plan.d",
+          "name": "实施方案内容-d",
+          "type": "text_generation",
+          "description": "实施方案内容条目d",
+          "replacement_pattern": "d)贯彻实施前的技术准备和物质准备；",
+          "content": "d)贯彻实施前的技术准备和物质准备；"
+        },
+        {
+          "id": "4.3.plan.e",
+          "name": "实施方案内容-e",
+          "type": "text_generation",
+          "description": "实施方案内容条目e",
+          "replacement_pattern": "e)主要难点及解决途径；",
+          "content": "e)主要难点及解决途径；"
+        },
+        {
+          "id": "4.3.plan.f",
+          "name": "实施方案内容-f",
+          "type": "text_generation",
+          "description": "实施方案内容条目f",
+          "replacement_pattern": "f)计划和经费安排的建议；",
+          "content": "f)计划和经费安排的建议；"
+        },
+        {
+          "id": "4.3.plan.g",
+          "name": "实施方案内容-g",
+          "type": "text_generation",
+          "description": "实施方案内容条目g",
+          "replacement_pattern": "g)有关问题的协调要求。",
+          "content": "g)有关问题的协调要求。"
+        },
+        {
+          "id": "4.4.intro",
+          "name": "标准选用范围-定义",
+          "type": "content_generation",
+          "description": "标准选用范围的定义",
+          "replacement_pattern": "“标准选用范围”是特定产品研制时对设计人员选用标准的推荐性规定。其中所列标准通过产品图样和技术文件的采用才能作为直接指导生产或验收的依据。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。要点：将定义中的“特定产品”落实为本软件名称；说明所列标准须经图样和技术文件采用方生效。本节为规定性内容，沿用模板句式。篇幅：60～120 字。",
+          "content": "“标准选用范围”是任务调度软件研制时对设计人员选用标准的推荐性规定。其中所列标准通过产品图样和技术文件的采用才能作为直接指导生产或验收的依据。"
+        },
+        {
+          "id": "4.4.list",
+          "name": "标准选用范围-总起",
+          "type": "text_generation",
+          "description": "应列入的标准总起句",
+          "replacement_pattern": "“标准选用范围”应列入下列标准:",
+          "content": "“标准选用范围”应列入下列标准:"
+        },
+        {
+          "id": "4.4.a",
+          "name": "标准选用范围-a",
+          "type": "text_generation",
+          "description": "法律法规和合同规定执行的标准",
+          "replacement_pattern": "a)法律、法规和研制合同及其他相关文件规定执行的标准；",
+          "content": "a)法律、法规和研制合同及其他相关文件规定执行的标准；"
+        },
+        {
+          "id": "4.4.b",
+          "name": "标准选用范围-b",
+          "type": "content_generation",
+          "description": "与战术技术指标和性能有关的标准",
+          "replacement_pattern": "b)与保证产品战术技术指标和性能有关的标准；",
+          "content": "b)与保证任务调度软件战术技术指标和性能有关的标准；"
+        },
+        {
+          "id": "4.4.c",
+          "name": "标准选用范围-c",
+          "type": "content_generation",
+          "description": "研制全过程所需标准",
+          "replacement_pattern": "c)产品研制全过程设计、制造、检验、试验和管理等各方面所需的标准。",
+          "content": "c)软件研制全过程设计、编码、检验、试验和管理等各方面所需的标准。"
+        }
+      ]
+    },
+    "5": {
+      "title": "建立标准化文件体系要求",
+      "placeholders": [
+        {
+          "id": "5.1.intro",
+          "name": "内容-总起",
+          "type": "content_generation",
+          "description": "建立标准化文件体系要求内容总起句",
+          "replacement_pattern": "    建立标准化文件体系要求一般包括下列内容:",
+          "content": "    建立本软件标准化文件体系的要求一般包括下列内容:"
+        },
+        {
+          "id": "5.1.a",
+          "name": "内容-体系表",
+          "type": "text_generation",
+          "description": "标准化文件体系表条目",
+          "replacement_pattern": "    a)标准化文件体系表；",
+          "content": "    a)标准化文件体系表；"
+        },
+        {
+          "id": "5.1.b",
+          "name": "内容-项目表",
+          "type": "text_generation",
+          "description": "标准化文件项目表条目",
+          "replacement_pattern": "    b)标准化文件项目表。",
+          "content": "    b)标准化文件项目表。"
+        },
+        {
+          "id": "5.2.intro",
+          "name": "体系表一般要求-总起",
+          "type": "content_generation",
+          "description": "标准化文件体系表应符合的要求总起句",
+          "replacement_pattern": "标准化文件体系表应符合下列要求:",
+          "content": "本软件标准化文件体系表应符合下列要求:"
+        },
+        {
+          "id": "5.2.a",
+          "name": "体系表要求-完整性",
+          "type": "text_generation",
+          "description": "完整性要求",
+          "replacement_pattern": "a)完整性。即标准化文件体系能满足标准化工作管理和技术的需要，满足研制各阶段、各方面标准化工作的需要；",
+          "content": "a)完整性。即标准化文件体系能满足标准化工作管理和技术的需要，满足研制各阶段、各方面标准化工作的需要；"
+        },
+        {
+          "id": "5.2.b",
+          "name": "体系表要求-动态性",
+          "type": "text_generation",
+          "description": "动态性要求",
+          "replacement_pattern": "b)动态性。即标准化文件体系要随产品研制阶段适时形成新的文件；已形成的文件要随研制深入修改完善；",
+          "content": "b)动态性。即标准化文件体系要随软件研制阶段适时形成新的文件；已形成的文件要随研制深入修改完善；"
+        },
+        {
+          "id": "5.2.c",
+          "name": "体系表要求-协调性",
+          "type": "text_generation",
+          "description": "协调性要求",
+          "replacement_pattern": "c)协调性。即标准化文件体系中的文件在项目、内容和要求等方面要做到和相关文件协调一致。",
+          "content": "c)协调性。即标准化文件体系中的文件在项目、内容和要求等方面要做到和相关文件协调一致。"
+        },
+        {
+          "id": "5.3.intro",
+          "name": "体系表构建程序-总起",
+          "type": "content_generation",
+          "description": "体系表构建程序总起句",
+          "replacement_pattern": "标准化文件体系表的构建程序如下:",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「5.2 标准化文件体系表」。要点：总起一句引出 a）～d）构建程序步骤；本节为规定性内容，沿用模板句式。句式：「本软件标准化文件体系表的构建程序如下：」。篇幅：一句话。",
+          "content": "本软件标准化文件体系表的构建程序如下:"
+        },
+        {
+          "id": "5.3.a",
+          "name": "构建程序-a",
+          "type": "content_generation",
+          "description": "方案阶段需求分析",
+          "replacement_pattern": "    a)在研制的方案阶段，根据产品复杂程序和研制生产需要，进行标准化文件的需求分析。需求分析包括管理和技术两个方面，覆盖从方案阶段到设计定型阶段对标准化文件的需求。还应根据现有资源条件分析直接采用现有文件或制定新文件的可能性、紧迫性；",
+          "content": "    a)在研制的方案阶段，根据任务调度软件复杂程度和研制生产需要，进行标准化文件的需求分析。需求分析包括管理和技术两个方面，覆盖从方案阶段到设计定型阶段对标准化文件的需求。还应根据现有资源条件分析直接采用现有文件或制定新文件的可能性、紧迫性；"
+        },
+        {
+          "id": "5.3.b",
+          "name": "构建程序-b",
+          "type": "text_generation",
+          "description": "编制初步体系表",
+          "replacement_pattern": "b)在需求分析的基础上编制初步的标准化文件体系表；",
+          "content": "    b)在需求分析的基础上编制初步的标准化文件体系表；"
+        },
+        {
+          "id": "5.3.c",
+          "name": "构建程序-c",
+          "type": "text_generation",
+          "description": "体系表作为组织实施根据",
+          "replacement_pattern": "c)初步的标准化文件体系表作为安排文件编制和组织实施的根据。随着研制进展，调整和补充编制需要的文件，逐步形成满足产品定型和生产需要的标准化文件体系；",
+          "content": "    c)初步的标准化文件体系表作为安排文件编制和组织实施的根据。随着研制进展，调整和补充编制需要的文件，逐步形成满足产品定型和生产需要的标准化文件体系；"
+        },
+        {
+          "id": "5.3.d",
+          "name": "构建程序-d",
+          "type": "text_generation",
+          "description": "新编文件列入阶段工作",
+          "replacement_pattern": "d)每一项需要新编制的标准化文件应作为研制各阶段标准化工作内容。",
+          "content": "    d)每一项需要新编制的标准化文件应作为研制各阶段标准化工作内容。"
+        },
+        {
+          "id": "5.4.intro",
+          "name": "文件项目表-总起",
+          "type": "content_generation",
+          "description": "标准化文件项目表内容总起句",
+          "replacement_pattern": "根据确定的标准化文件体系表编制标准化文件项目表，标准化文件项目表一般包括下列内容:",
+          "content": "根据确定的标准化文件体系表编制标准化文件项目表，本软件标准化文件项目表一般包括下列内容:"
+        },
+        {
+          "id": "5.4.a",
+          "name": "文件项目表-a",
+          "type": "text_generation",
+          "description": "文件名称",
+          "replacement_pattern": "文件名称；",
+          "content": "文件名称；"
+        },
+        {
+          "id": "5.4.b",
+          "name": "文件项目表-b",
+          "type": "text_generation",
+          "description": "文件作用",
+          "replacement_pattern": "文件作用；",
+          "content": "文件作用；"
+        },
+        {
+          "id": "5.4.c",
+          "name": "文件项目表-c",
+          "type": "text_generation",
+          "description": "文件界面和适用范围",
+          "replacement_pattern": "文件界面和适用范围；",
+          "content": "文件界面和适用范围；"
+        },
+        {
+          "id": "5.4.d",
+          "name": "文件项目表-d",
+          "type": "text_generation",
+          "description": "文件主要内容",
+          "replacement_pattern": "文件主要内容；",
+          "content": "文件主要内容；"
+        },
+        {
+          "id": "5.4.e",
+          "name": "文件项目表-e",
+          "type": "text_generation",
+          "description": "与相关文件的协调说明",
+          "replacement_pattern": "与相关文件的协调说明等。",
+          "content": "与相关文件的协调说明等。"
+        }
+      ]
+    },
+    "6": {
+      "title": "标准化工作范围和研制各阶段的主要工作",
+      "placeholders": [
+        {
+          "id": "6.1",
+          "name": "标准化工作范围",
+          "type": "content_generation",
+          "description": "标准化工作涉及的工作领域及广度深度",
+          "replacement_pattern": "标准化工作范围主要是指涉及的工作领域(例如标准化工作涉及的质量、计量、环境、可靠性等专业领域)及工作的广度和深度(例如为实施标准组织事先研究或攻关等)。在确定研制各阶段标准化工作的内容时应充分考虑涉及的工作范围。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「6.1 标准化工作范围」。要点：1. 列举本项目标准化工作涉及的专业领域（结合软件项目实际，如软件工程、质量、配置管理、可靠性等）；2. 说明工作的广度和深度（如事先研究、攻关、评审检查）；3. 说明确定各阶段工作内容时考虑了上述范围。句式：陈述句，分两层表述。内容必须基于素材收集阶段得到的项目画像，禁止编造。篇幅：100～200 字。",
+          "content": "本软件标准化工作范围涉及的工作领域包括软件工程、质量、计量、环境、可靠性等专业领域；工作的广度和深度包括为标准实施组织的事先研究、调度关键算法攻关、标准化检查与评审等。在确定研制各阶段标准化工作的内容时充分考虑了上述工作范围。"
+        },
+        {
+          "id": "6.2",
+          "name": "产品研制各阶段的主要工作",
+          "type": "content_generation",
+          "description": "各阶段标准化工作内容形成方式",
+          "replacement_pattern": "产品研制各阶段标准化工作内容可结合产品的具体情况参照表1，进行适当剪裁和作必要的分解或综合后形成具体的工作项目，并落实到研制各阶段的工作计划中。",
+          "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件标准化工程师。写作前阅读 references/writing-guide.md 的「6.2 产品研制各阶段的主要工作」。要点：说明各阶段标准化工作内容结合本软件情况参照表1剪裁、分解或综合后形成工作项目，并落实到阶段工作计划；本节为规定性内容，沿用模板句式。篇幅：60～120 字。",
+          "content": "本软件产品研制各阶段标准化工作内容可结合任务调度软件的具体情况参照表1，进行适当剪裁和作必要的分解或综合后形成具体的工作项目，并落实到研制各阶段的工作计划中。"
+        },
+        {
+          "id": "6.3.intro",
+          "name": "协调管理要求-总述",
+          "type": "content_generation",
+          "description": "协调管理要求适用条件",
+          "replacement_pattern": "对复杂的系统、分系统，一般应编制标准化工作协调管理要求。",
+          "content": "对复杂的系统、分系统，一般应编制标准化工作协调管理要求。"
+        },
+        {
+          "id": "6.3.list",
+          "name": "协调管理要求-总起",
+          "type": "content_generation",
+          "description": "协调管理内容总起句",
+          "replacement_pattern": "标准化工作协调管理一般应包括下列内容:",
+          "content": "本软件标准化工作协调管理一般应包括下列内容:"
+        },
+        {
+          "id": "6.3.a",
+          "name": "协调管理-a",
+          "type": "text_generation",
+          "description": "协调的原则要求",
+          "replacement_pattern": "标准化工作协调的原则要求；",
+          "content": "标准化工作协调的原则要求；"
+        },
+        {
+          "id": "6.3.b",
+          "name": "协调管理-b",
+          "type": "text_generation",
+          "description": "文件协调程序和传递路线",
+          "replacement_pattern": "标准化文件协调程序和传递路线；",
+          "content": "标准化文件协调程序和传递路线；"
+        },
+        {
+          "id": "6.3.c",
+          "name": "协调管理-c",
+          "type": "text_generation",
+          "description": "文件审批会签备案范围权限",
+          "replacement_pattern": "标准化文件在系统内审批、会签或备案的范围和权限；",
+          "content": "标准化文件在系统内审批、会签或备案的范围和权限；"
+        },
+        {
+          "id": "6.3.d",
+          "name": "协调管理-d",
+          "type": "text_generation",
+          "description": "文件更改审批会签备案及传递要求",
+          "replacement_pattern": "标准化文件更改在系统内审批、会签或备案的范围和权限及传递要求等。",
+          "content": "标准化文件更改在系统内审批、会签或备案的范围和权限及传递要求等。"
+        }
+      ]
+    },
+    "7": {
+      "title": "技术文档编制格式要求",
+      "description": "本章为格式规定性内容，示例内容基本沿用模板表述，实际使用时可按项目剪裁。",
+      "placeholders": [
+        {
+          "id": "7.1",
+          "name": "简述",
+          "type": "content_generation",
+          "description": "正文及图表字体字号规定",
+          "replacement_pattern": "文件正文内容中文、英文和阿拉拍数字统一使用小四号宋体字。图表内容中文统一使用五号宋体字，英文和阿拉拍数字统一使用五号宋体。",
+          "content": "文件正文内容中文、英文和阿拉拍数字统一使用小四号宋体字。图表内容中文统一使用五号宋体字，英文和阿拉拍数字统一使用五号宋体。"
+        },
+        {
+          "id": "7.2",
+          "name": "幅面",
+          "type": "text_generation",
+          "description": "A4幅面及页边距规定",
+          "replacement_pattern": "文件采用A4幅面，上边距：2.54厘米；下边距2.54厘米；左边距：3.17厘米；右边距：3.17厘米；页眉：1.5厘米；页脚：1.75厘米。",
+          "content": "文件采用A4幅面，上边距：2.54厘米；下边距2.54厘米；左边距：3.17厘米；右边距：3.17厘米；页眉：1.5厘米；页脚：1.75厘米。"
+        },
+        {
+          "id": "7.3.intro",
+          "name": "封面-格式引用",
+          "type": "text_generation",
+          "description": "封面格式引用附录A",
+          "replacement_pattern": "封面格式见附录A的图A1。",
+          "content": "封面格式见附录A的图A1。"
+        },
+        {
+          "id": "7.3.list",
+          "name": "封面-填写要求总起",
+          "type": "text_generation",
+          "description": "封面内容填写要求总起句",
+          "replacement_pattern": "封面内容及其填写要求如下：",
+          "content": "封面内容及其填写要求如下："
+        },
+        {
+          "id": "7.3.a",
+          "name": "封面-密级",
+          "type": "text_generation",
+          "description": "密级填写要求",
+          "replacement_pattern": "密级：与项目的密级一致；",
+          "content": "密级：与项目的密级一致；"
+        },
+        {
+          "id": "7.3.b",
+          "name": "封面-课题编号",
+          "type": "text_generation",
+          "description": "课题编号填写要求",
+          "replacement_pattern": "课题编号：课题编号；",
+          "content": "课题编号：课题编号；"
+        },
+        {
+          "id": "7.3.c",
+          "name": "封面-文档标识号",
+          "type": "text_generation",
+          "description": "文档标识号填写要求",
+          "replacement_pattern": "文档标识号：本文件的标识号；",
+          "content": "文档标识号：本文件的标识号；"
+        },
+        {
+          "id": "7.3.d",
+          "name": "封面-文档名称",
+          "type": "text_generation",
+          "description": "文档名称填写要求",
+          "replacement_pattern": "文档名称：应与软件开发计划中给出的名称一致；",
+          "content": "文档名称：应与软件开发计划中给出的名称一致；"
+        },
+        {
+          "id": "7.3.e",
+          "name": "封面-单位名称",
+          "type": "text_generation",
+          "description": "单位名称填写要求",
+          "replacement_pattern": "单位名称：研制单位名称；",
+          "content": "单位名称：研制单位名称；"
+        },
+        {
+          "id": "7.3.f",
+          "name": "封面-修订日期",
+          "type": "text_generation",
+          "description": "修订日期填写要求",
+          "replacement_pattern": "修订日期。",
+          "content": "修订日期。"
+        },
+        {
+          "id": "7.4",
+          "name": "文档修改记录",
+          "type": "text_generation",
+          "description": "文档修改记录格式要求",
+          "replacement_pattern": "文档修改记录的格式参见各文档模板。",
+          "content": "文档修改记录的格式参见各文档模板。"
+        },
+        {
+          "id": "7.5",
+          "name": "目录",
+          "type": "text_generation",
+          "description": "目录生成与更新要求",
+          "replacement_pattern": "参见模板格式。在文档编写完成之后自动生成。为了保证目录格式不变，可选中目录后，按右键，做“更新域”操作。",
+          "content": "参见模板格式。在文档编写完成之后自动生成。为了保证目录格式不变，可选中目录后，按右键，做“更新域”操作。"
+        },
+        {
+          "id": "7.6.intro",
+          "name": "正文-编写方式",
+          "type": "text_generation",
+          "description": "正文条目编写方式",
+          "replacement_pattern": "可参照模板给出的条目编写。模板的使用方法详见附录C。",
+          "content": "可参照模板给出的条目编写。模板的使用方法详见附录C。"
+        },
+        {
+          "id": "7.6.doc",
+          "name": "正文-引用文档要求",
+          "type": "text_generation",
+          "description": "引用文档列出要求",
+          "replacement_pattern": "其中的“引用文档”应该列出文件的正文中所引用的所有文档的标识、标题、修订版本、日期和来源。",
+          "content": "其中的“引用文档”应该列出文件的正文中所引用的所有文档的标识、标题、修订版本、日期和来源。"
+        },
+        {
+          "id": "7.6.level",
+          "name": "正文-层次和列项",
+          "type": "text_generation",
+          "description": "条目层次和列项表示引用",
+          "replacement_pattern": "正文的条目层次和列项表示见表2。",
+          "content": "正文的条目层次和列项表示见表2。"
+        },
+        {
+          "id": "7.7.a",
+          "name": "表-使用原则",
+          "type": "text_generation",
+          "description": "表格使用原则",
+          "replacement_pattern": "如果用表格提供信息有利于对文件的理解，则宜使用表。每个表在正文中均应明确提及。",
+          "content": "如果用表格提供信息有利于对文件的理解，则宜使用表。每个表在正文中均应明确提及。"
+        },
+        {
+          "id": "7.7.b",
+          "name": "表-编号规则",
+          "type": "text_generation",
+          "description": "表的编号规则",
+          "replacement_pattern": "每个表均应有编号。表的编号由“表”和从1开始的阿拉伯数字组成。表的编号应一直连续到附录之前，并与章、条和图的编号无关。",
+          "content": "每个表均应有编号。表的编号由“表”和从1开始的阿拉伯数字组成。表的编号应一直连续到附录之前，并与章、条和图的编号无关。"
+        },
+        {
+          "id": "7.7.c",
+          "name": "表-名称位置",
+          "type": "text_generation",
+          "description": "表的名称及位置",
+          "replacement_pattern": "每个表应有表的名称，并置于编号之后。表的编号和名称应置于表的上方居中。",
+          "content": "每个表应有表的名称，并置于编号之后。表的编号和名称应置于表的上方居中。"
+        },
+        {
+          "id": "7.7.d",
+          "name": "表-宽度规则",
+          "type": "text_generation",
+          "description": "表格宽度规则",
+          "replacement_pattern": "当表格的宽度超过页面的1/2时，表格应与页面同宽。当表格的宽度不足页面的1/2时，表格应横向居中。",
+          "content": "当表格的宽度超过页面的1/2时，表格应与页面同宽。当表格的宽度不足页面的1/2时，表格应横向居中。"
+        },
+        {
+          "id": "7.7.e",
+          "name": "表-字体",
+          "type": "text_generation",
+          "description": "表格字体规定",
+          "replacement_pattern": "表格中应统一使用5号宋体字。",
+          "content": "表格中应统一使用5号宋体字。"
+        },
+        {
+          "id": "7.7.f",
+          "name": "表-注释",
+          "type": "text_generation",
+          "description": "表的注释位置",
+          "replacement_pattern": "表的注释应置于表中的最后一行，并使用通栏。",
+          "content": "表的注释应置于表中的最后一行，并使用通栏。"
+        },
+        {
+          "id": "7.8.a",
+          "name": "图-编号规则",
+          "type": "text_generation",
+          "description": "图的编号规则",
+          "replacement_pattern": "每个图均应有编号。图的编号由“图”和从1开始的阿拉伯数字组成。图的编号应一直连续到附录之前，并与章、条和表的编号无关。",
+          "content": "每个图均应有编号。图的编号由“图”和从1开始的阿拉伯数字组成。图的编号应一直连续到附录之前，并与章、条和表的编号无关。"
+        },
+        {
+          "id": "7.8.b",
+          "name": "图-名称位置",
+          "type": "text_generation",
+          "description": "图的编号和名称位置",
+          "replacement_pattern": "图的编号和名称应置于图的下方居中。",
+          "content": "图的编号和名称应置于图的下方居中。"
+        },
+        {
+          "id": "7.8.c",
+          "name": "图-字体",
+          "type": "text_generation",
+          "description": "图中字体规定",
+          "replacement_pattern": "图中应尽可能使用5号宋体字。并应保证字的清晰和完整。",
+          "content": "图中应尽可能使用5号宋体字。并应保证字的清晰和完整。"
+        },
+        {
+          "id": "7.8.d",
+          "name": "图-位置",
+          "type": "text_generation",
+          "description": "图在页面中的位置",
+          "replacement_pattern": "图应在页面中横向居中。",
+          "content": "图应在页面中横向居中。"
+        },
+        {
+          "id": "7.9.intro",
+          "name": "附录-设置规则",
+          "type": "text_generation",
+          "description": "附录设置与编号规则",
+          "replacement_pattern": "技术文件可以设置若干个附录，用附录A、附录B、附录C……表示，每个附录都应另起一页。附录的编号排列方法参考正文的编写方法，但要分别在编号前加“A”、“B”、“C”等。",
+          "content": "技术文件可以设置若干个附录，用附录A、附录B、附录C……表示，每个附录都应另起一页。附录的编号排列方法参考正文的编写方法，但要分别在编号前加“A”、“B”、“C”等。"
+        },
+        {
+          "id": "7.9.example",
+          "name": "附录-编号示例引导",
+          "type": "text_generation",
+          "description": "附录编号示例引导句",
+          "replacement_pattern": "例如，在附录A中编号如下：",
+          "content": "例如，在附录A中编号如下："
+        },
+        {
+          "id": "7.9.A1",
+          "name": "附录-编号示例1",
+          "type": "text_generation",
+          "description": "附录A中章编号示例",
+          "replacement_pattern": "A1  XXXX",
+          "content": "A1  XXXX"
+        },
+        {
+          "id": "7.9.A11",
+          "name": "附录-编号示例2",
+          "type": "text_generation",
+          "description": "附录A中条编号示例",
+          "replacement_pattern": "A1.1  XXXXXX",
+          "content": "A1.1  XXXXXX"
+        },
+        {
+          "id": "7.9.A111",
+          "name": "附录-编号示例3",
+          "type": "text_generation",
+          "description": "附录A中子条编号示例",
+          "replacement_pattern": "A1.1.1  XXXXXXXX",
+          "content": "A1.1.1  XXXXXXXX"
+        }
+      ]
+    }
+  }
+}

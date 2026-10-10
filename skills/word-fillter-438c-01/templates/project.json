@@ -1,0 +1,146 @@
+{
+  "template_info": {
+    "name": "GJB 438C 软件总体技术方案",
+    "file": "[01]软件总体技术方案-438C.doc",
+    "encoding": "gbk",
+    "sections": []
+  },
+  "structure": {
+    "1": {
+      "title": "范围",
+      "placeholders": [
+        {
+          "id": "1.1",
+          "name": "标识",
+          "type": "content_generation",
+          "description": "本条应描述本文档所适用的系统和软件的完整标识",
+          "replacement_pattern": "本条应描述本文档所适用的系统和软件的完整标识，适用时，包括其标识号、名称、缩略名、版本号和发布号。",
+          "generation_prompt": "你是一名军用软件总体方案文档编写专家。写作前阅读 references/writing-guide.md 的「1.1 标识」和 references/style-rules.md。要点：用一段话给出本文档适用系统和软件的完整标识，必含标识号、名称、缩略名、版本号、发布号五要素；标识号、版本号必须与 config.json 的 document.id、project.version 逐字一致，名称与 project.name 一致、缩略名与 project.short_name 一致。句式：「本文档适用于××（缩写），标识号为××，版本号为××，发布号为××」。内容必须基于素材收集阶段得到的项目画像（源码事实），禁止编造源码中不存在的内容。篇幅：50～100 字。排版机制：content 为单一段落，不换行。",
+          "content": "本文档适用于任务调度软件（XT），标识号为XT-OTP-V1.0，版本号为V1.0，发布号为Release 1。该软件是示例系统的组成部分，用于任务的规划、调度策略生成与执行控制。"
+        },
+        {
+          "id": "1.2",
+          "name": "系统概述",
+          "type": "content_generation",
+          "description": "按 a）～f）六个要点概述系统和软件",
+          "generation_prompt": "你是一名军用软件总体方案文档编写专家。写作前阅读 references/writing-guide.md 的「1.2 系统概述」和 references/style-rules.md。要点：六个子条对应模板 a）～f）六个要点——用途/使用对象/时机、大系统构成与软件位置、配置项与最终形态/研制状态、开发运行维护历史、当前和计划运行现场、投资方/需方/用户/开发方/保障机构；每个子条只写该要点的事实，一句到两句，概述层面不展开细节（细节属后续方案章节）。内容必须基于素材收集阶段得到的项目画像（源码事实），禁止编造源码中不存在的内容；无历史的写新建项目如实陈述，不得虚构沿革。篇幅：每个子条 40～90 字。排版机制（重要）：每个子条 content 必须是单行文本、禁止换行符——模板中 a）～f）是自动编号的列表段落，换行会被克隆成新列表项、破坏编号。",
+          "subsections": {
+            "1.2.1": {
+              "name": "用途、使用对象和时机",
+              "replacement_pattern": "本文档适用系统和软件的用途、使用对象和时机；",
+              "content": "任务调度软件用于示例系统的任务规划、调度策略生成与执行控制，使用对象为系统操作员和任务规划人员，使用时机为系统任务准备阶段和任务执行阶段；"
+            },
+            "1.2.2": {
+              "name": "大系统构成与软件位置",
+              "replacement_pattern": "若是在大系统下的软件应描述大系统整体构成情况以及该软件所处的位置，系统和软件的一般特性；",
+              "content": "任务调度软件是示例系统的组成部分；示例系统由任务调度软件、仿真模型软件和数据管理软件等组成，任务调度软件处于示例系统的应用软件层，承担任务规划与调度控制功能，系统和软件的一般特性为实时性、可靠性和可配置性；"
+            },
+            "1.2.3": {
+              "name": "配置项与研制状态",
+              "replacement_pattern": "软件的配置项及最终形态，软件的研制状态；",
+              "content": "任务调度软件按一个计算机软件配置项（CSCI）管理，最终形态为可执行程序、源代码及配套文档，目前处于工程研制阶段；"
+            },
+            "1.2.4": {
+              "name": "开发、运行和维护的历史",
+              "replacement_pattern": "软件开发、运行和维护的历史；",
+              "content": "本软件为新建研制项目，目前尚未形成软件开发、运行和维护历史，本条随研制进展补充；"
+            },
+            "1.2.5": {
+              "name": "当前和计划的运行现场",
+              "replacement_pattern": "表示当前和计划的运行现场；",
+              "content": "当前运行现场为研制单位内部的开发调试环境，计划的运行现场为示例系统联试现场和最终用户使用现场；"
+            },
+            "1.2.6": {
+              "name": "项目相关方",
+              "replacement_pattern": "本项目的投资方、需方、用户、开发方、保障机构。",
+              "content": "本项目的投资方和需方为示例系统项目建设方，用户为系统操作员和任务规划人员，开发方为承担软件研制任务的研制单位，保障机构由项目建设方指定。"
+            }
+          }
+        },
+        {
+          "id": "1.3",
+          "name": "文档概述",
+          "type": "content_generation",
+          "description": "模板中 1.3 节标题下无指导段落（无锚点），引擎不处理该节；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「1.3 文档概述」。"
+        }
+      ]
+    },
+    "2": {
+      "title": "引用文档",
+      "type": "content_generation",
+      "description": "用表格列出引用文档的编号、名称、版本、发布日期、来源；模板中本章无指导段落，章节引言无可锚定文本，直接在表格 rows 中填写。",
+      "tables": [
+        {
+          "table_id": "reference_documents",
+          "locator_rows": [
+            ["序号", "名称", "版本", "发布日期", "来源"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["number", "name", "version", "release_date", "source"],
+          "rows": [
+            {
+              "number": "1",
+              "name": "《示例系统研制总要求》",
+              "version": "V1.0",
+              "release_date": "2025-06-01",
+              "source": "示例系统项目建设方"
+            },
+            {
+              "number": "2",
+              "name": "《示例系统软件开发计划》",
+              "version": "V1.0",
+              "release_date": "2025-09-01",
+              "source": "软件开发组"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "title": "总体方案与结构",
+      "type": "content_generation",
+      "description": "模板中本章仅有 2.1～2.5 的章节标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 3 章 总体方案与结构」。"
+    },
+    "4": {
+      "title": "模型设计方案",
+      "type": "content_generation",
+      "description": "模板中本章仅有 3.1～3.5 的章节标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 4 章 模型设计方案」。"
+    },
+    "5": {
+      "title": "资源配置方案",
+      "type": "content_generation",
+      "description": "模板中本章仅有一级标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 5 章 资源配置方案」。"
+    },
+    "6": {
+      "title": "系统配置方案",
+      "type": "content_generation",
+      "description": "模板中本章仅有 5.1～5.3 的章节标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 6 章 系统配置方案」。"
+    },
+    "7": {
+      "title": "接口配置方案",
+      "type": "content_generation",
+      "description": "模板中本章仅有 6.1～6.2 的章节标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 7 章 接口配置方案」。"
+    },
+    "8": {
+      "title": "组织机构及人员配置",
+      "type": "content_generation",
+      "description": "模板中本章仅有 7.1～7.3 的章节标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 8 章 组织机构及人员配置」。"
+    },
+    "9": {
+      "title": "关键技术",
+      "type": "content_generation",
+      "description": "模板中本章仅有 8.1～8.3 的章节标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 9 章 关键技术」。"
+    },
+    "10": {
+      "title": "方案实施的技术路线和实施计划",
+      "type": "content_generation",
+      "description": "模板中本章仅有 9.1～9.2 的章节标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 10 章 方案实施的技术路线和实施计划」。"
+    },
+    "11": {
+      "title": "经费概算及规划",
+      "type": "content_generation",
+      "description": "模板中本章仅有 10.1～10.2 的章节标题、无指导段落（无锚点），引擎不处理；需人工在 Word 中补写。必写内容与常见缺陷见 references/writing-guide.md「第 11 章 经费概算及规划」。"
+    }
+  }
+}

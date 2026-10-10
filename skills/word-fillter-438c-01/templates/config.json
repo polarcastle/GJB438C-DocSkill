@@ -1,0 +1,76 @@
+{
+  "project": {
+    "name": {
+      "type": "original_text",
+      "replacement_pattern": "外部型号+产品名称（示例：SAMPLE-智能终端）",
+      "content": "任务调度软件"
+    },
+    "short_name": {
+      "type": "original_text",
+      "replacement_pattern": "项目简称（示例：SAMPLE）",
+      "content": "XT"
+    },
+    "version": {
+      "type": "original_text",
+      "replacement_pattern": "版本号（示例：V1.0）",
+      "content": "V1.0"
+    },
+    "company": {
+      "type": "original_text",
+      "replacement_pattern": "开发单位名称（示例：XXXXXXXX公司）",
+      "content": ""
+    },
+    "department": {
+      "type": "original_text",
+      "replacement_pattern": "部门名称（示例：软件研发部）",
+      "content": ""
+    }
+  },
+  "document": {
+    "id": {
+      "type": "original_text",
+      "replacement_pattern": "文档编号（示例：TN/SAMPLE-DO-DS-V1.0）",
+      "content": "XT-OTP-V1.0"
+    },
+    "title": {
+      "type": "original_text",
+      "replacement_pattern": "文档标题（示例：软件总体技术方案）",
+      "content": "Software Overall Technical Plan"
+    },
+    "classification": {
+      "type": "original_text",
+      "replacement_pattern": "密级（示例：内部）",
+      "content": "内部"
+    },
+    "phase": {
+      "type": "original_text",
+      "replacement_pattern": "阶段（示例：方案阶段）",
+      "content": "方案阶段"
+    },
+    "date": {
+      "type": "original_text",
+      "replacement_pattern": "日期（示例：YYYY-MM-DD）",
+      "content": "2026-01-01"
+    }
+  },
+  "content": {
+    "overview": {
+      "type": "background_information",
+      "replacement_pattern": "项目概述（示例：本项目用于……）",
+      "generation_prompt": "你是一名军用软件总体方案文档编写专家。写作前阅读 references/writing-guide.md 的「1.2 系统概述」和 references/style-rules.md。要点：用 1～2 句话概述系统的用途、类型和研制背景，只写事实，不罗列功能清单；表述必须与封面 project.name、project.version 保持一致。句式：「本项目是……的……软件」。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：50～100 字。",
+      "content": "本项目是示例系统的任务调度软件，用于任务的规划、调度策略生成与执行控制"
+    },
+    "scope": {
+      "type": "background_information",
+      "replacement_pattern": "项目范围（示例：包含A/B/C模块）",
+      "generation_prompt": "你是一名军用软件总体方案文档编写专家。写作前阅读 references/writing-guide.md 第 1 章。要点：用顿号分隔列举本文档覆盖的方案内容边界（总体结构、模型设计、资源配置、接口配置、组织机构、关键技术、实施计划、经费概算等），只写范围、不写细节，不得包含具体设计描述；与 project.json 各章划分呼应。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "总体方案与结构、模型设计方案、资源配置方案、系统配置方案、接口配置方案、组织机构及人员配置、关键技术、实施的技术路线和实施计划、经费概算及规划"
+    },
+    "features": {
+      "type": "background_information",
+      "replacement_pattern": "功能特性（示例：功能特性1、功能特性2、功能特性3）",
+      "generation_prompt": "你是一名军用软件总体方案文档编写专家。写作前阅读 references/writing-guide.md 的「总体方案与结构」小节。要点：列举 3～8 项系统功能特性，用名词性短语、顿号分隔，与总体结构章的能力划分呼应但不重复其细节。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "任务规划、调度策略生成、调度执行控制、资源冲突检测、调度结果评估、日志记录"
+    }
+  }
+}

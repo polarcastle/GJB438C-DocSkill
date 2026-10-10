@@ -63,6 +63,8 @@ description: "当用户提到「按照438C模板填写word文档」「需求文�
 
 config.json 包含 `project`、`document`、`content` 三部分，所有字段只修改 `content` 值。
 
+> **单位名称无默认值**：`project.company` 与 `project.department` 的 `content` 出厂为空，必须由用户明确提供后填写；禁止沿用任何示例单位名或编造。单位名称缺失时引擎会以"字段为空"报错，这是预期行为。
+
 | 字段位置 | type | 说明 | content 生成方式 |
 |----------|------|------|-----------------|
 | project.* | `original_text` | 项目基础信息（名称、版本、单位等） | 直接使用用户输入 |

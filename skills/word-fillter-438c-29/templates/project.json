@@ -1,0 +1,67 @@
+{
+  "template_info": {
+    "name": "GJB 438C 技术总结报告",
+    "file": "[29]技术总结报告-438C.doc",
+    "encoding": "gbk",
+    "sections": []
+  },
+  "structure": {
+    "change_record": {
+      "title": "文件更改记录表",
+      "type": "content_generation",
+      "description": "封面后的文件更改记录表，记录本文档的更改历史",
+      "tables": [
+        {
+          "table_id": "change_records",
+          "locator_rows": [
+            ["序号", "版本号", "页 次", "标 记", "处 数", "更改文件号", "更改者", "日 期"]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": ["number", "version", "page", "mark", "change_count", "change_doc_no", "author", "date"],
+          "rows": [
+            {
+              "number": "1",
+              "version": "V1.0",
+              "page": "全部",
+              "mark": "新编",
+              "change_count": "1",
+              "change_doc_no": "XT-JSZJ-V1.0",
+              "author": "项目组",
+              "date": "2026-01-01"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "title": "总体设计",
+      "placeholders": [
+        {
+          "id": "3.1.2.3",
+          "name": "XX技术指标占位标题",
+          "type": "original_text",
+          "description": "模板中的占位小节标题，应改为实际的技术指标名称",
+          "replacement_pattern": "3.1.2.3 XX技术指标",
+          "content": "3.1.2.3 可靠性技术指标"
+        },
+        {
+          "id": "3.2.3",
+          "name": "XX设计占位标题",
+          "type": "original_text",
+          "description": "模板中的占位小节标题，应改为实际的设计内容名称",
+          "replacement_pattern": "3.2.3  XX设计",
+          "content": "3.2.3  可靠性设计"
+        },
+        {
+          "id": "3.2.X",
+          "name": "行为设计占位标题",
+          "type": "original_text",
+          "description": "模板中的 X 编号原型小节标题，应改为实际的连续编号和名称",
+          "replacement_pattern": "3.2.X 行为设计",
+          "content": "3.2.4 行为设计"
+        }
+      ]
+    }
+  }
+}

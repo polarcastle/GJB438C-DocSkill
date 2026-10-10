@@ -1,0 +1,76 @@
+{
+  "project": {
+    "name": {
+      "type": "original_text",
+      "replacement_pattern": "外部型号+产品名称（示例：SAMPLE-智能终端）",
+      "content": "任务调度系统"
+    },
+    "short_name": {
+      "type": "original_text",
+      "replacement_pattern": "项目简称（示例：SAMPLE）",
+      "content": "XT"
+    },
+    "version": {
+      "type": "original_text",
+      "replacement_pattern": "版本号（示例：V1.0）",
+      "content": "V1.0"
+    },
+    "company": {
+      "type": "original_text",
+      "replacement_pattern": "开发单位名称（示例：XXXXXXXX公司）",
+      "content": ""
+    },
+    "department": {
+      "type": "original_text",
+      "replacement_pattern": "部门名称（示例：软件研发部）",
+      "content": ""
+    }
+  },
+  "document": {
+    "id": {
+      "type": "original_text",
+      "replacement_pattern": "文档编号（示例：TN/SAMPLE-DO-DS-V1.0）",
+      "content": "XT-STC-V1.0"
+    },
+    "title": {
+      "type": "original_text",
+      "replacement_pattern": "文档标题（示例：软件测评大纲）",
+      "content": "软件测评大纲"
+    },
+    "classification": {
+      "type": "original_text",
+      "replacement_pattern": "密级（示例：内部）",
+      "content": "内部"
+    },
+    "phase": {
+      "type": "original_text",
+      "replacement_pattern": "阶段（示例：测评阶段）",
+      "content": "测评阶段"
+    },
+    "date": {
+      "type": "original_text",
+      "replacement_pattern": "日期（示例：YYYY-MM-DD）",
+      "content": "2026-01-01"
+    }
+  },
+  "content": {
+    "overview": {
+      "type": "background_information",
+      "replacement_pattern": "被测软件概述（示例：本大纲的被测软件用于……）",
+      "generation_prompt": "你是一名军用软件测评文档编写专家。写作前阅读 references/writing-guide.md 的「1.2 被测软件概述」和 references/style-rules.md。要点：用 1～2 句话概述被测软件的用途、类型和使命场景，只写事实，不罗列功能清单；表述必须与封面 project.name、project.version 保持一致。句式：「本大纲的被测软件是……的……软件」。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：50～100 字。",
+      "content": "本大纲的被测软件是任务调度系统（XT）V1.0，该软件为嵌入式任务调度管理软件，负责任务的创建、调度、同步与通信，支撑上层应用软件按优先级和时间约束有序运行。"
+    },
+    "scope": {
+      "type": "background_information",
+      "replacement_pattern": "测评范围（示例：文档审查、功能测试、性能测试……）",
+      "generation_prompt": "你是一名军用软件测评文档编写专家。写作前阅读 references/writing-guide.md 第 2 章和第 4 章。要点：用顿号分隔列举本次测评覆盖的内容类别（如文档审查、功能测试、性能测试、接口测试等），只写范围、不写细节，与 project.json 第 4 章的测试定义各小节呼应。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "文档审查、功能测试、性能测试、接口测试、安全性测试、代码审查、配置管理审核、质量保证审核"
+    },
+    "features": {
+      "type": "background_information",
+      "replacement_pattern": "测试特性（示例：功能测试特性1、功能测试特性2、功能测试特性3）",
+      "generation_prompt": "你是一名军用软件测评文档编写专家。写作前阅读 references/writing-guide.md 的「4.3 测试定义」。要点：列举 3～8 项拟开展的测试特性或测试类别，用名词性短语、顿号分隔，与第 4 章测试定义小节呼应但不重复其细节。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "文档审查、功能测试、性能测试、接口测试、任务调度正确性测试、异常处理测试、性能计时测试"
+    }
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "template_info": {
+    "name": "GJB 438C 软件测试记录",
+    "file": "[17]软件测试记录-438C.doc",
+    "encoding": "gbk",
+    "sections": []
+  },
+  "structure": {
+    "0": {
+      "title": "文件更改记录表",
+      "description": "封面之后的文档更改控制表，无章节号",
+      "tables": [
+        {
+          "table_id": "change_log",
+          "locator_rows": [
+            [
+              "序号",
+              "版本号",
+              "页 次",
+              "标 记",
+              "处 数",
+              "更改文件号",
+              "更改者",
+              "日 期"
+            ]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": [
+            "number",
+            "version",
+            "page",
+            "mark",
+            "change_count",
+            "change_doc_number",
+            "changer",
+            "change_date"
+          ],
+          "rows": [
+            {
+              "number": "1",
+              "version": "V1.0",
+              "page": "全部",
+              "mark": "—",
+              "change_count": "1",
+              "change_doc_number": "—",
+              "changer": "项目组",
+              "change_date": "2026-01-01"
+            }
+          ]
+        }
+      ]
+    },
+    "1": {
+      "title": "范围",
+      "placeholders": [
+        {
+          "id": "1.1",
+          "name": "标识",
+          "type": "content_generation",
+          "description": "本条应描述本文档所适用的系统和软件的完整标识",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「1.1 标识」和 references/style-rules.md。要点：用 1 段话总述本文档所适用的系统与软件标识，必须包含：系统名称、软件名称、软件缩写、文档标识号、版本号、发布号，与 config.json 的 project.name/short_name/version、document.id 完全一致。句式：「本文档适用于示例系统的任务调度软件（缩写XT），文档标识号为XT-STR-V1.0，版本号为V1.0，发布号为Release 1。」只写事实，标识号之后的 a）～e）明细行由引擎按 config.json 精确替换生成，不得在本条重复罗列。内容必须基于素材收集阶段得到的项目画像（源码事实），禁止编造源码中不存在的内容。篇幅：50～100 字。",
+          "content": "本文档适用于示例系统的任务调度软件（缩写XT），文档标识号为XT-STR-V1.0，版本号为V1.0，发布号为Release 1。本文档记录该软件配置项测试与系统测试的测试过程和测试结果。",
+          "replacement_pattern": "本条应描述本文档所适用的系统和软件的完整标识，适用时，包括其标识号、名称、缩略名、版本号和发布号。"
+        }
+      ]
+    },
+    "1.2": {
+      "title": "被测软件概述",
+      "description": "模板中本节标题下没有任何指导文字段落，引擎没有可锚定的占位文字；如需填写被测软件概述，请在生成后于 Word 中手工补充，或并入 1.1 标识条。"
+    },
+    "2": {
+      "title": "引用文件",
+      "description": "本章无指导文字段落，直接为引用文件表格；表题「表2-X引用文件」由引擎自动编号为表2-1",
+      "tables": [
+        {
+          "table_id": "reference_documents",
+          "locator_rows": [
+            [
+              "序号",
+              "名称",
+              "版本",
+              "发布日期",
+              "来源"
+            ]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": [
+            "number",
+            "name",
+            "version",
+            "release_date",
+            "source"
+          ],
+          "rows": [
+            {
+              "number": "1",
+              "name": "《GJB 438C-2021 军用软件开发文档通用要求》",
+              "version": "2021版",
+              "release_date": "2021-03-01",
+              "source": "装备发展部"
+            },
+            {
+              "number": "2",
+              "name": "《XT-任务调度软件-软件需求规格说明》",
+              "version": "V1.0",
+              "release_date": "2026-01-01",
+              "source": "项目组"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "title": "测评环境说明",
+      "description": "3.1 软硬件环境下辖（1）软件环境、（2）硬件环境、（3）环境差异分析三个小节，各小节引导语为模板固定文字，内容由三张表格承载",
+      "tables": [
+        {
+          "table_id": "software_environment",
+          "locator_rows": [
+            [
+              "序号",
+              "软件名称",
+              "版本号",
+              "用途",
+              "来源",
+              "密级"
+            ]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": [
+            "number",
+            "name",
+            "version",
+            "purpose",
+            "source",
+            "classification"
+          ],
+          "rows": [
+            {
+              "number": "1",
+              "name": "Windows 10 专业版",
+              "version": "22H2",
+              "purpose": "配置项测试宿主机操作系统",
+              "source": "外购",
+              "classification": "无"
+            },
+            {
+              "number": "2",
+              "name": "XT-测试桩软件",
+              "version": "V1.0",
+              "purpose": "模拟被测软件外部依赖，支撑接口测试",
+              "source": "自研",
+              "classification": "内部"
+            }
+          ]
+        },
+        {
+          "table_id": "hardware_environment",
+          "locator_rows": [
+            [
+              "序号",
+              "硬件名称",
+              "型  号",
+              "配  置",
+              "用途",
+              "来源",
+              "密级"
+            ]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": [
+            "number",
+            "name",
+            "model",
+            "configuration",
+            "purpose",
+            "source",
+            "classification"
+          ],
+          "rows": [
+            {
+              "number": "1",
+              "name": "测试服务器",
+              "model": "XT-S2000",
+              "configuration": "8核CPU/16GB内存/1TB硬盘",
+              "purpose": "配置项测试宿主环境",
+              "source": "外购",
+              "classification": "无"
+            },
+            {
+              "number": "2",
+              "name": "测评工作站",
+              "model": "XT-W1000",
+              "configuration": "4核CPU/8GB内存/512GB硬盘",
+              "purpose": "测试用例执行与记录",
+              "source": "外购",
+              "classification": "无"
+            }
+          ]
+        },
+        {
+          "table_id": "environment_difference",
+          "locator_rows": [
+            [
+              "测试环境",
+              "软件使用环境",
+              "差异影响"
+            ]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 0,
+          "columns": [
+            "test_environment",
+            "use_environment",
+            "difference_impact"
+          ],
+          "rows": [
+            {
+              "test_environment": "测评实验室环境",
+              "use_environment": "软件实际使用环境",
+              "difference_impact": "测评环境与使用环境的软硬件配置及软件版本一致，无差异影响。"
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "title": "测试记录",
+      "description": "4.1 配置项测试记录、4.2 系统测试记录；测试记录表（文档齐套审查、功能测试）为合并单元格表格，引擎不支持填充，保留模板原样，由测试执行时手工填写",
+      "placeholders": [
+        {
+          "id": "4.1.1",
+          "name": "文档审查测试记录标题",
+          "type": "content_generation",
+          "description": "4.1.1 节标题，原型为「XXX文档审查测试/XXX标识」",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「4.1 配置项测试记录」。要点：本条替换 4.1.1 节标题，格式为「测试类型/测试用例标识」，测试类型写实际的文档审查类测试名称（如文档齐套审查测试、代码审查测试），标识用项目唯一的测试用例标识（如STR-DR-001），与测试说明中的用例标识一致；内容只占一行，不写正文。内容必须基于素材收集阶段得到的测试文档事实，禁止编造不存在的测试项。篇幅：一行。",
+          "content": "文档齐套审查测试/STR-DR-001",
+          "replacement_pattern": "XXX文档审查测试/XXX标识"
+        },
+        {
+          "id": "4.1.2",
+          "name": "功能测试记录标题",
+          "type": "content_generation",
+          "description": "4.1.2 节标题，原型为「XXXX功能测试/XXX标识」",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「4.1 配置项测试记录」。要点：本条替换 4.1.2 节标题，格式为「测试类型/测试用例标识」，功能测试按被测功能或测试用例命名（如功能测试/STR-FT-001、任务调度功能测试/STR-FT-002），标识用项目唯一的测试用例标识，与测试说明中的用例标识一致；内容只占一行，不写正文。内容必须基于素材收集阶段得到的测试文档事实，禁止编造不存在的测试项。篇幅：一行。",
+          "content": "功能测试/STR-FT-001",
+          "replacement_pattern": "XXXX功能测试/XXX标识"
+        },
+        {
+          "id": "4.1.3",
+          "name": "功能测试记录表标题（4.1.X 重复原型行）",
+          "type": "content_generation",
+          "description": "原型行「4.1.X表4-X XXX功能测试记录」，表示后续每一轮功能测试记录重复本格式；本条 content 写该轮功能测试的记录表表题，「表4-X」由引擎自动编号（表4-3、表4-4……），XXX 处填软件简称",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「4.1 配置项测试记录」。要点：本条替换模板中的 4.1.X 重复原型行，content 写为一行表题「表4-X 软件简称功能测试记录」，其中「表4-X」必须原样保留（引擎据此自动编号），软件简称与 config.json project.short_name 一致；对应记录表为模板中紧接其后的空白记录表，由测试执行时手工填写。内容必须基于素材收集阶段得到的测试文档事实，禁止编造不存在的测试项。篇幅：一行。",
+          "content": "表4-X XT功能测试记录",
+          "replacement_pattern": "4.1.X表4-X XXX功能测试记录"
+        },
+        {
+          "id": "4.1.2.1",
+          "name": "功能测试记录表表题",
+          "type": "content_generation",
+          "description": "4.1.2 节内第一张功能测试记录表的表题「表4-X XXX功能测试记录」；本条在 placeholders 数组中必须排在 4.1.3 之后（4.1.3 先替换原型行后，本条锚点才能唯一命中）；「表4-X」由引擎自动编号为表4-2",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「4.1 配置项测试记录」。要点：本条替换 4.1.2 节第一张功能测试记录表的表题，content 写为一行「表4-X 软件简称功能测试记录」，其中「表4-X」必须原样保留（引擎据此自动编号），软件简称与 config.json project.short_name 一致。内容必须基于素材收集阶段得到的测试文档事实，禁止编造不存在的测试项。篇幅：一行。",
+          "content": "表4-X XT功能测试记录",
+          "replacement_pattern": "表4-X XXX功能测试记录"
+        },
+        {
+          "id": "4.1.4",
+          "name": "性能测试指标要求",
+          "type": "content_generation",
+          "description": "性能测试记录引导句「指标要求：XXX，测试结果记录如下：」",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「4.1 配置项测试记录」和 references/style-rules.md。要点：本条写明性能测试的量化指标要求，必须给出数值＋单位（响应时间ms/s、吞吐率个/s、容量条、连续运行时间h），多项指标用逗号分隔，句尾保留「测试结果记录如下：」，其后表格填实测结果并与指标一一对应；指标必须引自软件需求规格说明或测试说明，无依据时标注待与用户确认，禁止编造数值。内容必须基于素材收集阶段得到的测试文档事实。篇幅：50～150 字。",
+          "content": "指标要求：任务调度平均响应时间不大于200ms，任务吞吐率不小于500个/s，连续运行72h无故障；测试结果记录如下：",
+          "replacement_pattern": "指标要求：XXX，测试结果记录如下："
+        },
+        {
+          "id": "4.1.5",
+          "name": "其它测试记录标题",
+          "type": "content_generation",
+          "description": "4.1.Y 节标题原型「4.1.Y XX测试记录」，表示除文档审查、功能、性能之外需要单独格式记载的测试",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「4.1 配置项测试记录」。要点：本条替换 4.1.Y 原型标题；无其它单独格式记载的测试时写「其它测试记录」，有则按测试类型命名（如安全性测试记录/STR-OT-001）。内容必须基于素材收集阶段得到的测试文档事实，禁止编造不存在的测试项。篇幅：一行。",
+          "content": "其它测试记录",
+          "replacement_pattern": "4.1.Y XX测试记录"
+        },
+        {
+          "id": "4.1.6",
+          "name": "其它测试记录说明",
+          "type": "content_generation",
+          "description": "4.1.Y 节正文「其它需要单独格式记载的测试记录。」",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「4.1 配置项测试记录」和 references/style-rules.md 的如实陈述原则。要点：有其它单独格式记载的测试时，逐条陈述测试名称、标识与记录位置；没有时如实写「本软件无其它需要单独格式记载的测试记录。」，不得编造。内容必须基于素材收集阶段得到的测试文档事实。篇幅：30～100 字。",
+          "content": "本软件无其它需要单独格式记载的测试记录。",
+          "replacement_pattern": "其它需要单独格式记载的测试记录。"
+        },
+        {
+          "id": "4.2",
+          "name": "系统测试记录说明",
+          "type": "content_generation",
+          "description": "4.2 系统测试记录正文；模板中 3 个相同的原型标题「XXX测试/XXX标识」由引擎统一置空，测试项信息在本条正文中汇总陈述",
+          "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「4.2 系统测试记录」和 references/style-rules.md。要点：本条替换模板 4.2 节末尾的引导说明句，内容汇总陈述系统测试的展开方式与测试项清单：按测试类型依次展开、记录格式同配置项测试；列出实际执行的系统测试项（测试类型＋测试用例标识，如功能测试（STR-ST-001）、性能测试（STR-ST-002）），并说明各测试项记录表与配置项测试记录格式一致；无系统测试时如实陈述。内容必须基于素材收集阶段得到的测试文档事实，禁止编造不存在的测试项；测试用例标识与测试说明保持一致。篇幅：80～200 字。",
+          "content": "系统测试记录按测试类型依次展开，记录格式同配置项测试记录。本次系统测试共执行3个测试项：功能测试（STR-ST-001）、性能测试（STR-ST-002）和安全性测试（STR-ST-003），各测试项的记录表格式与配置项测试记录相同，测试过程与结果在相应记录表中记载。",
+          "replacement_pattern": "以不同测试类型依次展开系统测试的记录信息"
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "performance_test_record",
+          "locator_rows": [
+            [
+              "测试\n次数",
+              "性能测试内容或者条件",
+              "测试结果"
+            ]
+          ],
+          "data_start_row": 1,
+          "preserve_tail_rows": 1,
+          "columns": [
+            "test_round",
+            "test_content_condition",
+            "test_result"
+          ],
+          "rows": [
+            {
+              "test_round": "1",
+              "test_content_condition": "满载任务调度，连续运行24h",
+              "test_result": "平均响应时间158ms，满足不大于200ms的指标要求"
+            },
+            {
+              "test_round": "2",
+              "test_content_condition": "峰值任务注入，并发任务100个",
+              "test_result": "平均响应时间186ms，任务无丢失，满足指标要求"
+            },
+            {
+              "test_round": "3",
+              "test_content_condition": "连续运行72h稳定性测试",
+              "test_result": "运行无故障，响应时间无劣化，满足指标要求"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -8,8 +8,9 @@ from types import SimpleNamespace
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILL_DIRS = {
-    "08": REPO_ROOT / "skills" / "word-fillter-438c-08",
-    "10": REPO_ROOT / "skills" / "word-fillter-438c-10",
+    path.name.removeprefix("word-fillter-438c-"): path
+    for path in sorted((REPO_ROOT / "skills").glob("word-fillter-438c-*"))
+    if (path / "scripts" / "strict_word_filler").is_dir() and (path / "templates").is_dir()
 }
 SKILL_IDS = tuple(SKILL_DIRS)
 

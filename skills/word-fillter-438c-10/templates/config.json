@@ -18,12 +18,12 @@
     "company": {
       "type": "original_text",
       "replacement_pattern": "开发单位名称（示例：XXXXXXXXXX）",
-      "content": "测试大学"
+      "content": ""
     },
     "department": {
       "type": "original_text",
       "replacement_pattern": "部门名称（示例：软件研发部）",
-      "content": "测试学院"
+      "content": ""
     }
   },
   "document": {

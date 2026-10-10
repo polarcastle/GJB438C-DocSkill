@@ -1,0 +1,76 @@
+{
+  "project": {
+    "name": {
+      "type": "original_text",
+      "replacement_pattern": "外部型号+产品名称（示例：XT-任务调度软件）",
+      "content": "XT-任务调度软件"
+    },
+    "short_name": {
+      "type": "original_text",
+      "replacement_pattern": "项目简称（示例：XT）",
+      "content": "XT"
+    },
+    "version": {
+      "type": "original_text",
+      "replacement_pattern": "版本号（示例：V1.0）",
+      "content": "V1.0"
+    },
+    "company": {
+      "type": "original_text",
+      "replacement_pattern": "开发单位名称（示例：XXXXXXXXX）",
+      "content": ""
+    },
+    "department": {
+      "type": "original_text",
+      "replacement_pattern": "部门名称（示例：软件研发部）",
+      "content": ""
+    }
+  },
+  "document": {
+    "id": {
+      "type": "original_text",
+      "replacement_pattern": "文档编号（示例：XT-RMS-V1.0）",
+      "content": "XT-RMS-V1.0"
+    },
+    "title": {
+      "type": "original_text",
+      "replacement_pattern": "文档标题（示例：软件可靠性和可维护性设计方案）",
+      "content": "软件可靠性和可维护性设计方案"
+    },
+    "classification": {
+      "type": "original_text",
+      "replacement_pattern": "密级（示例：内部）",
+      "content": "内部"
+    },
+    "phase": {
+      "type": "original_text",
+      "replacement_pattern": "阶段（示例：设计阶段）",
+      "content": "设计阶段"
+    },
+    "date": {
+      "type": "original_text",
+      "replacement_pattern": "日期（示例：YYYY-MM-DD）",
+      "content": "2026-01-01"
+    }
+  },
+  "content": {
+    "overview": {
+      "type": "background_information",
+      "replacement_pattern": "项目概述（示例：本项目用于……）",
+      "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的「第 1 章 范围」和 references/style-rules.md。要点：用 1～2 句话概述软件用途、类型和使命场景，说明本文档（软件可靠性和可维护性设计方案）在其生存周期中的位置，只写事实，不罗列设计措施清单（措施属第 3、4 章）；表述必须与封面 project.name、project.version 保持一致。句式：「本项目是……的……软件」。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：50～100 字。",
+      "content": "本项目是示例系统的任务调度软件，负责任务调度、资源监控、日志记录与故障告警，本文档给出该软件的可靠性和可维护性设计方案"
+    },
+    "scope": {
+      "type": "background_information",
+      "replacement_pattern": "项目范围（示例：包含A/B/C模块）",
+      "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 第 1 章。要点：用顿号分隔列举本文档覆盖的设计范围（软件可靠性设计各条、软件可维护性设计各条），只写范围边界、不写具体策略细节，与 project.json 第 3、4 章的条目划分呼应。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "结构复杂度控制、冗余设计、健壮性设计、避错设计、容错设计、错误恢复设计、程序简化设计、余量设计、开发过程维护性活动、维护策略与维护过程"
+    },
+    "features": {
+      "type": "background_information",
+      "replacement_pattern": "功能特性（示例：功能特性1、功能特性2、功能特性3）",
+      "generation_prompt": "你是一名军用软件文档编写专家。写作前阅读 references/writing-guide.md 的第 3、4 章。要点：列举 3～8 项软件功能特性，用名词性短语、顿号分隔，作为可靠性设计（第 3 章）与可维护性设计（第 4 章）策略的作用对象，但不重复其细节。内容必须基于素材收集阶段得到的项目画像（源码事实），与源代码的模块划分和实际功能保持一致，禁止编造源码中不存在的内容。篇幅：30～80 字。",
+      "content": "任务调度、资源监控、日志记录、故障告警、配置管理"
+    }
+  }
+}

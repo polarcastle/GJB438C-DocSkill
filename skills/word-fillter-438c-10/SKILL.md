@@ -61,6 +61,8 @@ description: "当用户提到「438C 软件概要设计说明」「[10] 软件�
 
 所有字段只修改 `content` 值，结构与 [08] Skill 完全一致，包含 `project`、`document`、`content` 三部分。
 
+> **单位名称无默认值**：`project.company` 与 `project.department` 的 `content` 出厂为空，必须由用户明确提供后填写；禁止沿用任何示例单位名或编造。单位名称缺失时引擎会以"字段为空"报错，这是预期行为。
+
 ## project.json
 
 ### 通用规则
