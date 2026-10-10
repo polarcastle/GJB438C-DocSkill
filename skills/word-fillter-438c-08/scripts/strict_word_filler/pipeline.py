@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 from docx import Document
 
 from .docx_ops import apply_plan
+from .errors import StrictDataError, StrictTemplateError
 from .loader import build_plan, load_json
 
 
@@ -27,12 +29,19 @@ def main(argv: list[str] | None = None) -> int:
     project_path = Path(args.project).resolve()
     output_path = Path(args.output).resolve()
 
-    config_data = load_json(config_path)
-    project_data = load_json(project_path)
-    plan = build_plan(config_data, project_data)
+    try:
+        config_data = load_json(config_path)
+        project_data = load_json(project_path)
+        plan = build_plan(config_data, project_data)
 
-    doc = Document(str(template_path))
-    apply_plan(doc, plan)
+        doc = Document(str(template_path))
+        apply_plan(doc, plan)
+    except StrictDataError as exc:
+        print(f"数据校验失败: {exc}", file=sys.stderr)
+        return 1
+    except StrictTemplateError as exc:
+        print(f"模板校验失败: {exc}", file=sys.stderr)
+        return 1
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     doc.save(str(output_path))

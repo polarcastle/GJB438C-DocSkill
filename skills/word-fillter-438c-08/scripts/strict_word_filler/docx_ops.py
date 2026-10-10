@@ -143,7 +143,7 @@ def _clone_after(anchor: Paragraph, prototype: Paragraph) -> Paragraph:
 
 
 def _heading_separator(prototype_heading_text: str) -> str:
-    if prototype_heading_text.startswith("3.") and len(prototype_heading_text) > 0:
+    if len(prototype_heading_text) > 0:
         stripped = prototype_heading_text.lstrip("0123456789.X")
         if stripped.startswith(" "):
             return " "
@@ -163,6 +163,10 @@ def _is_heading1(paragraph: Paragraph) -> bool:
 
 def _row_texts(row: _Row) -> tuple[str, ...]:
     return tuple(cell.text.strip() for cell in row.cells)
+
+
+def _actual_row_cells(table: Table, row: _Row) -> list[_Cell]:
+    return [_Cell(tc, table) for tc in row._tr.tc_lst]
 
 
 def _find_table_by_locator(doc: DocumentObject, locator_rows: tuple[tuple[str, ...], ...], key: str) -> Table:
@@ -227,10 +231,18 @@ def apply_table_fill(doc: DocumentObject, rule: TableFillRule) -> None:
 
     for row_offset, row_values in enumerate(rule.rows):
         target_row = table.rows[rule.data_start_row + row_offset]
-        if len(target_row.cells) != expected_columns:
+        target_cells = _actual_row_cells(table, target_row)
+        if len(target_cells) != expected_columns:
             raise StrictTemplateError(f"{rule.key} 的目标行列数异常")
         for cell_index, value in enumerate(row_values):
-            _set_cell_text(target_row.cells[cell_index], value)
+            _set_cell_text(target_cells[cell_index], value)
+
+    total_data_rows = len(table.rows) - rule.data_start_row - rule.preserve_tail_rows
+    for row_offset in range(len(rule.rows), total_data_rows):
+        target_row = table.rows[rule.data_start_row + row_offset]
+        for cell in _actual_row_cells(table, target_row):
+            paragraph = _prepare_cell(cell)
+            set_paragraph_text(paragraph, "")
 
 
 def apply_caption_numbering(doc: DocumentObject) -> None:
