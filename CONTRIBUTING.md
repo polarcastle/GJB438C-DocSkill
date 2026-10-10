@@ -111,7 +111,7 @@ skills/
 
 ```bash
 # 克隆仓库
-git clone https://github.com/CMoments/GJB438C-DocSkill.git
+git clone https://github.com/polarcastle/GJB438C-DocSkill.git
 
 # 安装 Python 依赖
 pip install python-docx>=1.1.0

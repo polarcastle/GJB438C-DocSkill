@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://cmoments.github.io/GJB438C-DocSkill/
+url: https://polarcastle.github.io/GJB438C-DocSkill/
 root: /GJB438C-DocSkill/
 color_scheme: light
 permalink: :year/:month/:day/:title/
@@ -104,7 +104,7 @@ theme: cactus
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/CMoments/GJB438C-DocSkill.git
+  repo: https://github.com/polarcastle/GJB438C-DocSkill.git
  # https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
   branch: main  
   # message: [message]

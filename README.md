@@ -14,6 +14,8 @@
 
 </div>
 
+> 📌 本项目 fork 自 [potato-vita/GJB438C-DocSkill](https://github.com/potato-vita/GJB438C-DocSkill)，在其基础上进行了「素材驱动 + 写作知识库」改造，改造内容详见 [建设方案.md](建设方案.md)。
+
 ## 目录
 
 - [功能特性](#-功能特性)
