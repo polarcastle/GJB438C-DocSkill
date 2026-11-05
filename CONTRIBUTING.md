@@ -15,7 +15,7 @@
 
 ### 新增 438C 模板 Skill
 
-仓库 `GJB438C全套模版/` 包含全部 31 类模板，目前仅实现了 [08] 和 [10]。为其他模板编写 Skill 是最重要的贡献方式。
+仓库 `GJB438C全套模版/` 包含全部 31 类模板，目前 31 个 Skill 均已建立（其中 [01]、[17]、[23]、[29] 为部分支持，详见 `TODO.md`）。改进这些部分支持模板是最重要的贡献方向之一。
 
 #### 目录结构
 
@@ -31,10 +31,12 @@ skills/
     │   ├── config.json            # 封面与标识字段
     │   └── project.json           # 章节结构、锚点、表格定义
     └── scripts/                   # Python 填写脚本
-        ├── main.py                # 命令行入口
+        ├── main.py                # 命令行入口（加载仓库根 shared/ 引擎）
         ├── process.py             # 免参数入口
-        ├── requirements.txt
-        └── strict_word_filler/    # 填写引擎（可复用现有实现）
+        ├── rules.py               # 本模板专属规则（封面/标识行锚点、动态章节等）
+        └── requirements.txt
+
+shared/strict_word_filler/         # 仓库根：31 类模板共用的填写引擎
 ```
 
 #### 编写步骤
@@ -79,7 +81,7 @@ skills/
 
 6. **编写脚本**
 
-   可复用 `strict_word_filler/` 填写引擎，只需调整 `main.py` 和 `process.py` 中的路径。
+   复用仓库根 `shared/strict_word_filler/` 共享引擎：`main.py` 与 `process.py` 已通过相对路径加载它，新 Skill 只需从现有 Skill 复制这两个文件，并在 `scripts/rules.py` 中填写本模板的 `COVER`、`IDENTITY`、`PATTERN_OVERRIDES`、`INSERTION_PARENT_RULES` 等规则（格式参见任一现有 `rules.py`）。
 
 7. **测试**
 
@@ -159,4 +161,4 @@ docs: 补充动态章节的使用说明
 
 ## 许可
 
-提交贡献即表示你同意将代码以 MIT 许可证发布。
+提交贡献即表示你同意将代码以木兰宽松许可证第 2 版（Mulan PSL v2）发布，详见 [LICENSE](LICENSE)。

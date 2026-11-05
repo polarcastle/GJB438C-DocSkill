@@ -140,7 +140,7 @@ Claude 会依次引导你完成素材收集、封面信息、章节内容的填�
 
 ## 📋 模板覆盖与完成情况
 
-GJB 438C 标准共 31 类文档，**全部建有独立 Skill 并通过端到端生成验证**（`pytest` 873 项用例全绿，每个 Skill 均用真实模板跑通「JSON 填写 → 引擎生成 .docx → 锚点消除校验」全流程）。
+GJB 438C 标准共 31 类文档，**全部建有独立 Skill 并通过端到端生成验证**（`pytest` 1000 项用例全绿，每个 Skill 均用真实模板跑通「JSON 填写 → 引擎生成 .docx → 锚点消除校验」全流程）。
 
 完成情况分为两级：
 
@@ -206,10 +206,11 @@ GJB438C-DocSkill/
 │   │   │   ├── terminology.md   #   军用软件术语表
 │   │   │   └── style-rules.md   #   句式与表达规范
 │   │   └── scripts/             # Python 填写引擎
-│   │       ├── main.py          # CLI 入口
+│   │       ├── main.py          # CLI 入口（加载 shared/ 共享引擎）
 │   │       ├── process.py       # 免参数入口
-│   │       └── strict_word_filler/  # 核心引擎
+│   │       └── rules.py         # 本模板专属规则（封面/标识行锚点等）
 │   └── word-fillter-438c-31/    # [31] 软件配置管理报告
+├── shared/strict_word_filler/   # 共享填写引擎（31 类模板共用）
 ├── demo/                        # 示例输出文档
 └── GJB438C全套模版/             # GJB 438C 标准全部模板
 ```

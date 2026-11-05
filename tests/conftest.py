@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -10,27 +11,29 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILL_DIRS = {
     path.name.removeprefix("word-fillter-438c-"): path
     for path in sorted((REPO_ROOT / "skills").glob("word-fillter-438c-*"))
-    if (path / "scripts" / "strict_word_filler").is_dir() and (path / "templates").is_dir()
+    if (path / "scripts" / "rules.py").is_file() and (path / "templates").is_dir()
 }
 SKILL_IDS = tuple(SKILL_DIRS)
 
-_ENGINE_MODULES = ("docx_ops", "errors", "loader", "models", "pipeline", "template_rules")
+SHARED_DIR = REPO_ROOT / "shared"
+_ENGINE_MODULES = ("docx_ops", "errors", "loader", "models", "pipeline")
 
 
 def load_engine(skill_id: str) -> SimpleNamespace:
-    """Import one skill's strict_word_filler package in isolation.
+    """加载仓库根 shared/ 的共享引擎，并导入该 Skill 的 rules.py。
 
-    Both skills ship a package named ``strict_word_filler``; purge any
-    previously imported copy so the two never mix in one pytest process.
+    返回的命名空间包含各引擎模块，以及 ``rules``（该 Skill 的模板专属规则）。
+    规则模块以唯一名称加载，避免不同 Skill 的 rules 在同一进程内互相覆盖。
     """
-    scripts_dir = SKILL_DIRS[skill_id] / "scripts"
-    for name in [n for n in sys.modules if n == "strict_word_filler" or n.startswith("strict_word_filler.")]:
-        del sys.modules[name]
-    sys.path.insert(0, str(scripts_dir))
-    try:
-        modules = {name: importlib.import_module(f"strict_word_filler.{name}") for name in _ENGINE_MODULES}
-    finally:
-        sys.path.remove(str(scripts_dir))
+    if str(SHARED_DIR) not in sys.path:
+        sys.path.insert(0, str(SHARED_DIR))
+    modules = {name: importlib.import_module(f"strict_word_filler.{name}") for name in _ENGINE_MODULES}
+    spec = importlib.util.spec_from_file_location(
+        f"rules_{skill_id}", SKILL_DIRS[skill_id] / "scripts" / "rules.py"
+    )
+    rules = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(rules)
+    modules["rules"] = rules
     return SimpleNamespace(**modules)
 
 

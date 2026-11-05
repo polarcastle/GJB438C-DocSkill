@@ -1,5 +1,5 @@
 ---
-name: word-fillter-438C-07
+name: word-fillter-438c-07
 description: "当用户提到「438C 安全性大纲」「[07] 安全性大纲」「软件安全性大纲」「安全性」「SSP」「Safety Program」时触发。基于 GJB 438C [07] 软件安全性大纲模板，严格填写封面、标识、各生存周期阶段安全性要求与安全性活动项目，生成符合规范的 .docx 文档。"
 ---
 
@@ -23,7 +23,7 @@ description: "当用户提到「438C 安全性大纲」「[07] 安全性大纲�
 - `references/terminology.md`：军用软件安全性术语表（CSCI、FMECA、安全关键功能等）
 - `references/style-rules.md`：句式与表达规范（大纲句式、量化指标、如实陈述原则、禁用表达）
 - `scripts/main.py`：命令行入口（推荐）
-- `scripts/process.py`：免参数入口（不推荐：需将 config/project 拷入 scripts/，会污染技能仓库）
+- `scripts/process.py`：免参数入口（直接读取 `templates/` 与 `documents/`，无需拷贝文件）
 
 # 工作流
 

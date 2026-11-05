@@ -1,6 +1,6 @@
 ---
-name: word-fillter-438C-01
-description: "当用户提到「按照438C模板填写word文档」「软件总体技术方案」「总体技术方案」「OTP」「Overall Technical Plan」「[01]」时触发。交互式填写 GJB 438C [01] 软件总体技术方案模板，生成符合规范的 .docx 文档。"
+name: word-fillter-438c-01
+description: "当用户提到「软件总体技术方案」「总体技术方案」「OTP」「Overall Technical Plan」「[01]」时触发。交互式填写 GJB 438C [01] 软件总体技术方案模板，生成符合规范的 .docx 文档。"
 ---
 
 # 何时使用

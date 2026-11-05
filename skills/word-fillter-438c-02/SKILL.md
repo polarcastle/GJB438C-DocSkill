@@ -1,6 +1,6 @@
 ---
-name: word-fillter-438C-02
-description: "当用户提到「按照438C模板填写word文档」「软件开发计划」「开发计划」「SDP」「Software Development Plan」「438C」时触发。交互式填写 GJB 438C [02] 软件开发计划模板，生成符合规范的 .docx 文档。"
+name: word-fillter-438c-02
+description: "当用户提到「软件开发计划」「开发计划」「SDP」「Software Development Plan」时触发。交互式填写 GJB 438C [02] 软件开发计划模板，生成符合规范的 .docx 文档。"
 ---
 
 # 何时使用
@@ -23,7 +23,7 @@ description: "当用户提到「按照438C模板填写word文档」「软件开�
 - `references/terminology.md`：军用软件术语表（CSCI、构建版、基线、里程碑等）
 - `references/style-rules.md`：句式与表达规范（计划句式、量化指标、如实陈述原则、禁用表达）
 - `scripts/main.py`：命令行入口（推荐）
-- `scripts/process.py`：免参数入口（不推荐：需将 config/project 拷入 scripts/，会污染技能仓库）
+- `scripts/process.py`：免参数入口（直接读取 `templates/` 与 `documents/`，无需拷贝文件）
 
 # 工作流
 

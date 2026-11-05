@@ -41,7 +41,7 @@ def test_end_to_end_fill(skill_id, tmp_path):
     eng = load_engine(skill_id)
     config = _with_test_company(config_data(skill_id))
     project = project_data(skill_id)
-    plan = eng.loader.build_plan(config, project)
+    plan = eng.loader.build_plan(config, project, eng.rules)
 
     doc = Document(str(template_path(skill_id)))
     eng.docx_ops.apply_plan(doc, plan)

@@ -4,8 +4,15 @@ from pathlib import Path
 
 from docx import Document
 
-from strict_word_filler.docx_ops import apply_plan
-from strict_word_filler.loader import build_plan, load_json
+import sys
+
+# 共享引擎位于仓库根 shared/（本文件位于 skills/<id>/scripts/）
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "shared"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import rules  # noqa: E402  模板专属规则
+from strict_word_filler.docx_ops import apply_plan  # noqa: E402
+from strict_word_filler.loader import build_plan, load_json  # noqa: E402
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -19,7 +26,7 @@ OUTPUT_PATH = BASE_DIR / "output" / "[19]软件测试报告-438C-filled.docx"
 def main() -> int:
     config_data = load_json(CONFIG_PATH)
     project_data = load_json(PROJECT_PATH)
-    plan = build_plan(config_data, project_data)
+    plan = build_plan(config_data, project_data, rules)
 
     doc = Document(str(TEMPLATE_PATH))
     apply_plan(doc, plan)

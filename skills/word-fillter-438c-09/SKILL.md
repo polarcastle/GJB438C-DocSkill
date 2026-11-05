@@ -1,6 +1,6 @@
 ---
-name: word-fillter-438C-09
-description: "当用户提到「按照438C模板填写word文档」「接口需求」「接口需求规格说明」「IRS」「Interface Requirements Specification」「438C」时触发。交互式填写 GJB 438C [09] 接口需求规格说明书模板，生成符合规范的 .docx 文档。"
+name: word-fillter-438c-09
+description: "当用户提到「接口需求」「接口需求规格说明」「IRS」「Interface Requirements Specification」时触发。交互式填写 GJB 438C [09] 接口需求规格说明书模板，生成符合规范的 .docx 文档。"
 ---
 
 # 何时使用
@@ -23,7 +23,7 @@ description: "当用户提到「按照438C模板填写word文档」「接口需�
 - `references/terminology.md`：军用软件术语表（CSCI、接口实体、合格性方法等）
 - `references/style-rules.md`：句式与表达规范（假设句式、量化指标、禁用表达）
 - `scripts/main.py`：命令行入口（推荐）
-- `scripts/process.py`：免参数入口（不推荐：需将 config/project 拷入 scripts/，会污染技能仓库）
+- `scripts/process.py`：免参数入口（直接读取 `templates/` 与 `documents/`，无需拷贝文件）
 
 # 工作流
 

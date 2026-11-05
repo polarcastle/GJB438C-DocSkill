@@ -1,6 +1,6 @@
 ---
-name: word-fillter-438C-22
-description: "当用户提到「按照438C模板填写word文档」「测试问题报告」「软件测试问题」「问题报告」「438C」「Test Problem Report」「TPR」时触发。交互式填写 GJB 438C [22] 测试问题报告模板，生成符合规范的 .docx 文档。"
+name: word-fillter-438c-22
+description: "当用户提到「测试问题报告」「软件测试问题」「问题报告」「Test Problem Report」「TPR」时触发。交互式填写 GJB 438C [22] 测试问题报告模板，生成符合规范的 .docx 文档。"
 ---
 
 # 何时使用
@@ -23,7 +23,7 @@ description: "当用户提到「按照438C模板填写word文档」「测试问�
 - `references/terminology.md`：军用软件术语表（CSCI、STP/STD/STR、问题类型/等级/状态等）
 - `references/style-rules.md`：句式与表达规范（如实陈述、量化计数、禁用表达）
 - `scripts/main.py`：命令行入口（推荐）
-- `scripts/process.py`：免参数入口（不推荐：需将 config/project 拷入 scripts/，会污染技能仓库）
+- `scripts/process.py`：免参数入口（直接读取 `templates/` 与 `documents/`，无需拷贝文件）
 
 # 工作流
 

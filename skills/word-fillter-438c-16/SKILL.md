@@ -1,5 +1,5 @@
 ---
-name: word-fillter-438C-16
+name: word-fillter-438c-16
 description: "当用户提到「438C 软件测试说明」「[16] 软件测试说明」「STD」「Software Test Description」「测试说明模板填写」时触发。基于 GJB 438C [16] 软件测试说明模板，严格填写封面、标识行、测试准备（3.X）与测试说明（4.X.Y 测试用例七子条）内容，生成符合规范的 .docx 文档。"
 ---
 
@@ -23,7 +23,7 @@ description: "当用户提到「438C 软件测试说明」「[16] 软件测试�
 - `references/terminology.md`：军用软件术语表（CSCI、STD、STP、测试用例、评价准则等）
 - `references/style-rules.md`：句式与表达规范（测试描述句式、量化判据、禁用表达）
 - `scripts/main.py`：命令行入口（推荐）
-- `scripts/process.py`：免参数入口（不推荐：需将 config/project 拷入 scripts/，会污染技能仓库）
+- `scripts/process.py`：免参数入口（直接读取 `templates/` 与 `documents/`，无需拷贝文件）
 
 # 工作流
 
