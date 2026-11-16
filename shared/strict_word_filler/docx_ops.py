@@ -168,7 +168,7 @@ def _is_heading1(paragraph: Paragraph) -> bool:
     if paragraph.style is None:
         return False
     style_name = paragraph.style.name.lower()
-    return "heading 1" in style_name or "标题 1" in style_name
+    return style_name in ("heading 1", "标题 1")
 
 
 def _row_texts(row: _Row) -> tuple[str, ...]:
@@ -480,12 +480,103 @@ def mark_toc_for_update(doc: DocumentObject) -> None:
     update_field = settings_element.find(qn("w:updateFields"))
     if update_field is None:
         update_field = OxmlElement("w:updateFields")
-        settings_element.append(update_field)
+    settings_element.insert_element_before(
+        update_field,
+        "w:hdrShapeDefaults",
+        "w:footnotePr",
+        "w:endnotePr",
+        "w:compat",
+        "w:docVars",
+        "w:rsids",
+        "m:mathPr",
+        "w:uiCompat97To2003",
+        "w:attachedSchema",
+        "w:themeFontLang",
+        "w:clrSchemeMapping",
+        "w:doNotIncludeSubdocsInStats",
+        "w:shapeDefaults",
+        "w:decimalSymbol",
+        "w:listSeparator",
+        "w14:docId",
+        "w15:chartTrackingRefBased",
+        "w15:docId",
+    )
     update_field.set(qn("w:val"), "true")
 
     for field in doc._element.body.iter(qn("w:fldChar")):
         if field.get(qn("w:fldCharType")) == "begin":
             field.set(qn("w:dirty"), "true")
+
+
+def _ensure_unique_xml_ids(doc: DocumentObject) -> None:
+    body = doc._element.body
+    bookmark_start_tag = qn("w:bookmarkStart")
+    bookmark_end_tag = qn("w:bookmarkEnd")
+    id_attr = qn("w:id")
+    name_attr = qn("w:name")
+
+    starts = list(body.iter(bookmark_start_tag))
+    used_bookmark_ids = {element.get(id_attr) for element in starts}
+    numeric_ids = [int(value) for value in used_bookmark_ids if value and value.isdecimal()]
+    next_bookmark_id = max(numeric_ids, default=0) + 1
+    used_bookmark_names = {element.get(name_attr) for element in starts}
+    seen_bookmark_ids: set[str] = set()
+    seen_bookmark_names: set[str] = set()
+    open_bookmarks: dict[str, list[str]] = {}
+    next_name_suffix = 1
+
+    for element in body.iter():
+        if element.tag == bookmark_start_tag:
+            original_id = element.get(id_attr)
+            bookmark_id = original_id
+            if bookmark_id is None or bookmark_id in seen_bookmark_ids:
+                while str(next_bookmark_id) in used_bookmark_ids:
+                    next_bookmark_id += 1
+                bookmark_id = str(next_bookmark_id)
+                next_bookmark_id += 1
+                element.set(id_attr, bookmark_id)
+                used_bookmark_ids.add(bookmark_id)
+            seen_bookmark_ids.add(bookmark_id)
+            if original_id is not None:
+                open_bookmarks.setdefault(original_id, []).append(bookmark_id)
+
+            name = element.get(name_attr)
+            if name is not None:
+                if name in seen_bookmark_names:
+                    while True:
+                        suffix = f"_{next_name_suffix}"
+                        next_name_suffix += 1
+                        candidate = f"{name[: 40 - len(suffix)]}{suffix}"
+                        if candidate not in used_bookmark_names:
+                            break
+                    element.set(name_attr, candidate)
+                    used_bookmark_names.add(candidate)
+                seen_bookmark_names.add(element.get(name_attr))
+        elif element.tag == bookmark_end_tag:
+            original_id = element.get(id_attr)
+            matching_ids = open_bookmarks.get(original_id)
+            if matching_ids:
+                element.set(id_attr, matching_ids.pop())
+
+    para_id_attr = qn("w14:paraId")
+    paragraphs = list(body.iter(qn("w:p")))
+    used_para_ids = {element.get(para_id_attr) for element in paragraphs}
+    seen_para_ids: set[str] = set()
+    next_para_id = 1
+    for paragraph in paragraphs:
+        para_id = paragraph.get(para_id_attr)
+        if para_id is None:
+            continue
+        if para_id in seen_para_ids:
+            while True:
+                candidate = f"{next_para_id:08X}"
+                next_para_id += 1
+                if candidate not in used_para_ids:
+                    break
+            paragraph.set(para_id_attr, candidate)
+            used_para_ids.add(candidate)
+            para_id = candidate
+        seen_para_ids.add(para_id)
 
 
 def apply_plan(doc: DocumentObject, plan: BuildPlan) -> None:
@@ -505,4 +596,5 @@ def apply_plan(doc: DocumentObject, plan: BuildPlan) -> None:
         apply_table_fill(doc, rule)
 
     apply_caption_numbering(doc, plan.caption_space_before_rest)
+    _ensure_unique_xml_ids(doc)
     mark_toc_for_update(doc)

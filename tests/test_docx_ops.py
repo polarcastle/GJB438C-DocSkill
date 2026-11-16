@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import pytest
 from docx import Document
+from docx.enum.style import WD_STYLE_TYPE
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 
 from conftest import SKILL_IDS, load_engine
 
@@ -43,6 +46,48 @@ class TestSetParagraphsFromText:
         paragraph = doc.add_paragraph("占位")
         with pytest.raises(eng.errors.StrictTemplateError, match="不能为空"):
             eng.docx_ops.set_paragraphs_from_text(paragraph, "  \n  ")
+
+
+@pytest.mark.parametrize("skill_id", SKILL_IDS)
+class TestClonedParagraphIdentities:
+    def test_multiline_clone_has_unique_bookmarks_and_paragraph_ids(self, skill_id):
+        eng = load_engine(skill_id)
+        doc = Document()
+        paragraph = doc.add_paragraph("原型")
+        paragraph._p.set(qn("w14:paraId"), "1234ABCD")
+        paragraph._p.set(qn("w14:textId"), "5678EFAB")
+        bookmark_start = OxmlElement("w:bookmarkStart")
+        bookmark_start.set(qn("w:id"), "7")
+        bookmark_start.set(qn("w:name"), "_Toc123456")
+        bookmark_end = OxmlElement("w:bookmarkEnd")
+        bookmark_end.set(qn("w:id"), "7")
+        paragraph._p.insert(0, bookmark_start)
+        paragraph._p.append(bookmark_end)
+        plan = eng.models.BuildPlan(
+            exact_replacements=(),
+            paragraph_replacements=(
+                eng.models.ParagraphReplaceRule("1.1", "原型", "第一行\n第二行"),
+            ),
+            dynamic_sections=(),
+            tables=(),
+        )
+
+        eng.docx_ops.apply_plan(doc, plan)
+
+        starts = list(doc.element.body.iter(qn("w:bookmarkStart")))
+        ends = list(doc.element.body.iter(qn("w:bookmarkEnd")))
+        start_ids = [element.get(qn("w:id")) for element in starts]
+        end_ids = [element.get(qn("w:id")) for element in ends]
+        names = [element.get(qn("w:name")) for element in starts]
+        para_ids = [
+            element.get(qn("w14:paraId"))
+            for element in doc.element.body.iter(qn("w:p"))
+        ]
+        assert len(start_ids) == len(set(start_ids)) == 2
+        assert set(start_ids) == set(end_ids)
+        assert len(names) == len(set(names)) == 2
+        assert all(name and len(name) <= 40 for name in names)
+        assert len(para_ids) == len(set(para_ids)) == 2
 
 
 @pytest.mark.parametrize("skill_id", SKILL_IDS)
@@ -108,6 +153,16 @@ class TestCaptionNumbering:
         with pytest.raises(eng.errors.StrictTemplateError, match="章号与当前位置不一致"):
             eng.docx_ops.apply_caption_numbering(doc)
 
+    def test_heading_10_does_not_increment_chapter(self, skill_id):
+        eng = load_engine(skill_id)
+        doc = Document()
+        doc.styles.add_style("Heading 10", WD_STYLE_TYPE.PARAGRAPH)
+        doc.add_heading("第一章", level=1)
+        doc.add_paragraph("十级标题", style="Heading 10")
+        doc.add_paragraph("表1-X 能力表")
+        eng.docx_ops.apply_caption_numbering(doc)
+        assert doc.paragraphs[-1].text == "表1-1 能力表"
+
 
 @pytest.mark.parametrize("skill_id", SKILL_IDS)
 class TestTableFill:
@@ -162,6 +217,23 @@ class TestTableFill:
         )
         with pytest.raises(eng.errors.StrictTemplateError, match="期望命中 1 张表"):
             eng.docx_ops.apply_table_fill(doc, rule)
+
+
+@pytest.mark.parametrize("skill_id", SKILL_IDS)
+class TestMarkTocForUpdate:
+    def test_update_fields_precedes_compat_and_is_not_duplicated(self, skill_id):
+        eng = load_engine(skill_id)
+        doc = Document()
+        settings = doc.settings.element
+        compat = settings.find(qn("w:compat"))
+        assert compat is not None
+
+        eng.docx_ops.mark_toc_for_update(doc)
+        eng.docx_ops.mark_toc_for_update(doc)
+
+        update_fields = settings.findall(qn("w:updateFields"))
+        assert len(update_fields) == 1
+        assert settings.index(update_fields[0]) < settings.index(compat)
 
 
 @pytest.mark.parametrize("skill_id", SKILL_IDS)

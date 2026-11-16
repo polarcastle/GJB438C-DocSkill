@@ -35,7 +35,7 @@
     "title": {
       "type": "original_text",
       "replacement_pattern": "文档标题（示例：软件需求规格说明）",
-      "content": "Software Requirements Specification"
+      "content": "软件需求规格说明"
     },
     "classification": {
       "type": "original_text",

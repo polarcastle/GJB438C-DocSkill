@@ -50,6 +50,26 @@ class TestBuildPlanCommon:
         with pytest.raises(eng.errors.StrictDataError, match="structure"):
             eng.loader.build_plan(minimal_config(), {}, eng.rules)
 
+    def test_section_anchor_without_content_rejected(self, skill_id):
+        eng = load_engine(skill_id)
+        project = {"structure": {"2": {"replacement_pattern": "本章应列出"}}}
+        with pytest.raises(eng.errors.StrictDataError, match="replacement_pattern.*content"):
+            eng.loader.build_plan(minimal_config(), project, eng.rules)
+
+    def test_placeholder_anchor_without_content_rejected(self, skill_id):
+        eng = load_engine(skill_id)
+        project = {
+            "structure": {
+                "1": {
+                    "placeholders": [
+                        {"id": "1.1", "replacement_pattern": "本条应描述"}
+                    ]
+                }
+            }
+        }
+        with pytest.raises(eng.errors.StrictDataError, match="replacement_pattern.*content"):
+            eng.loader.build_plan(minimal_config(), project, eng.rules)
+
     def test_subsections_sorted_numerically(self, skill_id):
         eng = load_engine(skill_id)
         section_id = "99"
@@ -130,6 +150,27 @@ class TestBuildPlan08:
         eng = load_engine("08")
         project = {"structure": {"3": {"placeholders": [{"id": "3.2", "content": "能力总述"}]}}}
         with pytest.raises(eng.errors.StrictDataError, match="缺少 subsections"):
+            eng.loader.build_plan(minimal_config(), project, eng.rules)
+
+    @pytest.mark.parametrize("subsection_id", ["9.9.9", "3.2.2", "3.2.x"])
+    def test_dynamic_section_invalid_id_rejected(self, subsection_id):
+        eng = load_engine("08")
+        project = {
+            "structure": {
+                "3": {
+                    "placeholders": [
+                        {
+                            "id": "3.2",
+                            "content": "能力总述",
+                            "subsections": {
+                                subsection_id: {"name": "能力甲", "content": "甲说明"}
+                            },
+                        }
+                    ]
+                }
+            }
+        }
+        with pytest.raises(eng.errors.StrictDataError, match="动态章节 3.2.*编号"):
             eng.loader.build_plan(minimal_config(), project, eng.rules)
 
 

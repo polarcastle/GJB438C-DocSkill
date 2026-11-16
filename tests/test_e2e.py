@@ -24,8 +24,23 @@ def _doc_all_text(doc) -> str:
 
 
 FORBIDDEN_ANCHORS = {
-    "08": ("外部型号+产品名称", "XXXX年XX月XX日", "产品型号-XXXX"),
+    "08": (
+        "外部型号+产品名称",
+        "XXXX年XX月XX日",
+        "产品型号-XXXX",
+        "标题：Software Requirements Specification",
+        "Test-引用文档",
+        "Test 3.2",
+        "Test table",
+        "《GB/T 0018》",
+        "《GB/T 0028》",
+        "合规性方法",
+        "合规性级别",
+        "3.1.2维护状态",
+        "3.1.3调试状态",
+    ),
     "10": ("外部型号+产品名称", "XXXX年XX月XX日", "产品型号-XXXX"),
+    "16": ('本章应分为以下几条。适用时应包括用"警告"或"注意"所标志的安全提示，以及保密性考虑。',),
 }
 
 
@@ -52,12 +67,27 @@ def test_end_to_end_fill(skill_id, tmp_path):
     text = _doc_all_text(result)
     assert config["project"]["name"]["content"] in text
     assert config["document"]["id"]["content"] in text
+    assert config["document"]["title"]["content"] in text
+    if skill_id == "08":
+        assert config["document"]["title"]["content"] == "软件需求规格说明"
     for anchor in FORBIDDEN_ANCHORS.get(skill_id, ()):
         assert anchor not in text
 
     update_fields = result.settings.element.find(qn("w:updateFields"))
     assert update_fields is not None
     assert update_fields.get(qn("w:val")) == "true"
+
+    bookmark_ids = [
+        element.get(qn("w:id"))
+        for element in result.element.body.iter(qn("w:bookmarkStart"))
+    ]
+    assert len(bookmark_ids) == len(set(bookmark_ids))
+    paragraph_ids = [
+        element.get(qn("w14:paraId"))
+        for element in result.element.body.iter(qn("w:p"))
+        if element.get(qn("w14:paraId")) is not None
+    ]
+    assert len(paragraph_ids) == len(set(paragraph_ids))
 
 
 def _run_cli(skill_id, config_path, project_path, output_path) -> subprocess.CompletedProcess:

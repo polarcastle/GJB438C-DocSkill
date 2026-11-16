@@ -8,7 +8,8 @@
 - ``IDENTITY``：标识行 ExactReplaceRule 列表，格式同 ``COVER``；
 - ``EXTRA_EXACT_RULES``（可选）：格式同 ``COVER``，在标识行之后应用，用于少数模板的额外替换；
 - ``IDENTITY_LINE_ANCHORS``、``PATTERN_OVERRIDES``、``INSERTION_PARENT_RULES``：
-  标识行锚点、章节替换锚点覆盖、动态章节定义；
+  标识行锚点、章节替换锚点覆盖、动态章节定义；动态章节可用 ``subsection_prefix``
+  和 ``first_subsection_number`` 声明特殊的子节前缀与起始号，默认从父节的第 1 子节开始；
 - ``CSCI_SECTION_RULE``（仅 [10]）：CSCI 体系结构块的锚点字典；
 - ``CAPTION_SPACE_BEFORE_REST``（可选，默认 True）：图表编号后是否补空格。
 
@@ -20,6 +21,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from .errors import StrictDataError
@@ -53,7 +55,16 @@ def _require_content(data: dict, *keys: str) -> str:
     return current.strip()
 
 
-def _sorted_section_items(items: dict[str, dict]) -> list[tuple[str, dict]]:
+_SECTION_ID_RE = re.compile(r"[1-9]\d*(?:\.[1-9]\d*)*\Z")
+
+
+def _sorted_section_items(items: dict[str, dict], context: str = "章节") -> list[tuple[str, dict]]:
+    if not isinstance(items, dict):
+        raise StrictDataError(f"{context}的 subsections 必须是对象")
+    for section_id in items:
+        if not isinstance(section_id, str) or _SECTION_ID_RE.fullmatch(section_id) is None:
+            raise StrictDataError(f"{context}的子节编号非法: {section_id}")
+
     def sort_key(item: tuple[str, dict]) -> tuple[int, ...]:
         return tuple(int(part) for part in item[0].split("."))
 
@@ -272,6 +283,8 @@ def build_plan(config_data: dict, project_data: dict, rules) -> BuildPlan:
     for section_id, section_data in structure.items():
         if not isinstance(section_data, dict):
             raise StrictDataError(f"章节 {section_id} 结构非法")
+        if "replacement_pattern" in section_data and "content" not in section_data:
+            raise StrictDataError(f"章节 {section_id} 设置 replacement_pattern 时必须提供 content")
 
         if "replacement_pattern" in section_data and "content" in section_data:
             paragraph_rules.append(
@@ -309,13 +322,34 @@ def build_plan(config_data: dict, project_data: dict, rules) -> BuildPlan:
                 raise StrictDataError(f"章节 {section_id} 的 placeholder 结构非法")
 
             placeholder_id = placeholder["id"]
+            if "replacement_pattern" in placeholder and "content" not in placeholder:
+                raise StrictDataError(
+                    f"章节 {placeholder_id} 设置 replacement_pattern 时必须提供 content"
+                )
             if placeholder_id in insertion:
                 rule_spec = insertion[placeholder_id]
                 items: list[DynamicSectionItem] = []
                 subsections = placeholder.get("subsections", {})
                 if not isinstance(subsections, dict) or not subsections:
                     raise StrictDataError(f"动态章节 {placeholder_id} 缺少 subsections")
-                for sub_id, sub_data in _sorted_section_items(subsections):
+                subsection_prefix = rule_spec.get("subsection_prefix", placeholder_id)
+                first_subsection_number = rule_spec.get("first_subsection_number", 1)
+                if (
+                    not isinstance(subsection_prefix, str)
+                    or _SECTION_ID_RE.fullmatch(subsection_prefix) is None
+                ):
+                    raise StrictDataError(f"动态章节 {placeholder_id} 的子节编号前缀非法: {subsection_prefix}")
+                if type(first_subsection_number) is not int or first_subsection_number < 1:
+                    raise StrictDataError(f"动态章节 {placeholder_id} 的起始子节编号非法")
+
+                sorted_subsections = _sorted_section_items(subsections, f"动态章节 {placeholder_id}")
+                for offset, (sub_id, sub_data) in enumerate(sorted_subsections):
+                    expected_id = f"{subsection_prefix}.{first_subsection_number + offset}"
+                    if sub_id != expected_id:
+                        raise StrictDataError(
+                            f"动态章节 {placeholder_id} 的子节编号 {sub_id} 非法，"
+                            f"应为 {expected_id}；子节编号必须连续"
+                        )
                     if not isinstance(sub_data, dict):
                         raise StrictDataError(f"动态章节 {sub_id} 结构非法")
                     title = _require_content({"value": sub_data.get("name")}, "value")

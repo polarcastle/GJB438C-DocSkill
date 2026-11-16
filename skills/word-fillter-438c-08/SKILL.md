@@ -138,7 +138,7 @@ config.json 包含 `project`、`document`、`content` 三部分，所有字段�
 1. 静态章节（无 `subsections` 的 placeholder）只修改其 `content`；动态章节（3.1/3.2/3.3/3.4）placeholder 级的 `content` 为该节引言，同样只修改 `content`
 2. 不修改 `id`、`type`、`columns`、`locator_rows`、placeholder 级的 `name` 与 `replacement_pattern` 等模板结构字段
 3. 动态章节 `subsections` 中每个子条的 `name` **会作为章节标题写入文档，必须改为实际模块名**（以中文开头）；`content` 为该子条正文；子条中的 `replacement_pattern` 被引擎静默忽略，无需填写
-4. `subsections` 的 key 必须是有效章节编号（如 `"3.2.1"`）
+4. `subsections` 的 key 必须是有效章节编号（如 `"3.2.1"`），与父节及模板规则匹配，并从规定的起始号开始连续编号；错位、跳号或非数字编号会直接报错
 5. `rows` 中每行的字段必须严格等于 `columns` 定义
 
 > **`locator_rows` 严禁修改！**

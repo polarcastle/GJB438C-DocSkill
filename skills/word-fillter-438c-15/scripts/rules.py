@@ -38,4 +38,6 @@ INSERTION_PARENT_RULES = {'4.X': {'parent_title': '软件测试环境',
          'prototype_title_anchor': '4.X(测试现场名称)',
          'prototype_body_anchor': '注：若只有一个测试现场',
          'cleanup_anchors': ('注：若只有一个测试现场',),
-         'cleanup_to_end': True}}
+         'cleanup_to_end': True,
+         'subsection_prefix': '4',
+         'first_subsection_number': 1}}

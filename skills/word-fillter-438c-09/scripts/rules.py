@@ -38,4 +38,6 @@ INSERTION_PARENT_RULES = {'3.1': {'parent_title': '需求',
          'prototype_title_anchor': '3.x （接口的项目唯一标识符）',
          'prototype_body_anchor': '本节（从3.2 开始）通过项目唯一标识符来标识接口',
          'cleanup_anchors': ('本节（从3.2 开始）通过项目唯一标识符来标识接口',),
-         'cleanup_to_end': True}}
+         'cleanup_to_end': True,
+         'subsection_prefix': '3',
+         'first_subsection_number': 2}}

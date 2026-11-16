@@ -15,7 +15,7 @@
           "type": "content_generation",
           "description": "本条应描述本文档所适用软件的完整标识",
           "replacement_pattern": "本条应描述本文档所适用软件的完整标识，适用时，包括其标识号、名称、缩略名、版本号和发布号。",
-          "content": "本文档适用于编译器软件系统（BYQ），标识号为BYQ-SRS-V2.0，版本号为V2.0，发布号为Release 1。该软件用于教学和研究目的。"
+          "content": "本文档适用于编译器软件，文档标识号为 BYQ-SRS-V2.0，标题为《软件需求规格说明》，软件名称为编译器，软件缩写为 BYQ，软件版本号为 V2.0。该软件用于教学和研究目的。"
         },
         {
           "id": "1.2",
@@ -40,7 +40,7 @@
       "type": "content_generation",
       "description": "列出引用的标准和规范",
       "replacement_pattern": "本章应列出引用文档的编号、标题、编写单位、修订版及日期",
-      "content": "Test-引用文档",
+      "content": "本章列出本文档编制所直接引用的标准与项目资料，并说明其版本和来源。",
       "tables": [
         {
           "table_id": "reference_documents",
@@ -53,17 +53,10 @@
           "rows": [
             {
               "number": "1",
-              "name": "《GB/T 0018》",
-              "version": "0028",
-              "release_date": "2008-12-01",
-              "source": "国家质量监督检验检疫总局"
-            },
-            {
-              "number": "2",
-              "name": "《GB/T 0028》",
-              "version": "0028",
-              "release_date": "2008-12-01",
-              "source": "国家质量监督检验检疫总局"
+              "name": "《GJB 438C-2021 军用软件开发文档通用要求》",
+              "version": "2021",
+              "release_date": "2021年",
+              "source": "相关标准库"
             }
           ]
         }
@@ -82,15 +75,7 @@
           "subsections":{
             "3.1.1": {
                 "name": "正常状态",
-                "content": "软件在正常状态下运行，执行编译任务，处理用户输入的源代码文件，并生成目标代码文件。软件在正常状态下应满足所有功能需求、性能需求和质量需求。"
-             },
-             "3.1.2": {
-                "name": "维护状态",
-                "content": "软件在维护状态下运行，进行错误修复、功能改进或性能优化等维护活动。软件在维护状态下可能不满足所有功能需求和性能需求，但应保证基本的稳定性和可靠性。"
-             },
-             "3.1.3": {
-                "name": "调试状态",
-                "content": "软件在调试状态下运行，开发人员进行调试和测试活动。软件在调试状态下可能不满足所有功能需求和性能需求，但应提供足够的调试信息和日志记录功能，帮助开发人员定位和修复问题。"
+                "content": "本软件仅有单一运行状态，不区分多种状态或方式。软件应在正常运行状态下完成源代码读取、编译处理和目标代码输出，并满足第 3 章规定的功能、性能和质量需求。"
              }
           }
         },
@@ -100,19 +85,19 @@
           "type": "content_generation",
           "description": "详细说明软件的各项功能需求",
           "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件需求工程师，负责撰写软件能力需求。写作前必须先阅读 references/writing-guide.md 的「3.2 软件能力需求」小节、references/terminology.md 和 references/style-rules.md。要点：1. 按「能力」划分 3～8 个子条（对应 subsections），每个能力赋予项目唯一的标识；2. 每个子条必写功能描述、输入、输出、性能参数（响应时间、精度、容量、优先级等量化指标）和约束条件；3. 适当补充异常条件与非许可条件下的行为、错误处理需求、紧急时刻运行连续性规定；4. 无内容的能力不得编造。句式：功能行为统一用「软件应……」句式，参数写成「数值＋单位」，一条需求只表达一个要求。内容必须基于素材收集阶段得到的项目画像（源码事实），模块名、接口名、函数命名与代码保持一致，禁止编造源码中不存在的内容。篇幅：每个子条 150～300 字。排版机制：content 中的换行符将生成独立段落，建议按「功能描述／输入／输出与行为／异常处理／性能」分段书写，每段一行。",
-          "content": "Test 3.2",
+          "content": "本章按词法分析、语法分析和语义分析划分软件能力需求，分别规定输入、输出、处理行为、异常处理和性能约束。",
           "subsections":{
               "3.2.1": {
-                  "name": "词法分析模块",
-                  "content": "功能名称：词法分析模块\n功能描述：将源代码文本分解为记号序列，识别语言的基本元素如关键字、标识符、常量等。\n输入：源代码文件\n输出：记号序列\n性能要求：处理10000行以内的源代码，分析时间不超过5秒\n约束条件：支持UTF-8编码的文本文件，需处理注释和空白字符"
+                  "name": "词法分析（CAP-LEX-01）",
+                  "content": "软件应将 UTF-8 编码的源代码文本分解为记号序列，识别关键字、标识符、常量和运算符。\n软件应跳过注释和空白字符；检测到非法字符时，应记录字符位置和错误类型，并停止生成后续语法分析输入。\n处理不超过 10000 行的源代码时，词法分析时间应不超过 5 s。"
               },
               "3.2.2": {
-                  "name": "语法分析模块",
-                  "content": "功能名称：语法分析模块\n功能描述：根据语言的语法规则分析记号序列，构建抽象语法树（AST）。\n输入：词法分析模块输出的记号序列\n输出：抽象语法树（AST）\n性能要求：处理10000行以内的源代码，分析时间不超过5秒\n约束条件：支持递归下降解析，需处理语法错误并提供错误信息"
+                  "name": "语法分析（CAP-SYN-01）",
+                  "content": "软件应根据语言语法规则分析词法记号序列，并构建抽象语法树（AST）。\n检测到语法错误时，软件应记录错误位置和预期记号，不得输出不完整的抽象语法树。\n处理不超过 10000 行的源代码时，语法分析时间应不超过 5 s。"
               },
               "3.2.3": {
-                  "name": "语义分析模块",
-                  "content": "功能名称：语义分析模块\n功能描述：检查程序的语义正确性，包括类型检查、作用域分析和符号表管理。\n输入：语法分析模块输出的抽象语法树（AST）\n输出：标注后的抽象语法树和符号表\n性能要求：处理10000行以内的源代码，分析时间不超过5秒\n约束条件：支持基本类型和用户定义类型，需处理语义错误并提供错误信息"
+                  "name": "语义分析（CAP-SEM-01）",
+                  "content": "软件应对抽象语法树执行类型检查和作用域分析，并生成标注后的抽象语法树与符号表。\n检测到类型冲突或未声明标识符时，软件应记录标识符、位置和错误类别，不得继续生成目标代码。\n处理不超过 10000 行的源代码时，语义分析时间应不超过 5 s。"
               }
           }
         },
@@ -122,17 +107,12 @@
           "type": "content_generation",
           "description": "软件与外部实体的接口",
           "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件需求工程师，负责撰写软件外部接口需求。写作前必须先阅读 references/writing-guide.md 的「3.3 软件外部接口需求」小节、references/terminology.md 和 references/style-rules.md。要点：1. 先概述接口标识方案和接口图，每个接口用项目唯一的标识符，指明接口实体（系统、配置项、用户等）哪些特性固定、哪些正在开发；2. 每个接口按需覆盖：接口优先级、接口类型、数据元素特征（名称/标识、数据类型、大小和格式、计量单位、取值范围或枚举、准确性和精度、约束条件、保密性约束、来源和接收者）、数据元素组合体特征、通信方法特征、协议特征、物理兼容性；3. 外部实体的接口特性一律作为假设陈述，用「当……时，本软件应……」句式，不得对外部实体提需求；4. 无外部接口时如实陈述「本软件无外部接口需求」，不得编造。内容必须基于素材收集阶段得到的项目画像（源码事实），模块名、接口名、函数命名与代码保持一致，禁止编造源码中不存在的内容。篇幅：每个接口 200～400 字，条内按 a）b）c）分级编号组织。排版机制：content 中的换行符将生成独立段落，建议本章引言与各接口各自成段，每个接口条内按 a）b）c）分级编号分行书写。",
-          "content": "本编译器软件为独立的离线工具，不需要与外部实体（如网络服务、数据库、远程服务器等）进行接口。软件仅通过文件系统读取源代码文件，并将编译结果输出到文件系统，不涉及外部接口需求。",
+          "content": "软件通过命令行参数和本地文件与用户交互，不涉及网络服务、数据库或远程系统接口。命令行与本地文件接口按 3.3.1 的规定执行。",
           "subsections": {
               "3.3.1": {
-                  "name": "用户接口",
+                  "name": "命令行与文件接口（IF-CLI-01）",
                   "replacement_pattern": "本条应描述软件与用户之间的接口需求",
-                  "content": "本软件提供命令行界面（CLI）供用户使用，用户通过命令行参数指定源代码文件路径、输出文件路径和编译选项等。软件不提供图形用户界面（GUI）或其他交互方式。"
-              },
-              "3.3.2": {
-                  "name": "外部系统接口",
-                  "replacement_pattern": "本条应描述软件与外部系统之间的接口需求",
-                  "content": "本软件不需要与任何外部系统进行接口，不涉及网络通信、数据库访问或远程服务调用等外部系统接口需求。"
+                  "content": "接口 IF-CLI-01 为高优先级、本地同步调用接口。输入包括源文件路径、输出文件路径和编译选项，路径应采用 UTF-8 编码，文件格式应为纯文本。\n当用户提供不存在的源文件路径或无法读取的文件时，本软件应返回非零退出状态并输出包含路径的错误信息，不得生成目标文件。接口不涉及网络通信协议。"
               }
           }
         },
@@ -147,7 +127,7 @@
               "3.4.1": {
                   "name": "模块间接口规范",
                   "replacement_pattern": "本条应描述软件内部模块间接口的规范要求",
-                  "content": "编译器内部模块间接口规范如下：\n\n1. 接口定义：每个模块的输入输出数据结构和函数调用约定需明确规定，使用统一的数据格式和命名规范。\n\n2. 错误处理：所有模块通过统一的错误处理机制报告错误，错误信息需包含错误级别、错误代码、位置信息和描述信息。\n\n3. 数据传递：模块间数据传递应采用高效的数据结构，避免不必要的数据复制，支持指针或引用传递。\n\n4. 模块解耦：各模块应尽量解耦，减少直接依赖关系，通过接口抽象实现模块间通信。\n\n5. 接口文档：每个模块的接口需有详细的文档说明，包括输入输出参数、返回值、异常情况和使用示例。"
+                  "content": "编译器内部模块间接口规范如下：\n\n1. 接口定义：每个模块的输入输出数据结构和函数调用约定需明确规定，使用统一的数据格式和命名规范。\n\n2. 错误处理：所有模块通过统一的错误处理机制报告错误，错误信息需包含错误级别、错误代码、位置信息和描述信息。\n\n3. 数据传递：模块间数据传递应采用高效的数据结构，避免不必要的数据复制，支持指针或引用传递。\n\n4. 模块解耦：各模块应通过接口抽象实现解耦，减少直接依赖关系。\n\n5. 接口文档：每个模块的接口需有详细的文档说明，包括输入输出参数、返回值、异常情况和使用示例。"
               },
               "3.4.2": {
                   "name": "模块内部接口规范",
@@ -185,7 +165,7 @@
           "description": "安全性需求",
           "replacement_pattern": "本条应描述关于防止或尽可能降低对人员、财产和物理环境产生意外危险",
           "generation_prompt": "你是一名熟悉 GJB 438C-2021 的军用软件需求工程师，负责撰写软件安全性需求。写作前必须先阅读 references/writing-guide.md 的「3.7 安全性需求」小节和 references/style-rules.md。要点：1. 围绕「防止或尽可能降低对人员、财产和物理环境产生意外危险」组织内容，同时覆盖防意外动作（如误发关键命令）和防无动作（如关键命令发出失败）；2. 每条措施对应一类危险场景，并给出可验证的判据；3. 涉及核部件时写明预防意外爆炸、符合核安全规则的需求；4. 确实无安全性需求时如实陈述，不得编造。句式：「软件应能防止……」「在……情况下，软件应……」，判据必须量化。内容必须基于素材收集阶段得到的项目画像（源码事实），模块名、接口名、函数命名与代码保持一致，禁止编造源码中不存在的内容。篇幅：100～300 字。排版机制：content 中的换行符将生成独立段落，条内列举按 a）b）c）分段书写。",
-          "content": "编译器软件的安全性需求如下：\n\n1. 输入验证：对输入的源代码文件进行合法性检查，包括文件格式、编码方式、文件大小限制等，防止恶意或损坏的输入文件导致编译器崩溃。\n\n2. 错误处理：建立健壮的错误处理机制，当检测到错误时，编译器应能够安全地报告错误并继续运行或优雅地终止，不应因错误导致数据丢失或系统崩溃。\n\n3. 防护措施：防止缓冲区溢出、内存泄漏等编程错误，对内存分配和访问进行严格检查，避免非法内存访问。\n\n4. 数据安全：编译过程中生成的临时文件和中间结果应妥善管理，编译完成后应清理临时数据，防止敏感信息泄露。"
+          "content": "本软件为离线教学编译工具，不直接控制机电设备，不涉及对人员、财产和物理环境造成意外危险的安全性需求。\n软件检测到非法输入或内部错误时，应停止当前编译并输出诊断信息，不得生成不完整的目标文件。"
         },
         {
           "id": "3.8",
@@ -306,7 +286,7 @@
       "type": "content_generation",
       "description": "需求验证方法",
       "replacement_pattern": "本条应描述所定义的合格性方法",
-      "content": "Test table",
+      "content": "本章列出核心状态、能力与外部接口需求的合格性方法和级别，功能行为采用 B-测试并在配置项级别执行。其余需求的合格性安排待与用户确认，测试判据应与对应需求的输入、输出、异常处理和性能约束一致。",
       "tables": [
         {
           "table_id": "qualification_requirements",
@@ -318,32 +298,39 @@
           "columns": ["requirement_name", "requirement_id", "chapter_number", "method", "level"],
           "rows": [
             {
-              "requirement_name": "《GB/T 0028》",
-              "requirement_id": "0028",
-              "chapter_number": "3.3.1",
-              "method": "合规性方法",
-              "level": "合规性级别"
+              "requirement_name": "正常运行状态",
+              "requirement_id": "REQ-STATE-01",
+              "chapter_number": "3.1.1",
+              "method": "B-测试",
+              "level": "a-配置项"
             },
             {
-              "requirement_name": "《GB/T 0028》",
-              "requirement_id": "0028",
-              "chapter_number": "3.3.1",
-              "method": "合规性方法",
-              "level": "合规性级别"
+              "requirement_name": "词法分析（CAP-LEX-01）",
+              "requirement_id": "CAP-LEX-01",
+              "chapter_number": "3.2.1",
+              "method": "B-测试",
+              "level": "a-配置项"
             },
             {
-              "requirement_name": "《GB/T 0028》",
-              "requirement_id": "0028",
-              "chapter_number": "3.3.1",
-              "method": "合规性方法",
-              "level": "合规性级别"
+              "requirement_name": "语法分析（CAP-SYN-01）",
+              "requirement_id": "CAP-SYN-01",
+              "chapter_number": "3.2.2",
+              "method": "B-测试",
+              "level": "a-配置项"
             },
             {
-              "requirement_name": "《GB/T 0028》",
-              "requirement_id": "0028",
+              "requirement_name": "语义分析（CAP-SEM-01）",
+              "requirement_id": "CAP-SEM-01",
+              "chapter_number": "3.2.3",
+              "method": "B-测试",
+              "level": "a-配置项"
+            },
+            {
+              "requirement_name": "命令行与文件接口（IF-CLI-01）",
+              "requirement_id": "IF-CLI-01",
               "chapter_number": "3.3.1",
-              "method": "合规性方法",
-              "level": "合规性级别"
+              "method": "B-测试",
+              "level": "a-配置项"
             }
           ]
         }
@@ -354,7 +341,7 @@
       "type": "content_generation",
       "description": "",
       "replacement_pattern": "本章应描述需求与系统需求、设计元素、测试用例之间的追踪关系，确保每个需求都能追溯到其来源和验证方法。",
-      "content": "Test table",
+      "content": "本章建立软件需求与来源指标之间的双向追踪关系。需求名称和章节号与第 3 章保持一致；来源指标尚需结合项目任务来源文档与用户确认，不以源码分析结果冒充已确认的任务指标。",
       "tables": [
         {
           "table_id": "forward_traceability",
@@ -367,22 +354,22 @@
           "columns": ["source_indicator_content", "source_chapter_number", "requirement_name", "requirement_chapter_number"],
           "rows": [
             {
-              "source_indicator_content": "指标内容",
-              "source_chapter_number": "章节号",
-              "requirement_name": "需求名称",
-              "requirement_chapter_number": "章节号"
+              "source_indicator_content": "待与用户确认",
+              "source_chapter_number": "待与用户确认",
+              "requirement_name": "词法分析（CAP-LEX-01）",
+              "requirement_chapter_number": "3.2.1"
             },
             {
-              "source_indicator_content": "指标内容",
-              "source_chapter_number": "章节号",
-              "requirement_name": "需求名称",
-              "requirement_chapter_number": "章节号"
+              "source_indicator_content": "待与用户确认",
+              "source_chapter_number": "待与用户确认",
+              "requirement_name": "语法分析（CAP-SYN-01）",
+              "requirement_chapter_number": "3.2.2"
             },
             {
-              "source_indicator_content": "指标内容",
-              "source_chapter_number": "章节号",
-              "requirement_name": "需求名称",
-              "requirement_chapter_number": "章节号"
+              "source_indicator_content": "待与用户确认",
+              "source_chapter_number": "待与用户确认",
+              "requirement_name": "语义分析（CAP-SEM-01）",
+              "requirement_chapter_number": "3.2.3"
             }
           ]
         },
@@ -397,22 +384,22 @@
           "columns": ["requirement_name", "requirement_indicator_content", "source_indicator_content", "source_chapter_number"],
           "rows": [
             {
-              "requirement_name": "需求名称",
-              "requirement_indicator_content": "指标内容",
-              "source_indicator_content": "指标内容",
-              "source_chapter_number": "章节号"
+              "requirement_name": "词法分析（CAP-LEX-01）",
+              "requirement_indicator_content": "3.2.1",
+              "source_indicator_content": "待与用户确认",
+              "source_chapter_number": "待与用户确认"
             },
             {
-              "requirement_name": "需求名称",
-              "requirement_indicator_content": "指标内容",
-              "source_indicator_content": "指标内容",
-              "source_chapter_number": "章节号"
+              "requirement_name": "语法分析（CAP-SYN-01）",
+              "requirement_indicator_content": "3.2.2",
+              "source_indicator_content": "待与用户确认",
+              "source_chapter_number": "待与用户确认"
             },
             {
-              "requirement_name": "需求名称",
-              "requirement_indicator_content": "指标内容",
-              "source_indicator_content": "指标内容",
-              "source_chapter_number": "章节号"
+              "requirement_name": "语义分析（CAP-SEM-01）",
+              "requirement_indicator_content": "3.2.3",
+              "source_indicator_content": "待与用户确认",
+              "source_chapter_number": "待与用户确认"
             }
           ]
         }

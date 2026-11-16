@@ -38,4 +38,6 @@ INSERTION_PARENT_RULES = {'3': {'parent_title': '详细设计',
        'prototype_title_anchor': '3.X (软件单元的项目唯一的标识符，或者一组软件单元的标志符)',
        'prototype_body_anchor': 'a)(若有)单元设计决策',
        'cleanup_anchors': ('b)该软件单元设计中的任何约束',),
-       'cleanup_to_end': True}}
+       'cleanup_to_end': True,
+       'subsection_prefix': '3',
+       'first_subsection_number': 2}}
