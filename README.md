@@ -2,12 +2,11 @@
 
 # GJB 438C 文档填写工具集
 
-**基于 Claude Code 的军用软件文档自动填写工具 — 告别手工填表，让 AI 替你写文档**
+**军用软件文档自动填写工具 — 告别手工填表，让 AI 替你写文档**
 
 [![GitHub Stars](https://img.shields.io/badge/Stars-999+-yellow?style=social&logo=github)](https://github.com/polarcastle/GJB438C-DocSkill/stargazers)
 [![License](https://img.shields.io/badge/License-Mulan_PSL_v2-blue)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-7C3AED?logo=anthropic&logoColor=white)](https://claude.ai/code)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/polarcastle/GJB438C-DocSkill/pulls)
 
 ---
@@ -77,7 +76,7 @@
 - 待确认清单收尾：生成结束前自动汇总全文「待与用户确认」事项（所在章节、缺失信息、建议默认值）；无源码依据的量化指标如实标注「待确认」
 - 严格模板校验：模板锚点、命中数与样式要求不满足时直接报错，避免“AI 生成却不贴合模板”的问题
 
-💡 核心理念：用户只需用自然语言描述项目信息，Claude 自动完成模板匹配、内容生成和文档导出。
+💡 核心理念：用户只需用自然语言描述项目信息，即可自动完成模板匹配、内容生成和文档导出。
 
 ---
 
@@ -85,35 +84,18 @@
 
 ### 前置要求
 
-- [Claude Code CLI](https://claude.ai/code) 已安装并登录
+- 支持插件与 Skill 的 AI 编程工具（如 Kimi Code）
 - Python 3.10+（由 skill 自动调用）
 
 ### 安装
 
-**方式一：直接安装 Plugin（推荐 ✅）**
-
-```bash
-claude plugin add polarcastle/GJB438C-DocSkill
-```
-
-或在 Claude Code 对话中执行：
-
-```
-/plugin add polarcastle/GJB438C-DocSkill
-```
-
-**方式二：通过 Marketplace 添加**
-
-```bash
-claude plugin marketplace add https://github.com/polarcastle/GJB438C-DocSkill
-claude plugin install gjb438c-doc-filler
-```
+在支持插件与 Skill 的 AI 编程工具中，将 `polarcastle/GJB438C-DocSkill` 安装为 Plugin。具体安装命令请参考所用工具的插件管理文档。
 
 ---
 
 ## 📖 使用方式
 
-安装后，在 Claude Code 对话中用自然语言描述需求即可自动触发对应 Skill。全部 31 类模板均已支持，触发词为各类文档的名称或缩写，例如：
+安装后，在 AI 编程工具中用自然语言描述需求即可自动触发对应 Skill。全部 31 类模板均已支持，触发词为各类文档的名称或缩写，例如：
 
 | 触发关键词 | 触发 Skill |
 |:---|:---|
@@ -126,7 +108,7 @@ claude plugin install gjb438c-doc-filler
 ### 使用流程
 
 1. 提供素材：给出项目源码目录（必选）和建设方案文档（可选，.docx/.md/.txt）——生成内容以这些素材为事实依据
-2. 素材收集：Claude 扫描源码形成「项目画像」（模块划分、接口签名、数据结构、依赖关系），作为全部章节内容的事实来源
+2. 素材收集：AI 编程工具扫描源码形成「项目画像」（模块划分、接口签名、数据结构、依赖关系），作为全部章节内容的事实来源
 3. 填写确认：引导完成封面信息与各章节内容填写，量化指标无源码依据时如实标注「待与用户确认」
 4. 生成输出：运行脚本输出合规 `.docx`，并汇总「待确认清单」请用户逐项确认或接受建议默认值
 
@@ -142,7 +124,7 @@ claude plugin install gjb438c-doc-filler
 > 源码在 /path/to/project，建设方案见 /path/to/方案.docx
 ```
 
-Claude 会依次引导你完成素材收集、封面信息、章节内容的填写，最终输出合规的 `.docx` 文件。
+AI 编程工具会依次引导你完成素材收集、封面信息、章节内容的填写，最终输出合规的 `.docx` 文件。
 
 ---
 
@@ -229,7 +211,6 @@ GJB438C-DocSkill/
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![python-docx](https://img.shields.io/badge/python--docx-1.1.0+-orange)
-![Claude](https://img.shields.io/badge/Claude-Code-7C3AED?logo=anthropic&logoColor=white)
 
 ---
 
@@ -261,8 +242,6 @@ GJB438C-DocSkill/
 ---
 
 <div align="center">
-
-[![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7C3AED?logo=anthropic&logoColor=white)](https://claude.ai/code)
 
 **如果这个项目对你有帮助，请给个 ⭐ Star 支持一下！**
 
